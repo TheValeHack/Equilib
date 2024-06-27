@@ -1,4 +1,4 @@
-import { router, useLocalSearchParams } from "expo-router"
+import { useLocalSearchParams } from "expo-router"
 import { Text, View } from "react-native"
 import gambar from "@/assets/images/book_covers/Book-Cover-A-Christmas-Carol.png"
 import { Image } from "expo-image"
@@ -28,7 +28,7 @@ export default function PageScreen () {
                     <Text style={GlobalStyles.text_medium} className="text-sm ">{data[6]?.author}</Text>
                 </View>
                 <View className="flex flex-row items-center w-full ">
-                <View onTouchEndCapture={router.push(`baca/${btoa(data[6].pdfUrl)}`)} className="w-[70%] py-2 mt-2 mb-1 rounded-lg  border-primary border-2 mr-5 ">
+                <View className="w-[70%] py-2 mt-2 mb-1 rounded-lg  border-primary border-2 mr-5 ">
                     <Text style={GlobalStyles.text_bold} className="text-base text-center text-primary">Baca </Text>
                 </View>
                 <Ionicons size={36} className="pt-10 text-primary fill-primary" style={{color: 'rgb(239 172 0)'}} name={'bookmark-outline'} />
