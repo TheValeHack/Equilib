@@ -6,7 +6,7 @@ import { View } from 'react-native';
 
 const VoiceButton = () => {
   return (
-    <View className="bg-primary rounded-full bottom-8 w-16 h-16 justify-center items-center z-10">
+    <View className="z-10 items-center justify-center w-16 h-16 rounded-full bg-primary bottom-8">
       <TabBarIcon name={'stop'} color={"#FFFFFF"} size={36} />
     </View>
   );
@@ -75,6 +75,13 @@ export default function TabLayout() {
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon name={focused ? 'settings' : 'settings-outline'} color={color} />
           ),
+        }}
+      />
+      <Tabs.Screen
+        name="detail/[slug]/index"
+        options={{
+          title: '',
+          tabBarButton: () =>null,
         }}
       />
     </Tabs>
