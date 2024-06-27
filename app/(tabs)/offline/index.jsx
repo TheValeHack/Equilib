@@ -1,6 +1,6 @@
 import { ScrollView, Text, View } from "react-native";
 import SearchBar from "@/components/global/SearchBar";
-import GlobalStyles from "@/styles/GlobalStyle";
+import GlobalStyles from "@/styles/GlobalStyles";
 import useData from "@/hooks/useData";
 import BookCard from "@/components/global/BookCard";
 import gambar from '@/assets/images/book_covers/Book-Cover-Crime-and-Punishment.png';

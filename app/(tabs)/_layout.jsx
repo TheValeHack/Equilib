@@ -1,6 +1,6 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
-import GlobalStyles from '@/styles/GlobalStyle';
+import GlobalStyles from '@/styles/GlobalStyles';
 import { TabBarIcon } from '@/components/navigation/TabBarIcon';
 import { View } from 'react-native';
 
@@ -50,6 +50,13 @@ export default function TabLayout() {
         options={{
           title: '',
           tabBarButton: () => <VoiceButton />,
+        }}
+      />
+      <Tabs.Screen
+        name="baca/[slug]"
+        options={{
+          title: '',
+          tabBarButton: () => null,
         }}
       />
       <Tabs.Screen

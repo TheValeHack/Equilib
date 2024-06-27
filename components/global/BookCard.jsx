@@ -1,5 +1,5 @@
 import { View, Image, Text } from "react-native";
-import GlobalStyles from "@/styles/GlobalStyle";
+import GlobalStyles from "@/styles/GlobalStyles";
 
 const BookCard = ({ baseUrl, title, coverUrl, pdfUrl, author, year, synopsis }) => {
     return (

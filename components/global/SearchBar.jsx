@@ -1,15 +1,10 @@
 import React, { useState } from "react";
 import { TextInput, View } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import GlobalStyles from "@/styles/GlobalStyle"; // Pastikan ini mengambil gaya yang diperlukan dari GlobalStyle
+import GlobalStyles from "@/styles/GlobalStyles"; // Pastikan ini mengambil gaya yang diperlukan dari GlobalStyle
 import { useRouter } from "expo-router";
 
-interface SearchBarProps  {
-    placeholder: string,
-    route: string
-}
-
-const SearchBar: React.FC<SearchBarProps> = ({ placeholder, route }) => {
+const SearchBar = ({ placeholder, route }) => {
     const [text, setText] = useState('');
     const router = useRouter();
 
