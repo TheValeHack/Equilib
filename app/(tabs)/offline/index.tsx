@@ -4,19 +4,16 @@ import GlobalStyles from "@/styles/GlobalStyle";
 import useData from "@/hooks/useData";
 import BookCard from "@/components/global/BookCard";
 import gambar from '@/assets/images/book_covers/Book-Cover-Crime-and-Punishment.png';
-import BookReadList from "@/components/global/BookReadList";
 
-export default function HomeScreen() {
+export default function OfflineScreen() {
   const { data, updateData } = useData();
 
   return (
     <View>
-      <Text className="text-xl mb-3" style={GlobalStyles.text_bold}>Selamat datang!</Text>
-      <SearchBar placeholder="Cari buku atau penulis" route="" />
+      <SearchBar placeholder="Cari buku atau penulis" route="offline/" />
       
       <ScrollView className="mt-4">
-        <BookReadList {...data[0]} coverUrl={gambar} />
-        <Text className="text-xl mb-3 mt-3" style={GlobalStyles.text_bold}>Buku untukmu</Text>
+        <Text className="text-xl mb-3 mt-3" style={GlobalStyles.text_bold}>Buku yang kamu unduh</Text>
         <View className="flex flex-row flex-wrap justify-between w-full pb-96">
             {
               data.map((book, index) => {

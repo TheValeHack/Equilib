@@ -2,7 +2,7 @@
   {
     "baseUrl": "https://planetebook.com//the-adventures-of-huckleberry-finn/",
     "title": "The Adventures of Huckleberry Finn",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-The-Adventures-of-Huckleberry-Finn.png",
+    "coverUrl": "/book_covers/Book-Cover-The-Adventures-of-Huckleberry-Finn.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/the-adventures-of-huckleberry-finn.pdf",
     "author": "Mark Twain",
     "year": "1884",
@@ -11,7 +11,7 @@
   {
     "baseUrl": "https://planetebook.com//the-adventures-of-tom-sawyer/",
     "title": "The Adventures of Tom Sawyer",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-The-Adventures-of-Tom-Sawyer.png",
+    "coverUrl": "/book_covers/Book-Cover-The-Adventures-of-Tom-Sawyer.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/the-adventures-of-tom-sawyer.pdf",
     "author": "Mark Twain",
     "year": "1884",
@@ -20,7 +20,7 @@
   {
     "baseUrl": "https://planetebook.com//aesops-fables/",
     "title": "Aesop’s Fables",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-Aesops-Fables.png",
+    "coverUrl": "/book_covers/Book-Cover-Aesops-Fables.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/aesops-fables.pdf",
     "author": "Aesop",
     "year": "0 BC",
@@ -29,7 +29,7 @@
   {
     "baseUrl": "https://planetebook.com//agnes-grey/",
     "title": "Agnes Grey",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-Agnes-Grey.png",
+    "coverUrl": "/book_covers/Book-Cover-Agnes-Grey.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/agnes-grey.pdf",
     "author": "Anne Brontë",
     "year": "1847",
@@ -38,7 +38,7 @@
   {
     "baseUrl": "https://planetebook.com//alices-adventures-in-wonderland/",
     "title": "Alice’s Adventures in Wonderland",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-Alices-Adventures-in-Wonderland.png",
+    "coverUrl": "/book_covers/Book-Cover-Alices-Adventures-in-Wonderland.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/alices-adventures-in-wonderland.pdf",
     "author": "Lewis Caroll",
     "year": "1865",
@@ -47,7 +47,7 @@
   {
     "baseUrl": "https://planetebook.com//andersens-fairy-tales/",
     "title": "Andersen’s Fairy Tales",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-Andersens-Fairy-Tales.png",
+    "coverUrl": "/book_covers/Book-Cover-Andersens-Fairy-Tales.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/andersens-fairy-tales.pdf",
     "author": "Hans Christian Andersen",
     "year": "1835",
@@ -56,7 +56,7 @@
   {
     "baseUrl": "https://planetebook.com//anna-karenina/",
     "title": "Anna Karenina",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-Anna-Karenina.png",
+    "coverUrl": "/book_covers/Book-Cover-Anna-Karenina.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/anna-karenina.pdf",
     "author": "Leo Tolstoy",
     "year": "1865",
@@ -65,7 +65,7 @@
   {
     "baseUrl": "https://planetebook.com//anne-of-green-gables/",
     "title": "Anne of Green Gables",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-Anne-of-Green-Gables.png",
+    "coverUrl": "/book_covers/Book-Cover-Anne-of-Green-Gables.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/anne-of-green-gables.pdf",
     "author": "Lucy Maud Montgomery",
     "year": "1908",
@@ -74,7 +74,7 @@
   {
     "baseUrl": "https://planetebook.com//around-the-world-in-80-days/",
     "title": "Around the World in 80 Days",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-Around-the-World-in-80-Days.png",
+    "coverUrl": "/book_covers/Book-Cover-Around-the-World-in-80-Days.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/around-the-world-in-80-days.pdf",
     "author": "Jules Verne",
     "year": "1873",
@@ -83,7 +83,7 @@
   {
     "baseUrl": "https://planetebook.com//beyond-good-and-evil/",
     "title": "Beyond Good and Evil",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-Beyond-Good-and-Evil.png",
+    "coverUrl": "/book_covers/Book-Cover-Beyond-Good-and-Evil.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/beyond-good-and-evil.pdf",
     "author": "Friedrich Nietzsche",
     "year": "1886",
@@ -92,7 +92,7 @@
   {
     "baseUrl": "https://planetebook.com//bleak-house/",
     "title": "Bleak House",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-Bleak-House.png",
+    "coverUrl": "/book_covers/Book-Cover-Bleak-House.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/bleak-house.pdf",
     "author": "Charles Dickens",
     "year": "1852",
@@ -101,7 +101,7 @@
   {
     "baseUrl": "https://planetebook.com//the-brothers-karamazov/",
     "title": "The Brothers Karamazov",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-The-Brothers-Karamazov.png",
+    "coverUrl": "/book_covers/Book-Cover-The-Brothers-Karamazov.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/the-brothers-karamazov.pdf",
     "author": "Fyodor Dostoevsky",
     "year": "1880",
@@ -110,7 +110,7 @@
   {
     "baseUrl": "https://planetebook.com//a-christmas-carol/",
     "title": "A Christmas Carol",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-A-Christmas-Carol.png",
+    "coverUrl": "/book_covers/Book-Cover-A-Christmas-Carol.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/a-christmas-carol.pdf",
     "author": "Charles Dickens",
     "year": "1843",
@@ -119,7 +119,7 @@
   {
     "baseUrl": "https://planetebook.com//crime-and-punishment/",
     "title": "Crime and Punishment",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-Crime-and-Punishment.png",
+    "coverUrl": "/book_covers/Book-Cover-Crime-and-Punishment.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/crime-and-punishment.pdf",
     "author": "Fyodor Dostoevsky",
     "year": "1866",
@@ -128,7 +128,7 @@
   {
     "baseUrl": "https://planetebook.com//david-copperfield/",
     "title": "David Copperfield",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-David-Copperfield.png",
+    "coverUrl": "/book_covers/Book-Cover-David-Copperfield.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/david-copperfield.pdf",
     "author": "Charles Dickens",
     "year": "1850",
@@ -137,7 +137,7 @@
   {
     "baseUrl": "https://planetebook.com//down-and-out-in-paris-and-london/",
     "title": "Down and Out in Paris and London",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-Down-and-Out-in-Paris-and-London.png",
+    "coverUrl": "/book_covers/Book-Cover-Down-and-Out-in-Paris-and-London.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/down-and-out-in-paris-and-london.pdf",
     "author": "George Orwell",
     "year": "1933",
@@ -146,7 +146,7 @@
   {
     "baseUrl": "https://planetebook.com//dracula/",
     "title": "Dracula",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-Dracula.png",
+    "coverUrl": "/book_covers/Book-Cover-Dracula.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/dracula.pdf",
     "author": "Bram Stoker",
     "year": "1897",
@@ -155,7 +155,7 @@
   {
     "baseUrl": "https://planetebook.com//dubliners/",
     "title": "Dubliners",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-Dubliners.png",
+    "coverUrl": "/book_covers/Book-Cover-Dubliners.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/dubliners.pdf",
     "author": "James Joyce",
     "year": "1914",
@@ -164,7 +164,7 @@
   {
     "baseUrl": "https://planetebook.com//emma/",
     "title": "Emma",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-Emma.png",
+    "coverUrl": "/book_covers/Book-Cover-Emma.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/emma.pdf",
     "author": "Jane Austen",
     "year": "1816",
@@ -173,7 +173,7 @@
   {
     "baseUrl": "https://planetebook.com//erewhon/",
     "title": "Erewhon",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-Erewhon.png",
+    "coverUrl": "/book_covers/Book-Cover-Erewhon.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/erewhon.pdf",
     "author": "Samuel Butler",
     "year": "1872",
@@ -182,7 +182,7 @@
   {
     "baseUrl": "https://planetebook.com//for-the-term-of-his-natural-life/",
     "title": "For the Term of His Natural Life",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-For-The-Term-of-His-Natural-Life.png",
+    "coverUrl": "/book_covers/Book-Cover-For-the-Term-of-His-Natural-Life.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/for-the-term-of-his-natural-life.pdf",
     "author": "Marcus Clarke",
     "year": "1874",
@@ -191,7 +191,7 @@
   {
     "baseUrl": "https://planetebook.com//frankenstein/",
     "title": "Frankenstein",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-Frankenstein.png",
+    "coverUrl": "/book_covers/Book-Cover-Frankenstein.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/frankenstein.pdf",
     "author": "Mary Shelley",
     "year": "1818",
@@ -200,7 +200,7 @@
   {
     "baseUrl": "https://planetebook.com//great-expectations/",
     "title": "Great Expectations",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-Great-Expectations.png",
+    "coverUrl": "/book_covers/Book-Cover-Great-Expectations.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/great-expectations.pdf",
     "author": "Charles Dickens",
     "year": "1860",
@@ -209,7 +209,7 @@
   {
     "baseUrl": "https://planetebook.com//the-great-gatsby/",
     "title": "The Great Gatsby",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-The-Great-Gatsby.png",
+    "coverUrl": "/book_covers/Book-Cover-The-Great-Gatsby.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/the-great-gatsby.pdf",
     "author": "F. Scott Fitzgerald",
     "year": "1925",
@@ -218,7 +218,7 @@
   {
     "baseUrl": "https://planetebook.com//grimms-fairy-tales/",
     "title": "Grimm’s Fairy Tales",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-Grimms-Fairy-Tales.png",
+    "coverUrl": "/book_covers/Book-Cover-Grimms-Fairy-Tales.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/grimms-fairy-tales.pdf",
     "author": "The Brothers Grimm",
     "year": "1812",
@@ -227,7 +227,7 @@
   {
     "baseUrl": "https://planetebook.com//gullivers-travels/",
     "title": "Gulliver’s Travels",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-Gullivers-Travels.png",
+    "coverUrl": "/book_covers/Book-Cover-Gullivers-Travels.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/gullivers-travels.pdf",
     "author": "Jonathan Swift",
     "year": "1726",
@@ -236,7 +236,7 @@
   {
     "baseUrl": "https://planetebook.com//heart-of-darkness/",
     "title": "Heart of Darkness",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-Heart-of-Darkness.png",
+    "coverUrl": "/book_covers/Book-Cover-Heart-of-Darkness.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/heart-of-darkness.pdf",
     "author": "Joseph Conrad",
     "year": "1902",
@@ -245,7 +245,7 @@
   {
     "baseUrl": "https://planetebook.com//the-hound-of-the-baskervilles/",
     "title": "The Hound of the Baskervilles",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-The-Hound-of-the-Baskervilles.png",
+    "coverUrl": "/book_covers/Book-Cover-The-Hound-of-the-Baskervilles.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/the-hound-of-the-baskervilles.pdf",
     "author": "Arthur Conan Doyle",
     "year": "1902",
@@ -253,8 +253,8 @@
   },
   {
     "baseUrl": "https://planetebook.com//the-idiot/",
-    "title": "The Idiot-1",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-The-Idiot.png",
+    "title": "The Idiot",
+    "coverUrl": "/book_covers/Book-Cover-The-Idiot-1.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/the-idiot.pdf",
     "author": "Fyodor Dostoevsky",
     "year": "1869",
@@ -263,7 +263,7 @@
   {
     "baseUrl": "https://planetebook.com//the-iliad/",
     "title": "The Iliad",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-The-Iliad.png",
+    "coverUrl": "/book_covers/Book-Cover-The-Iliad-1.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/the-iliad.pdf",
     "author": "Homer",
     "year": "0 BC",
@@ -272,7 +272,7 @@
   {
     "baseUrl": "https://planetebook.com//the-island-of-doctor-moreau/",
     "title": "The Island of Doctor Moreau",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-The-Island-of-Doctor-Moreau.png",
+    "coverUrl": "/book_covers/Book-Cover-The-Island-of-Doctor-Moreau-1.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/the-island-of-doctor-moreau.pdf",
     "author": "H. G. Wells",
     "year": "1896",
@@ -281,7 +281,7 @@
   {
     "baseUrl": "https://planetebook.com//jane-eyre/",
     "title": "Jane Eyre",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-Jane-Eyre.png",
+    "coverUrl": "/book_covers/Book-Cover-Jane-Eyre.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/jane-eyre.pdf",
     "author": "Charlotte Brontë",
     "year": "1847",
@@ -290,7 +290,7 @@
   {
     "baseUrl": "https://planetebook.com//the-jungle-book/",
     "title": "The Jungle Book",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-The-Jungle-Book.png",
+    "coverUrl": "/book_covers/Book-Cover-The-Jungle-Book-1.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/the-jungle-book.pdf",
     "author": "Rudyard Kipling",
     "year": "1894",
@@ -299,7 +299,7 @@
   {
     "baseUrl": "https://planetebook.com//kidnapped/",
     "title": "Kidnapped",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-Kidnapped.png",
+    "coverUrl": "/book_covers/Book-Cover-Kidnapped.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/kidnapped.pdf",
     "author": "Robert Louis Stevenson ",
     "year": "1886",
@@ -308,7 +308,7 @@
   {
     "baseUrl": "https://planetebook.com//lady-chatterlys-lover/",
     "title": "Lady Chatterly’s Lover",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-Lady-Chatterlys-Lover.png",
+    "coverUrl": "/book_covers/Book-Cover-Lady-Chatterlys-Lover.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/lady-chatterlys-lover.pdf",
     "author": "D. H. Lawrence",
     "year": "1928",
@@ -317,7 +317,7 @@
   {
     "baseUrl": "https://planetebook.com//the-last-of-the-mohicans/",
     "title": "The Last of the Mohicans",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-The-Last-of-the-Mohicans-1.png",
+    "coverUrl": "/book_covers/Book-Cover-The-Last-of-the-Mohicans-1.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/the-last-of-the-mohicans.pdf",
     "author": "James Fenimore Cooper",
     "year": "1826",
@@ -326,7 +326,7 @@
   {
     "baseUrl": "https://planetebook.com//the-legend-of-sleepy-hollow/",
     "title": "The Legend of Sleepy Hollow",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-The-Legend-of-Sleepy-Hollow.png",
+    "coverUrl": "/book_covers/Book-Cover-The-Legend-of-Sleepy-Hollow-1.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/the-legend-of-sleepy-hollow.pdf",
     "author": "Washington Irving",
     "year": "1820",
@@ -335,7 +335,7 @@
   {
     "baseUrl": "https://planetebook.com//les-miserables/",
     "title": "Les Miserables",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-Les-Miserables.png",
+    "coverUrl": "/book_covers/Book-Cover-Les-Miserables.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/les-miserables.pdf",
     "author": "Victor Hugo",
     "year": "1862",
@@ -344,7 +344,7 @@
   {
     "baseUrl": "https://planetebook.com//little-women/",
     "title": "Little Women",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-Little-Women.png",
+    "coverUrl": "/book_covers/Book-Cover-Little-Women.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/little-women.pdf",
     "author": "Louisa May Alcott",
     "year": "1868",
@@ -353,7 +353,7 @@
   {
     "baseUrl": "https://planetebook.com//madame-bovary/",
     "title": "Madame Bovary",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-Madame-Bovary.png",
+    "coverUrl": "/book_covers/Book-Cover-Madame-Bovary.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/madame-bovary.pdf",
     "author": "Gustave Flaubert",
     "year": "1857",
@@ -362,7 +362,7 @@
   {
     "baseUrl": "https://planetebook.com//the-merry-adventures-of-robin-hood/",
     "title": "The Merry Adventures of Robin Hood",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-The-Merry-Adventures-of-Robin-Hood.png",
+    "coverUrl": "/book_covers/Book-Cover-The-Merry-Adventures-of-Robin-Hood-1.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/the-merry-adventures-of-robin-hood.pdf",
     "author": "Howard Pyle",
     "year": "1883",
@@ -371,7 +371,7 @@
   {
     "baseUrl": "https://planetebook.com//the-metamorphosis/",
     "title": "The Metamorphosis",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-The-Metamorphosis.png",
+    "coverUrl": "/book_covers/Book-Cover-The-Metamorphosis.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/the-metamorphosis.pdf",
     "author": "Franz Kafka",
     "year": "1915",
@@ -380,7 +380,7 @@
   {
     "baseUrl": "https://planetebook.com//middlemarch/",
     "title": "Middlemarch",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-Middlemarch.png",
+    "coverUrl": "/book_covers/Book-Cover-Middlemarch.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/middlemarch.pdf",
     "author": "George Eliot",
     "year": "1871",
@@ -389,7 +389,7 @@
   {
     "baseUrl": "https://planetebook.com//moby-dick/",
     "title": "Moby Dick",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-Moby-Dick.png",
+    "coverUrl": "/book_covers/Book-Cover-Moby-Dick.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/moby-dick.pdf",
     "author": "Herman Melville",
     "year": "1851",
@@ -398,7 +398,7 @@
   {
     "baseUrl": "https://planetebook.com//1984/",
     "title": "1984",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-1984.png",
+    "coverUrl": "/book_covers/Book-Cover-1984.jpg",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/1984.pdf",
     "author": "George Orwell",
     "year": "1949",
@@ -407,7 +407,7 @@
   {
     "baseUrl": "https://planetebook.com//northanger-abbey/",
     "title": "Northanger Abbey",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-Northanger-Abbey.png",
+    "coverUrl": "/book_covers/Book-Cover-Northanger-Abbey.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/northanger-abbey.pdf",
     "author": "Jane Austen",
     "year": "1817",
@@ -416,7 +416,7 @@
   {
     "baseUrl": "https://planetebook.com//nostromo-a-tale-of-the-seaboard/",
     "title": "Nostromo: A Tale of the Seaboard",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-Nostromo-a-Tale-of-The-Seaboard.png",
+    "coverUrl": "/book_covers/Book-Cover-Nostromo-A-Tale-of-the-Seaboard.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/nostromo-a-tale-of-the-seaboard.pdf",
     "author": "Joseph Conrad",
     "year": "1904",
@@ -425,7 +425,7 @@
   {
     "baseUrl": "https://planetebook.com//notes-from-the-underground/",
     "title": "Notes from the Underground",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-Notes-From-The-Underground.png",
+    "coverUrl": "/book_covers/Book-Cover-Notes-from-the-Underground.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/notes-from-the-underground.pdf",
     "author": "Fyodor Dostoevsky",
     "year": "1864",
@@ -434,7 +434,7 @@
   {
     "baseUrl": "https://planetebook.com//the-odyssey/",
     "title": "The Odyssey",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-The-Odyssey.png",
+    "coverUrl": "/book_covers/Book-Cover-The-Odyssey-1.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/the-odyssey.pdf",
     "author": "Homer",
     "year": "0 BC",
@@ -443,7 +443,7 @@
   {
     "baseUrl": "https://planetebook.com//of-human-bondage/",
     "title": "Of Human Bondage",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-Of-Human-Bondage.png",
+    "coverUrl": "/book_covers/Book-Cover-Of-Human-Bondage.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/of-human-bondage.pdf",
     "author": "W. Somerset Maugham",
     "year": "1915",
@@ -452,7 +452,7 @@
   {
     "baseUrl": "https://planetebook.com//oliver-twist/",
     "title": "Oliver Twist",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-Oliver-Twist.png",
+    "coverUrl": "/book_covers/Book-Cover-Oliver-Twist.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/oliver-twist.pdf",
     "author": "Charles Dickens",
     "year": "1838",
@@ -461,7 +461,7 @@
   {
     "baseUrl": "https://planetebook.com//paradise-lost/",
     "title": "Paradise Lost",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-Paradise-Lost.png",
+    "coverUrl": "/book_covers/Book-Cover-Paradise-Lost.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/paradise-lost.pdf",
     "author": "John Milton",
     "year": "1667",
@@ -470,7 +470,7 @@
   {
     "baseUrl": "https://planetebook.com//persuasion/",
     "title": "Persuasion",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-Persuasion.png",
+    "coverUrl": "/book_covers/Book-Cover-Persuasion.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/persuasion.pdf",
     "author": "Jane Austen",
     "year": "1818",
@@ -479,7 +479,7 @@
   {
     "baseUrl": "https://planetebook.com//the-picture-of-dorian-gray/",
     "title": "The Picture of Dorian Gray",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-The-Picture-of-Dorian-Gray.png",
+    "coverUrl": "/book_covers/Book-Cover-The-Picture-of-Dorian-Gray-1.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/the-picture-of-dorian-gray.pdf",
     "author": "Oscar Wilde",
     "year": "1890",
@@ -488,7 +488,7 @@
   {
     "baseUrl": "https://planetebook.com//pollyanna/",
     "title": "Pollyanna",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-Pollyanna.png",
+    "coverUrl": "/book_covers/Book-Cover-Pollyanna.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/pollyanna.pdf",
     "author": "Eleanor H. Porter",
     "year": "1913",
@@ -497,7 +497,7 @@
   {
     "baseUrl": "https://planetebook.com//the-portrait-of-a-lady/",
     "title": "The Portrait of a Lady",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-The-Portrait-of-a-Lady.png",
+    "coverUrl": "/book_covers/Book-Cover-The-Portrait-of-a-Lady-1.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/the-portrait-of-a-lady.pdf",
     "author": "Henry James",
     "year": "1881",
@@ -506,7 +506,7 @@
   {
     "baseUrl": "https://planetebook.com//a-portrait-of-the-artist-as-a-young-man/",
     "title": "A Portrait of the Artist as a Young Man",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-A-Portrait-of-The-Artist-as-a-Young-Man.png",
+    "coverUrl": "/book_covers/Book-Cover-A-Portrait-of-the-Artist-as-a-Young-Man.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/a-portrait-of-the-artist-as-a-young-man.pdf",
     "author": "James Joyce",
     "year": "1917",
@@ -515,7 +515,7 @@
   {
     "baseUrl": "https://planetebook.com//pride-and-prejudice/",
     "title": "Pride and Prejudice",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-Pride-and-Prejudice.png",
+    "coverUrl": "/book_covers/Book-Cover-Pride-and-Prejudice.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/pride-and-prejudice.pdf",
     "author": "Jane Austen",
     "year": "1813",
@@ -524,7 +524,7 @@
   {
     "baseUrl": "https://planetebook.com//the-prince/",
     "title": "The Prince",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-The-Prince.png",
+    "coverUrl": "/book_covers/Book-Cover-The-Prince-1.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/the-prince.pdf",
     "author": "Nicolo Machiavelli",
     "year": "1532",
@@ -533,7 +533,7 @@
   {
     "baseUrl": "https://planetebook.com//robinson-crusoe/",
     "title": "Robinson Crusoe",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-Robinson-Crusoe.png",
+    "coverUrl": "/book_covers/Book-Cover-Robinson-Crusoe.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/robinson-crusoe.pdf",
     "author": "Daniel Defoe",
     "year": "1719",
@@ -542,7 +542,7 @@
   {
     "baseUrl": "https://planetebook.com//the-scarlet-pimpernel/",
     "title": "The Scarlet Pimpernel",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-The-Scarlet-Pimpernel.png",
+    "coverUrl": "/book_covers/Book-Cover-The-Scarlet-Pimpernel-1.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/the-scarlet-pimpernel.pdf",
     "author": "Baroness Orczy",
     "year": "1905",
@@ -551,7 +551,7 @@
   {
     "baseUrl": "https://planetebook.com//sense-and-sensibility/",
     "title": "Sense and Sensibility",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-Sense-and-Sensibility.png",
+    "coverUrl": "/book_covers/Book-Cover-Sense-and-Sensibility-1.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/sense-and-sensibility.pdf",
     "author": "Jane Austen",
     "year": "1811",
@@ -560,7 +560,7 @@
   {
     "baseUrl": "https://planetebook.com//sons-and-lovers/",
     "title": "Sons and Lovers",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-Sons-and-Lovers.png",
+    "coverUrl": "/book_covers/Book-Cover-Sons-and-Lovers.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/sons-and-lovers.pdf",
     "author": "D. H. Lawrence",
     "year": "1913",
@@ -569,7 +569,7 @@
   {
     "baseUrl": "https://planetebook.com//the-strange-case-of-dr-jekyll/",
     "title": "The Strange Case of Dr Jekyll and Mr Hyde",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-The-Strange-Case-of-Dr-Jekyll.png",
+    "coverUrl": "/book_covers/Book-Cover-The-Strange-Case-of-Dr-Jekyll-1.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/the-strange-case-of-dr-jekyll.pdf",
     "author": "Robert Louis Stevenson",
     "year": "1886",
@@ -578,7 +578,7 @@
   {
     "baseUrl": "https://planetebook.com//swanns-way/",
     "title": "Swann’s Way",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-Swanns-Way.png",
+    "coverUrl": "/book_covers/Book-Cover-Swanns-Way.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/swanns-way.pdf",
     "author": "Marcel Proust",
     "year": "1919",
@@ -587,7 +587,7 @@
   {
     "baseUrl": "https://planetebook.com//a-tale-of-two-cities/",
     "title": "A Tale of Two Cities",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-A-Tale-of-Two-Cities.png",
+    "coverUrl": "/book_covers/Book-Cover-A-Tale-of-Two-Cities.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/a-tale-of-two-cities.pdf",
     "author": "Charles Dickens",
     "year": "1859",
@@ -596,7 +596,7 @@
   {
     "baseUrl": "https://planetebook.com//the-tales-of-mother-goose/",
     "title": "The Tales of Mother Goose",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-The-Tales-of-Mother-Goose.png",
+    "coverUrl": "/book_covers/Book-Cover-The-Tales-of-Mother-Goose.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/the-tales-of-mother-goose.pdf",
     "author": "Charles Perrault",
     "year": "1695",
@@ -605,7 +605,7 @@
   {
     "baseUrl": "https://planetebook.com//tarzan-of-the-apes/",
     "title": "Tarzan of the Apes",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-Tarzan-of-The-Apes.png",
+    "coverUrl": "/book_covers/Book-Cover-Tarzan-of-the-Apes.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/tarzan-of-the-apes.pdf",
     "author": "Edgar Rice Burroughs",
     "year": "1914",
@@ -614,7 +614,7 @@
   {
     "baseUrl": "https://planetebook.com//tender-is-the-night/",
     "title": "Tender is the Night",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-Tender-Is-The-Night.png",
+    "coverUrl": "/book_covers/Book-Cover-Tender-is-the-Night.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/tender-is-the-night.pdf",
     "author": "F. Scott Fitzgerald",
     "year": "1934",
@@ -623,7 +623,7 @@
   {
     "baseUrl": "https://planetebook.com//tess-of-the-durbervilles/",
     "title": "Tess of the d’Urbervilles",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-Tess-of-The-Durbervilles.png",
+    "coverUrl": "/book_covers/Book-Cover-Tess-of-the-dUrbervilles.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/tess-of-the-durbervilles.pdf",
     "author": "Thomas Hardy",
     "year": "1891",
@@ -632,7 +632,7 @@
   {
     "baseUrl": "https://planetebook.com//the-thirty-nine-steps/",
     "title": "The Thirty-Nine Steps",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-The-Thirty-Nine-Steps.png",
+    "coverUrl": "/book_covers/Book-Cover-The-Thirty-Nine-Steps.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/the-thirty-nine-steps.pdf",
     "author": "John Buchan",
     "year": "1915",
@@ -641,7 +641,7 @@
   {
     "baseUrl": "https://planetebook.com//the-three-musketeers/",
     "title": "The Three Musketeers",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-The-Three-Musketeers.png",
+    "coverUrl": "/book_covers/Book-Cover-The-Three-Musketeers.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/the-three-musketeers.pdf",
     "author": "Alexandre Duma",
     "year": "1844",
@@ -650,7 +650,7 @@
   {
     "baseUrl": "https://planetebook.com//the-time-machine/",
     "title": "The Time Machine",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-The-Time-Machine.png",
+    "coverUrl": "/book_covers/Book-Cover-The-Time-Machine.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/the-time-machine.pdf",
     "author": "H. G. Wells",
     "year": "1895",
@@ -659,7 +659,7 @@
   {
     "baseUrl": "https://planetebook.com//treasure-island/",
     "title": "Treasure Island",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-Treasure-Island.png",
+    "coverUrl": "/book_covers/Book-Cover-Treasure-Island.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/treasure-island.pdf",
     "author": "Robert Louis Stevenson ",
     "year": "1883",
@@ -668,7 +668,7 @@
   {
     "baseUrl": "https://planetebook.com//the-trial/",
     "title": "The Trial",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-The-Trial.png",
+    "coverUrl": "/book_covers/Book-Cover-The-Trial.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/the-trial.pdf",
     "author": "Franz Kafka",
     "year": "1915",
@@ -677,7 +677,7 @@
   {
     "baseUrl": "https://planetebook.com//ulysses/",
     "title": "Ulysses",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-Ulysses.png",
+    "coverUrl": "/book_covers/Book-Cover-Ulysses.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/ulysses.pdf",
     "author": "James Joyce",
     "year": "1922",
@@ -686,7 +686,7 @@
   {
     "baseUrl": "https://planetebook.com//utopia/",
     "title": "Utopia",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-Utopia.png",
+    "coverUrl": "/book_covers/Book-Cover-Utopia.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/utopia.pdf",
     "author": "Sir Thomas More",
     "year": "1516",
@@ -695,7 +695,7 @@
   {
     "baseUrl": "https://planetebook.com//vanity-fair/",
     "title": "Vanity Fair",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-Vanity-Fair.png",
+    "coverUrl": "/book_covers/Book-Cover-Vanity-Fair.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/vanity-fair.pdf",
     "author": "William Makepeace Thackeray",
     "year": "1847",
@@ -704,7 +704,7 @@
   {
     "baseUrl": "https://planetebook.com//war-and-peace/",
     "title": "War and Peace",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-War-and-Peace.png",
+    "coverUrl": "/book_covers/Book-Cover-War-and-Peace.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/war-and-peace.pdf",
     "author": "Leo Tolstoy",
     "year": "1865",
@@ -713,7 +713,7 @@
   {
     "baseUrl": "https://planetebook.com//within-a-budding-grove/",
     "title": "Within A Budding Grove",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-Within-a-Budding-Grove.png",
+    "coverUrl": "/book_covers/Book-Cover-Within-a-Budding-Grove.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/within-a-budding-grove.pdf",
     "author": "Marcel Proust",
     "year": "1919",
@@ -722,7 +722,7 @@
   {
     "baseUrl": "https://planetebook.com//women-in-love/",
     "title": "Women In Love",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-Women-In-Love.png",
+    "coverUrl": "/book_covers/Book-Cover-Women-In-Love.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/women-in-love.pdf",
     "author": "D. H. Lawrence",
     "year": "1920",
@@ -731,7 +731,7 @@
   {
     "baseUrl": "https://planetebook.com//wuthering-heights/",
     "title": "Wuthering Heights",
-    "coverUrl": "https://www.planetebook.com/wp-content/uploads/2018/03/Book-Cover-Wuthering-Heights.png",
+    "coverUrl": "/book_covers/Book-Cover-Wuthering-Heights.png",
     "pdfUrl": "https://www.planetebook.com/free-ebooks/wuthering-heights.pdf",
     "author": "Emily Brontë",
     "year": "1847",
