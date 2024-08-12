@@ -5,13 +5,12 @@ import useData from "@/hooks/useData";
 import BookCard from "@/components/global/BookCard";
 import gambar from '@/assets/images/book_covers/Book-Cover-Crime-and-Punishment.png';
 import BookReadList from "@/components/global/BookReadList";
-import { router } from "expo-router";
 
 export default function HomeScreen() {
   const { data, updateData } = useData();
 
   return (
-    <View onTouchEndCapture={()=>router.push(`detail/${btoa(data.pdfUrl)}`)} >
+    <View>
       <Text className="mb-3 text-xl" style={GlobalStyles.text_bold}>Selamat datang!</Text>
       <SearchBar placeholder="Cari buku atau penulis" route="" />
       

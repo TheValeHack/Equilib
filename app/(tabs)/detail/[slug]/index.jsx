@@ -2,11 +2,12 @@ import { useLocalSearchParams } from "expo-router"
 import { Text, View } from "react-native"
 import gambar from "@/assets/images/book_covers/Book-Cover-A-Christmas-Carol.png"
 import { Image } from "expo-image"
-import  GlobalStyles  from '@/styles/GlobalStyle';
+import  GlobalStyles  from '@/styles/GlobalStyles';
 import useData  from '@/hooks/useData';
 import { useEffect } from "react";
 import { TabBarIcon } from '@/components/navigation/TabBarIcon';
 import { Ionicons } from "@expo/vector-icons";
+import { router } from "expo-router";
 
 
 export default function PageScreen () {
@@ -28,7 +29,7 @@ export default function PageScreen () {
                     <Text style={GlobalStyles.text_medium} className="text-sm ">{data[6]?.author}</Text>
                 </View>
                 <View className="flex flex-row items-center w-full ">
-                <View className="w-[70%] py-2 mt-2 mb-1 rounded-lg  border-primary border-2 mr-5 ">
+                <View className="w-[70%] py-2 mt-2 mb-1 rounded-lg  border-primary border-2 mr-5 " onTouchEndCapture={() => router.push("/baca/1")}>
                     <Text style={GlobalStyles.text_bold} className="text-base text-center text-primary">Baca </Text>
                 </View>
                 <Ionicons size={36} className="pt-10 text-primary fill-primary" style={{color: 'rgb(239 172 0)'}} name={'bookmark-outline'} />
@@ -38,7 +39,7 @@ export default function PageScreen () {
         </View>
         <View className="mt-3">
           <Text className="text-xl" style={GlobalStyles.text_bold}>Synopsis</Text>
-          <Text style={GlobalStyles.text_medium} className="mt-3 text-justify text-slate-500">{data[5].synopsis}</Text>
+          <Text style={GlobalStyles.text_medium} className="mt-3 text-justify text-slate-500">{data[5]?.synopsis}</Text>
         </View>
     </View>
   )
