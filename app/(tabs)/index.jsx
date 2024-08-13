@@ -5,13 +5,26 @@ import useData from "@/hooks/useData";
 import BookCard from "@/components/global/BookCard";
 import gambar from '@/assets/images/book_covers/Book-Cover-Crime-and-Punishment.png';
 import BookReadList from "@/components/global/BookReadList";
+import { useState, useRef, useEffect } from "react";
+import VoiceCommandService from "../../services/VoiceCommandService";
 
 export default function HomeScreen() {
   const { data, updateData } = useData();
+  const [commands, setCommands] = useState([]);
+  const voiceCommandServiceRef = useRef(null);
+
+  useEffect(() => {
+    voiceCommandServiceRef.current = VoiceCommandService({}, setCommands);
+    voiceCommandServiceRef.current.startListening();
+
+    return () => {
+      voiceCommandServiceRef.current.stopListening();
+    };
+  }, []);
 
   return (
     <View>
-      <Text className="mb-3 text-xl" style={GlobalStyles.text_bold}>Selamat datang!</Text>
+      <Text className="mb-3 text-xl" style={GlobalStyles.text_bold}>{ commands.join(',') }</Text>
       <SearchBar placeholder="Cari buku atau penulis" route="" />
       
       <ScrollView className="mt-4">
