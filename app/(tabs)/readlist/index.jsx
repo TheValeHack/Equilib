@@ -4,12 +4,14 @@ import GlobalStyles from "@/styles/GlobalStyles";
 import useData from "@/hooks/useData";
 import gambar from '@/assets/images/book_covers/Book-Cover-Crime-and-Punishment.png';
 import BookReadList from "@/components/global/BookReadList";
+import CommandBox from "../../../components/global/CommandBox";
 
 export default function ReadListScreen() {
   const { data, updateData } = useData();
 
   return (
-    <View>
+    <View className="flex-1 min-h-screen">
+      <CommandBox />
       <SearchBar placeholder="Cari buku atau penulis" route="readlist/"/>
       <ScrollView className="mt-4">
         

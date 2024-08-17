@@ -1,4 +1,8 @@
 {
     "keyword": ["kuy kuy", "kui kui", "koi koi", "quy quy", "qui qui", "qoi qoi", "kue kue"],
-    "navigate": ["pindah halaman", "pindah ke halaman"]
+    "navigate": ["pindah halaman", "pindah ke halaman"],
+    "read_settings": ["bacakan pengaturan", "bajakan pengaturan"],
+    "detail_settings": ["bacakan detail pengaturan", "detail pengaturan", "bacakan ditel pengaturan", "ditel pengaturan"],
+    "activate_settings": ["aktifkan pengaturan"],
+    "nonactivate_settings": ["nonaktifkan pengaturan", "non aktifkan pengaturan"]
 }
