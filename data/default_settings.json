@@ -1,0 +1,22 @@
+{
+    "respon_suara": {
+      "title": "Respon Suara",
+      "desc": "Aktifkan respon suara setiap kali suatu operasi dilakukan dalam aplikasi.",
+      "status": true
+    },
+    "perintah_salah": {
+      "title": "Respon Perintah Salah",
+      "desc": "Suarakan perintah yang tidak dikenali agar pengguna dapat mengevaluasi dan memperbaiki perintah mereka.",
+      "status": false
+    },
+    "kotak_perintah": {
+      "title": "Kotak Perintah",
+      "desc": "Aktifkan komponen kotak perintah dalam aplikasi.",
+      "status": false
+    },
+    "sekali_kata_kunci": {
+      "title": "Sekali Kata Kunci",
+      "desc": "Pengguna hanya perlu mengucapkan kata kunci satu kali.",
+      "status": false
+    }
+}

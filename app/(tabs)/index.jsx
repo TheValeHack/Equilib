@@ -5,10 +5,14 @@ import useData from "@/hooks/useData";
 import BookCard from "@/components/global/BookCard";
 import gambar from '@/assets/images/book_covers/Book-Cover-Crime-and-Punishment.png';
 import BookReadList from "@/components/global/BookReadList";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useContext } from "react";
 import VoiceCommandService from "../../services/VoiceCommandService";
+import { AppContext } from "../../context/AppContext";
+import getSettings from "../../util/getSettings";
+import CommandBox from "../../components/global/CommandBox";
 
 export default function HomeScreen() {
+  const { externalData, settingsData, dispatch } = useContext(AppContext);
   const { data, updateData } = useData();
   const [commands, setCommands] = useState([]);
   const voiceCommandServiceRef = useRef(null);
@@ -17,14 +21,52 @@ export default function HomeScreen() {
     voiceCommandServiceRef.current = VoiceCommandService({}, setCommands);
     voiceCommandServiceRef.current.startListening();
 
+    const fetchSettings = async () => {
+      let settingsValue = await getSettings();
+      dispatch({
+        type: 'SET_SETTINGS',
+        payload: {
+          settingsData: settingsValue
+        }
+      })
+    };
+  
+    fetchSettings();
+
     return () => {
       voiceCommandServiceRef.current.stopListening();
     };
   }, []);
 
+  useEffect(() => {
+    if (voiceCommandServiceRef.current) {
+      voiceCommandServiceRef.current.updateExternalData(externalData);
+    }
+  }, [externalData]);
+
+  useEffect(() => {
+    if (voiceCommandServiceRef.current) {
+      if(settingsData != {}){
+        voiceCommandServiceRef.current.updateSettingsData(settingsData);
+      }
+    }
+  }, [settingsData]);
+
+  useEffect(() => {
+    if(commands.length > 0){
+      dispatch({
+        type: 'SET_CURRENT_COMMAND',
+        payload: {
+          currentCommand: commands[commands.length - 1]
+        }
+      })
+    }
+  }, [commands])
+
   return (
-    <View>
-      <Text className="mb-3 text-xl" style={GlobalStyles.text_bold}>{ commands.join(',') }</Text>
+    <View className="flex-1 min-h-screen">
+      <CommandBox />
+      <Text className="mb-3 text-xl" style={GlobalStyles.text_bold}>Selamat datang!</Text>
       <SearchBar placeholder="Cari buku atau penulis" route="" />
       
       <ScrollView className="mt-4">

@@ -8,7 +8,7 @@ import { useEffect } from "react";
 import { TabBarIcon } from '@/components/navigation/TabBarIcon';
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
-
+import CommandBox from "../../../../components/global/CommandBox";
 
 export default function PageScreen () {
     const {slug} = useLocalSearchParams()
@@ -16,7 +16,8 @@ export default function PageScreen () {
 
 
   return (
-    <View>
+    <View className="flex-1 min-h-screen">
+      <CommandBox />
       <View className="flex flex-col items-center justify-center w-full text-center ">
         <Text className="text-lg" style={GlobalStyles.text_bold} >Book</Text>
       </View>

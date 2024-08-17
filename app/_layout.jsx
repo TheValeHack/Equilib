@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import 'react-native-reanimated';
 import {Manrope_400Regular, Manrope_500Medium, Manrope_600SemiBold, Manrope_700Bold, Manrope_800ExtraBold } from '@expo-google-fonts/manrope'
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { AppProvider } from '../context/AppContext';
 
 // SplashScreen.preventAutoHideAsync();
 
@@ -28,7 +29,8 @@ export default function RootLayout() {
   }
 
   return (
-    <SafeAreaView className='flex-1 relative h-full px-4 pt-3 bg-white'>
+    <AppProvider>
+      <SafeAreaView className='flex-1 relative h-full px-4 pt-3 bg-white'>
       <Stack screenOptions={
         {
           headerShown: false
@@ -38,6 +40,6 @@ export default function RootLayout() {
         <Stack.Screen name="+not-found" />
       </Stack>
     </SafeAreaView>
-      
+    </AppProvider>
   );
 }
