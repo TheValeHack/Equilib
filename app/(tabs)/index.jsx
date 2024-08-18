@@ -11,12 +11,15 @@ import { AppContext } from "../../context/AppContext";
 import getSettings from "../../util/getSettings";
 import CommandBox from "../../components/global/CommandBox";
 import {useIsFocused} from "@react-navigation/native";
+import { usePathname } from "expo-router";
 
 export default function HomeScreen() {
+  const currentPage = usePathname();
   const { externalData, settingsData, dispatch } = useContext(AppContext);
   const { data, updateData } = useData();
   const [commands, setCommands] = useState([]);
   const voiceCommandServiceRef = useRef(null);
+  const isFocused = useIsFocused();
 
   useEffect(() => {
     voiceCommandServiceRef.current = VoiceCommandService({}, setCommands);
@@ -40,8 +43,8 @@ export default function HomeScreen() {
   }, []);
 
   useEffect(() => {
-    setCurrentPage()
-  }, [useIsFocused()])
+    voiceCommandServiceRef.current.updateCurrentPage(currentPage)
+  }, [currentPage])
 
   useEffect(() => {
     if (voiceCommandServiceRef.current) {
@@ -67,17 +70,6 @@ export default function HomeScreen() {
       })
     }
   }, [commands])
-
-  const setCurrentPage = () => {
-    dispatch({
-      type: 'SET_EXTERNAL_DATA',
-      payload: {
-        externalData: {
-          'currentPage': null
-        }
-      }
-    })
-  }
 
   return (
     <View className="flex-1 min-h-screen">

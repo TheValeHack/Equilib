@@ -84,6 +84,20 @@ export default function TabLayout() {
           tabBarButton: () =>null,
         }}
       />
+      <Tabs.Screen
+        name="offline/detail/[slug]/index"
+        options={{
+          title: '',
+          tabBarButton: () =>null,
+        }}
+      />
+      <Tabs.Screen
+        name="offline/baca/[slug]/index"
+        options={{
+          title: '',
+          tabBarButton: () =>null,
+        }}
+      />
     </Tabs>
   );
 }

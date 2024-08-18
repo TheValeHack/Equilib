@@ -14,7 +14,7 @@ export default function ReadListScreen() {
   const { data, updateData } = useData();
   const [savedData, setSavedData] = useState([])
     const [loading, setLoading] = useState(true);
-  const { dispatch } = useContext(AppContext);
+  const { dispatch, externalData } = useContext(AppContext);
 
   const getSavedData = async () => {
     const JSONSavedData = await AsyncStorage.getItem('savedBook')
@@ -23,21 +23,9 @@ export default function ReadListScreen() {
     setLoading(false)
   }
 
-  const setCurrentPage = () => {
-      dispatch({
-          type: 'SET_EXTERNAL_DATA',
-          payload: {
-                externalData: {
-                    'currentPage': 'readlist'
-                    }
-          }
-      })
-  }
-
 
   useEffect(() => {
     getSavedData()
-    setCurrentPage()
   }, [useIsFocused()])
 
   return (
