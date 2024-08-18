@@ -11,28 +11,12 @@ import Pdf from "react-native-pdf"
 import CommandBox from "../../../components/global/CommandBox";
 import { useContext, useState, useEffect } from "react";
 import { AppContext } from "../../../context/AppContext";
-import { useIsFocused } from "@react-navigation/native";
 
 export default function BacaScreen() {
   const { dispatch, externalData } = useContext(AppContext)
   const { slug } = useLocalSearchParams();
   const { data, updateData } = useData();
   // https://www.planetebook.com/free-ebooks/david-copperfield.pdf
-  const setCurrentPage = () => {
-    dispatch({
-      type: 'SET_EXTERNAL_DATA',
-      payload: {
-        externalData: {
-          ...externalData,
-          'currentPage': `baca/${slug}`
-        }
-      }
-    })
-  }
-
-  useEffect(() => {
-    setCurrentPage()
-  }, [useIsFocused()])
 
 
   return (

@@ -23,22 +23,9 @@ export default function OfflineScreen() {
     setLoading(false)
   }
 
-  const setCurrentPage = () => {
-      dispatch({
-          type: 'SET_EXTERNAL_DATA',
-          payload: {
-            externalData: {
-                ...externalData,
-                'currentPage': 'offline'
-                }
-          }
-      })
-  }
-
 
   useEffect(() => {
     getOfflineData()
-    setCurrentPage()
   }, [useIsFocused()])
 
   return (

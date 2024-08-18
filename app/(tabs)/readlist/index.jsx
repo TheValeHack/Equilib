@@ -23,22 +23,9 @@ export default function ReadListScreen() {
     setLoading(false)
   }
 
-  const setCurrentPage = () => {
-      dispatch({
-          type: 'SET_EXTERNAL_DATA',
-          payload: {
-                externalData: {
-                    ...externalData,
-                    'currentPage': 'readlist'
-                    }
-          }
-      })
-  }
-
 
   useEffect(() => {
     getSavedData()
-    setCurrentPage()
   }, [useIsFocused()])
 
   return (

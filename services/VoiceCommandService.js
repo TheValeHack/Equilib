@@ -10,6 +10,7 @@ import downloadBook from '../util/downloadBook'
 
 export default function VoiceCommandService(externalData, setCommands) {
   let settingsValue = null;
+  let currentPage = '/'
 
   const fetchSettings = async () => {
     settingsValue = await getSettings();
@@ -24,6 +25,9 @@ export default function VoiceCommandService(externalData, setCommands) {
   };
   const updateSettingsData = (newSettingsData) => {
     settingsValue = newSettingsData;
+  };
+  const updateCurrentPage = (newPage) => {
+    currentPage = newPage;
   };
 
   const startListening = () => {
@@ -112,19 +116,13 @@ export default function VoiceCommandService(externalData, setCommands) {
     }  else if (commandsData.downloadBook.some(prefix => command.startsWith(prefix))) {
       const matchingCommand = commandsData.downloadBook.find(prefix => command.startsWith(prefix))
       const title = command.replace(matchingCommand, '').trim()
-      const currentPage = externalData["currentPage"]
-      console.log('current page : ' + currentPage)
-      if(currentPage){
-        if(currentPage.startsWith('baca/')){
-          if(title.length == 0){
-            const slug = currentPage.slice(5)
-            const book = bookData.find((item) => btoa(item.pdfUrl) === slug)
-            response = await downloadOfflineBook(book.title)
-          } else {
-            response = 'Silahkan ke halaman beranda untuk mengunduh buku spesifik'
-          }
+      if(currentPage.startsWith('/baca/')){
+        if(title.length == 0){
+          const slug = currentPage.slice(6)
+          const book = bookData.find((item) => btoa(item.pdfUrl) === slug)
+          response = await downloadOfflineBook(book.title)
         } else {
-          response = await downloadOfflineBook(title)
+          response = 'Silahkan ke halaman beranda untuk mengunduh buku spesifik'
         }
       } else {
         response = await downloadOfflineBook(title)
@@ -204,13 +202,12 @@ export default function VoiceCommandService(externalData, setCommands) {
   }
 
   const cariBuku = (judul) => {
-    const currentPage = externalData["currentPage"]
     judul = judul.trim()
     if(judul.length == 0){
       return `Tolong sertakan judul buku`
     }
-    if (currentPage){
-      router.push(`search/${currentPage}/${judul}`)
+    if ((currentPage == '/readlist') || currentPage == '/offline'){
+      router.push(`search${currentPage}/${judul}`)
     } else {
         router.push(`search/${judul}`)
     }
@@ -326,6 +323,7 @@ const downloadOfflineBookByIndex = async (index) => {
   startListening()
 
   return {
+    updateCurrentPage,
     updateExternalData,
     updateSettingsData,
     startListening,
