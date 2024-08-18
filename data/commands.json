@@ -1,10 +1,11 @@
 {
     "keyword": ["kuy kuy", "kui kui", "koi koi", "quy quy", "qui qui", "qoi qoi", "kue kue"],
-    "navigate": ["pindah halaman", "pindah ke halaman", "pergi ke halaman", "pergi ke", "pindah ke", "pindah", "pergi", "ke", "halaman", "menuju", "menuju halaman", "menuju ke halaman", "menuju ke", "menuju", "buka halaman", "indah halaman"],
+    "navigate": ["pindah halaman", "pindah ke halaman", "pergi ke halaman", "pergi ke", "pindah ke", "pindah", "pergi", "halaman", "menuju", "menuju halaman", "menuju ke halaman", "menuju ke", "menuju", "buka halaman", "indah halaman"],
     "halaman": {
         "readlist": ["red list","red life", "grid list", "replace", "reply", "replies", "redli", "ridless", "ripless", "rilis", "ritmis", "ridness", "ridney", "read list", "readlist", "brid please", "brick please", "brid list", "bright list"],
         "beranda": ["beranda", "home", "rumah", "house", "miranda", "home"],
-        "settings": ["pengaturan", "settings", "option"]
+        "settings": ["pengaturan", "settings", "option"],
+        "offline": ["offline", "unduhan"]
     },
     "speakBookData": ["bacakan buku", "bacakan", "bacakan buku"],
     "openBook": ["buka buku", "buka buku"],
@@ -15,5 +16,6 @@
     "save_book": ["simpan buku", "simpan buku ini"],
     "unsave_book": ["hapus buku", "hapus buku ini"],
     "speakSavedBookData": ["bacakan buku yang disimpan", "bacakan buku yang disimpan"],
-    "cariBuku": ["cari buku", "cari buku ini", "cari buku yang ini", "cari buku yang", "cari buku yang ini"]
+    "cariBuku": ["cari buku", "cari buku ini", "cari buku yang ini", "cari buku yang", "cari buku yang ini"],
+    "downloadBook": ["unduh buku", "download buku"]
 }

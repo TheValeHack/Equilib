@@ -33,6 +33,7 @@ export default function SettingsScreen() {
             type: 'SET_EXTERNAL_DATA',
             payload: {
               externalData: {
+                ...externalData,
                 'settings': JSON.parse(settingsStorageData),
                 'setSettings': setSettingsData
               }
@@ -51,6 +52,7 @@ export default function SettingsScreen() {
             type: 'SET_EXTERNAL_DATA',
             payload: {
               externalData: {
+                ...externalData,
                 'settings': defaultSettings,
                 'setSettings': setSettingsData
               }
@@ -79,6 +81,7 @@ export default function SettingsScreen() {
       type: 'SET_EXTERNAL_DATA',
       payload: {
         externalData: {
+          ...externalData,
           'settings': settingsData,
           'setSettings': setSettingsData
         }

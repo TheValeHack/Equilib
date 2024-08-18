@@ -6,6 +6,7 @@ import getSettings from '../util/getSettings'
 import {getPageFromText, isNumeric} from "../util/helper";
 import bookData from './../data/data.json'
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import downloadBook from '../util/downloadBook'
 
 export default function VoiceCommandService(externalData, setCommands) {
   let settingsValue = null;
@@ -83,7 +84,7 @@ export default function VoiceCommandService(externalData, setCommands) {
     startListening()
   }
 
-  const executeCommand = (command) => {
+  const executeCommand = async (command) => {
     if(!settingsValue["sekali_kata_kunci"]["status"]){
       isListeningForCommand = false
     }
@@ -95,20 +96,40 @@ export default function VoiceCommandService(externalData, setCommands) {
       const pageName = command.replace(matchingCommand, '').trim()
       response = navigateToPage(pageName)
     } else if(commandsData.speakSavedBookData.some(prefix => command.startsWith(prefix))) {
-        response = speakSavedBookData
+        response = await speakSavedBookData()
     }
     else if (commandsData.cariBuku.some(prefix => command.startsWith(prefix))) {
         const matchingCommand = commandsData.cariBuku.find(prefix => command.startsWith(prefix))
         const title = command.replace(matchingCommand, '').trim()
         response = cariBuku(title)
     }
-      else if (commandsData.speakBookData.some(prefix => command.startsWith(prefix))) {
-          response = speakBookData()
-      } else if (commandsData.openBook.some(prefix => command.startsWith(prefix))) {
-          const matchingCommand = commandsData.openBook.find(prefix => command.startsWith(prefix))
-          const title = command.replace(matchingCommand, '').trim()
-          response = openBookDetail(title)
-      } else if(commandsData.read_settings.includes(command)) {
+    else if (commandsData.speakBookData.some(prefix => command.startsWith(prefix))) {
+        response = speakBookData()
+    } else if (commandsData.openBook.some(prefix => command.startsWith(prefix))) {
+        const matchingCommand = commandsData.openBook.find(prefix => command.startsWith(prefix))
+        const title = command.replace(matchingCommand, '').trim()
+        response = openBookDetail(title)
+    }  else if (commandsData.downloadBook.some(prefix => command.startsWith(prefix))) {
+      const matchingCommand = commandsData.downloadBook.find(prefix => command.startsWith(prefix))
+      const title = command.replace(matchingCommand, '').trim()
+      const currentPage = externalData["currentPage"]
+      console.log('current page : ' + currentPage)
+      if(currentPage){
+        if(currentPage.startsWith('baca/')){
+          if(title.length == 0){
+            const slug = currentPage.slice(5)
+            const book = bookData.find((item) => btoa(item.pdfUrl) === slug)
+            response = await downloadOfflineBook(book.title)
+          } else {
+            response = 'Silahkan ke halaman beranda untuk mengunduh buku spesifik'
+          }
+        } else {
+          response = await downloadOfflineBook(title)
+        }
+      } else {
+        response = await downloadOfflineBook(title)
+      }
+    } else if(commandsData.read_settings.includes(command)) {
       response = readPengaturan(externalData)
     }  else if (commandsData.detail_settings.some(prefix => command.startsWith(prefix))) {
       const matchingCommand = commandsData.detail_settings.find(prefix => command.startsWith(prefix))
@@ -145,13 +166,14 @@ export default function VoiceCommandService(externalData, setCommands) {
   const navigateToPage = (page) => {
     const namaHalaman = {
       'beranda': '/',
-      'pengaturan': 'settings',
-      'readlist': 'readlist'
+      'settings': '/settings',
+      'offline': '/offline',
+      'readlist': '/readlist'
     }
     const findPage = getPageFromText(page)
     if(Object.keys(namaHalaman).includes(findPage)){
       console.log('Navigating to:', findPage)
-      router.push(findPage)
+      router.push(namaHalaman[findPage])
       return `Berhasil pindah ke halaman ${findPage}`
     } else {
       return `Halaman ${findPage} tidak ditemukan!`
@@ -183,6 +205,10 @@ export default function VoiceCommandService(externalData, setCommands) {
 
   const cariBuku = (judul) => {
     const currentPage = externalData["currentPage"]
+    judul = judul.trim()
+    if(judul.length == 0){
+      return `Tolong sertakan judul buku`
+    }
     if (currentPage){
       router.push(`search/${currentPage}/${judul}`)
     } else {
@@ -267,6 +293,30 @@ export default function VoiceCommandService(externalData, setCommands) {
         return 'Buku tidak ditemukan!'
           }
   }
+
+  const downloadOfflineBook = async (title) => {
+    const book = bookData.find(book => book.title.toLowerCase() === title.toLowerCase())
+    if (book) {
+      TextToSpeechService.speak(`memulai pengunduhan buku ${book.title}...`)
+      let downloadedBook = await downloadBook(book)
+      return downloadedBook["message"]
+    } else {
+      return await downloadOfflineBookByIndex(title)
+    }
+}
+
+const downloadOfflineBookByIndex = async (index) => {
+    if (index > 0 && index <= bookData.length && isNumeric(index)) {
+      console.log(index)
+      const book = bookData[parseInt(index) - 1]
+      console.log(book)
+      TextToSpeechService.speak(`memulai pengunduhan buku ${book.title}...`)
+      let downloadedBook = await downloadBook(book)
+      return downloadedBook["message"]
+    } else {
+      return 'Buku tidak ditemukan!'
+    }
+}
 
   const handleVoiceError = (error) => {
     console.log(error)

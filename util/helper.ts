@@ -13,7 +13,7 @@ export function getPageFromText(text: string): string | null {
         }
     }
 
-    return null; // Return null if no match is found
+    return text;
 }
 
 export function isNumeric(num: any){

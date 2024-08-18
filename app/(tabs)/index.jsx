@@ -73,6 +73,7 @@ export default function HomeScreen() {
       type: 'SET_EXTERNAL_DATA',
       payload: {
         externalData: {
+          ...externalData,
           'currentPage': null
         }
       }

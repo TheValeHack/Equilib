@@ -8,58 +8,19 @@ import {useContext, useEffect, useState} from "react";
 import { TabBarIcon } from '@/components/navigation/TabBarIcon';
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
-import CommandBox from "../../../../components/global/CommandBox";
+import CommandBox from "../../../../../components/global/CommandBox";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import {AppContext} from "../../../../context/AppContext";
+import {AppContext} from "../../../../../context/AppContext";
 
 export default function PageScreen () {
     const {slug} = useLocalSearchParams()
-    const { dispatch, externalData } = useContext(AppContext);
+    const { dispatch } = useContext(AppContext);
     const { data, detailData, fetchDetailData } = useData(slug);
-    const [isSave, setIsSave] = useState(false)
 
     useEffect(() => {
         fetchDetailData()
-        isBookSaved()
     }, [slug])
 
-    useEffect(() => {
-        saveBook()
-    }, [isSave])
-
-    const isBookSaved = async () => {
-        const JSONSavedBook = await AsyncStorage.getItem('savedBook')
-        const savedBook = JSONSavedBook ? JSON.parse(JSONSavedBook) : []
-
-        const isSaved = savedBook.some((item) => btoa(item.pdfUrl) === slug)
-
-        setIsSave(isSaved)
-
-        dispatch({
-            type: 'SET_EXTERNAL_DATA',
-            payload: {
-                externalData: {
-                    ...externalData,
-                    'isSave': isSaved,
-                    'setIsSave': setIsSave,
-                }
-            }
-        })
-    }
-
-    const saveBook = async () => {
-
-        const JSONSavedBook = await AsyncStorage.getItem('savedBook')
-        const savedBook = JSONSavedBook ? JSON.parse(JSONSavedBook) : []
-
-        if (!isSave) {
-            const newSavedBook = savedBook.filter((item) => item.pdfUrl !== detailData.pdfUrl)
-            await AsyncStorage.setItem('savedBook', JSON.stringify(newSavedBook))
-        } else {
-            await AsyncStorage.setItem('savedBook', JSON.stringify([...savedBook, detailData]))
-        }
-
-    }
 
   return (
     <View className="flex-1 min-h-screen">
@@ -76,14 +37,9 @@ export default function PageScreen () {
                     <Text style={GlobalStyles.text_medium} className="text-sm ">{detailData?.author}</Text>
                 </View>
                 <View className="flex flex-row items-center w-full ">
-                <View className="w-[70%] py-2 mt-2 mb-1 rounded-lg  border-primary border-2 mr-5 " onTouchEndCapture={() => router.push(`/baca/${btoa(detailData?.pdfUrl)}`)}>
+                <View className="w-full py-2 mt-2 mb-1 rounded-lg  border-primary border-2 mr-5 " onTouchEndCapture={() => router.push(`/offline/baca/${btoa(detailData?.pdfUrl)}`)}>
                     <Text style={GlobalStyles.text_bold} className="text-base text-center text-primary">Baca </Text>
                 </View>
-                    {isSave ?
-                <Ionicons size={36}  onPress={()=> setIsSave((prev)=> !prev)} className="pt-10 text-primary fill-primary" style={{color: 'rgb(239 172 0)'}} name={'bookmark'} />
-                        :
-                <Ionicons size={36} onPress={()=> setIsSave((prev)=> !prev)} className="pt-10 text-primary fill-primary" style={{color: 'rgb(239 172 0)'}} name={'bookmark-outline'} />
-                    }
                 </View>
             </View>
         </View>
