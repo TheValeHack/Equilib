@@ -3,7 +3,6 @@ import GlobalStyles from "@/styles/GlobalStyles";
 import { useEffect, useState, useRef, useContext } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import defaultSettings from '../../../data/default_settings.json'
-import VoiceCommandService from '../../../services/VoiceCommandService';
 import { AppContext } from '../../../context/AppContext';
 import CommandBox from '../../../components/global/CommandBox';
 
@@ -11,7 +10,7 @@ export default function SettingsScreen() {
   const { dispatch, externalData } = useContext(AppContext);
   const [settingsData, setSettingsData] = useState({});
   const [loading, setLoading] = useState(true);
-  
+
   const toggleSwitch = async (key) => {
     const updatedSettings = {
       ...settingsData,

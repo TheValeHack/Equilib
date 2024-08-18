@@ -5,9 +5,40 @@ import useData from "@/hooks/useData";
 import gambar from '@/assets/images/book_covers/Book-Cover-Crime-and-Punishment.png';
 import BookReadList from "@/components/global/BookReadList";
 import CommandBox from "../../../components/global/CommandBox";
+import {useContext, useEffect, useState} from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import {useIsFocused} from "@react-navigation/native";
+import {AppContext} from "../../../context/AppContext";
 
 export default function ReadListScreen() {
   const { data, updateData } = useData();
+  const [savedData, setSavedData] = useState([])
+    const [loading, setLoading] = useState(true);
+  const { dispatch } = useContext(AppContext);
+
+  const getSavedData = async () => {
+    const JSONSavedData = await AsyncStorage.getItem('savedBook')
+    const savedData = JSONSavedData ? JSON.parse(JSONSavedData) : [];
+    setSavedData(savedData)
+    setLoading(false)
+  }
+
+  const setCurrentPage = () => {
+      dispatch({
+          type: 'SET_EXTERNAL_DATA',
+          payload: {
+                externalData: {
+                    'currentPage': 'readlist'
+                    }
+          }
+      })
+  }
+
+
+  useEffect(() => {
+    getSavedData()
+    setCurrentPage()
+  }, [useIsFocused()])
 
   return (
     <View className="flex-1 min-h-screen">
@@ -18,7 +49,7 @@ export default function ReadListScreen() {
         <Text className="text-xl mb-3 mt-3" style={GlobalStyles.text_bold}>Daftar Bacaan</Text>
         <View className="flex flex-col justify-between w-full pb-96">
             {
-              data.map((book, index) => {
+                (!loading) && savedData.map((book, index) => {
                 return (
                   <View className="mb-4" key={index}>
                     <BookReadList {...book} coverUrl={gambar} key={index} />

@@ -1,10 +1,11 @@
-import { router } from 'expo-router'
+import { router, usePathname } from 'expo-router'
 import Voice from '@react-native-voice/voice'
 import TextToSpeechService from './TextToSpeechService'
 import commandsData from './../data/commands.json'
 import getSettings from '../util/getSettings'
 import {getPageFromText, isNumeric} from "../util/helper";
 import bookData from './../data/data.json'
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function VoiceCommandService(externalData, setCommands) {
   let settingsValue = null;
@@ -93,12 +94,17 @@ export default function VoiceCommandService(externalData, setCommands) {
       const matchingCommand = commandsData.navigate.find(prefix => command.startsWith(prefix))
       const pageName = command.replace(matchingCommand, '').trim()
       response = navigateToPage(pageName)
+    } else if(commandsData.speakSavedBookData.some(prefix => command.startsWith(prefix))) {
+        response = speakSavedBookData
     }
-      if (commandsData.speakBookData.some(prefix => command.startsWith(prefix))) {
+    else if (commandsData.cariBuku.some(prefix => command.startsWith(prefix))) {
+        const matchingCommand = commandsData.cariBuku.find(prefix => command.startsWith(prefix))
+        const title = command.replace(matchingCommand, '').trim()
+        response = cariBuku(title)
+    }
+      else if (commandsData.speakBookData.some(prefix => command.startsWith(prefix))) {
           response = speakBookData()
-      }
-
-      if (commandsData.openBook.some(prefix => command.startsWith(prefix))) {
+      } else if (commandsData.openBook.some(prefix => command.startsWith(prefix))) {
           const matchingCommand = commandsData.openBook.find(prefix => command.startsWith(prefix))
           const title = command.replace(matchingCommand, '').trim()
           response = openBookDetail(title)
@@ -116,6 +122,8 @@ export default function VoiceCommandService(externalData, setCommands) {
       const matchingCommand = commandsData.nonactivate_settings.find(prefix => command.startsWith(prefix))
       const settingName = command.replace(matchingCommand, '').trim()
       response = changeSettings(externalData, settingName, false)
+    } else if(commandsData.save_book.some(prefix => command.startsWith(prefix))){
+        response = saveBook()
     } else {
       if(settingsValue["perintah_salah"]["status"]){
         response = `Maaf, Perintah ${command} tidak valid!`
@@ -173,6 +181,26 @@ export default function VoiceCommandService(externalData, setCommands) {
     return response
   }
 
+  const cariBuku = (judul) => {
+    const currentPage = externalData["currentPage"]
+    if (currentPage){
+      router.push(`search/${currentPage}/${judul}`)
+    } else {
+        router.push(`search/${judul}`)
+    }
+    return `Mencari buku dengan judul ${judul}`
+  }
+
+  const saveBook = () => {
+    externalData["setIsSave"](true)
+    return 'Buku berhasil disimpan'
+  }
+
+  const unsaveBook = () => {
+    externalData["setIsSave"](false)
+    return 'Buku berhasil dihapus dari daftar simpanan'
+  }
+
   const changeSettings = (pengaturan, settingName, status) => {
     if(!pengaturan.hasOwnProperty('settings')){
       return 'Silakan pergi ke halaman pengaturan untuk mulai mengatur pengaturan!'
@@ -203,6 +231,18 @@ export default function VoiceCommandService(externalData, setCommands) {
 
         return response
     }
+
+  //   function to speak saved book data
+    const speakSavedBookData = async () => {
+        const JSONSavedBook = await AsyncStorage.getItem('savedBook')
+        const savedBook = JSONSavedBook ? JSON.parse(JSONSavedBook) : []
+        let response = 'Berikut adalah buku yang telah disimpan: '
+        savedBook.forEach((book, index) => {
+        response += `${index + 1}. ${book.title} oleh ${book.author}. `
+        })
+
+        return response
+  }
 
   //   function to open the book detail page by title
     const openBookDetail = (title) => {

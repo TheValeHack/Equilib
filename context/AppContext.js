@@ -22,7 +22,7 @@ export const AppReducer = (state, action) => {
             action.type = 'DONE'
             return {
                 ...state
-            }
+            };
         default:
             return state
     }

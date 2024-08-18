@@ -3,7 +3,7 @@
     "navigate": ["pindah halaman", "pindah ke halaman", "pergi ke halaman", "pergi ke", "pindah ke", "pindah", "pergi", "ke", "halaman", "menuju", "menuju halaman", "menuju ke halaman", "menuju ke", "menuju", "buka halaman", "indah halaman"],
     "halaman": {
         "readlist": ["red list","red life", "grid list", "replace", "reply", "replies", "redli", "ridless", "ripless", "rilis", "ritmis", "ridness", "ridney", "read list", "readlist", "brid please", "brick please", "brid list", "bright list"],
-        "index": ["beranda", "home", "rumah", "house", "miranda", "home"],
+        "beranda": ["beranda", "home", "rumah", "house", "miranda", "home"],
         "settings": ["pengaturan", "settings", "option"]
     },
     "speakBookData": ["bacakan buku", "bacakan", "bacakan buku"],
@@ -11,5 +11,9 @@
     "read_settings": ["bacakan pengaturan", "bajakan pengaturan"],
     "detail_settings": ["bacakan detail pengaturan", "detail pengaturan", "bacakan ditel pengaturan", "ditel pengaturan"],
     "activate_settings": ["aktifkan pengaturan"],
-    "nonactivate_settings": ["nonaktifkan pengaturan", "non aktifkan pengaturan"]
+    "nonactivate_settings": ["nonaktifkan pengaturan", "non aktifkan pengaturan"],
+    "save_book": ["simpan buku", "simpan buku ini"],
+    "unsave_book": ["hapus buku", "hapus buku ini"],
+    "speakSavedBookData": ["bacakan buku yang disimpan", "bacakan buku yang disimpan"],
+    "cariBuku": ["cari buku", "cari buku ini", "cari buku yang ini", "cari buku yang", "cari buku yang ini"]
 }

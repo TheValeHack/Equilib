@@ -10,6 +10,7 @@ import VoiceCommandService from "../../services/VoiceCommandService";
 import { AppContext } from "../../context/AppContext";
 import getSettings from "../../util/getSettings";
 import CommandBox from "../../components/global/CommandBox";
+import {useIsFocused} from "@react-navigation/native";
 
 export default function HomeScreen() {
   const { externalData, settingsData, dispatch } = useContext(AppContext);
@@ -39,6 +40,10 @@ export default function HomeScreen() {
   }, []);
 
   useEffect(() => {
+    setCurrentPage()
+  }, [useIsFocused()])
+
+  useEffect(() => {
     if (voiceCommandServiceRef.current) {
       voiceCommandServiceRef.current.updateExternalData(externalData);
     }
@@ -62,6 +67,17 @@ export default function HomeScreen() {
       })
     }
   }, [commands])
+
+  const setCurrentPage = () => {
+    dispatch({
+      type: 'SET_EXTERNAL_DATA',
+      payload: {
+        externalData: {
+          'currentPage': null
+        }
+      }
+    })
+  }
 
   return (
     <View className="flex-1 min-h-screen">
