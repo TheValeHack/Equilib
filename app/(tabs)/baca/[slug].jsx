@@ -8,13 +8,15 @@ import BookReadList from "@/components/global/BookReadList";
 import DownloadBook from "../../../components/global/DownloadBook";
 import { useLocalSearchParams } from "expo-router";
 import Pdf from "react-native-pdf"
+import CommandBox from "../../../components/global/CommandBox";
 
 export default function BacaScreen() {
   const { slug } = useLocalSearchParams();
   const { data, updateData } = useData();
   // https://www.planetebook.com/free-ebooks/david-copperfield.pdf
   return (
-    <View>
+    <View className="flex-1 min-h-screen">
+      <CommandBox />
       <ScrollView className="mt-4">
         <DownloadBook  author={data[0]?.author} title={data[0]?.title} year={data[0]?.year} />
         <Text className="text-xl mb-3 mt-3" style={GlobalStyles.text_bold}>Buku untukmu</Text>

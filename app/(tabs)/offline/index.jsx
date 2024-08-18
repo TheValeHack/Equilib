@@ -4,12 +4,14 @@ import GlobalStyles from "@/styles/GlobalStyles";
 import useData from "@/hooks/useData";
 import BookCard from "@/components/global/BookCard";
 import gambar from '@/assets/images/book_covers/Book-Cover-Crime-and-Punishment.png';
+import CommandBox from "../../../components/global/CommandBox";
 
 export default function OfflineScreen() {
   const { data, updateData } = useData();
 
   return (
-    <View>
+    <View className="flex-1 min-h-screen">
+      <CommandBox />
       <SearchBar placeholder="Cari buku atau penulis" route="offline/" />
       
       <ScrollView className="mt-4">

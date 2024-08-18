@@ -7,5 +7,9 @@
         "settings": ["pengaturan", "settings", "option"]
     },
     "speakBookData": ["bacakan buku", "bacakan", "bacakan buku"],
-    "openBook": ["buka buku", "buka buku"]
+    "openBook": ["buka buku", "buka buku"],
+    "read_settings": ["bacakan pengaturan", "bajakan pengaturan"],
+    "detail_settings": ["bacakan detail pengaturan", "detail pengaturan", "bacakan ditel pengaturan", "ditel pengaturan"],
+    "activate_settings": ["aktifkan pengaturan"],
+    "nonactivate_settings": ["nonaktifkan pengaturan", "non aktifkan pengaturan"]
 }
