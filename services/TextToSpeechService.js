@@ -5,11 +5,16 @@ class TextToSpeechService {
     const { onDone } = options;
 
     Speech.speak(text, {
-      language: 'id-ID',
+      // language: 'id-ID',
+      voice: 'id-id-x-dfz-network',
       onDone: () => {
         if (onDone) onDone();
       },
     });
+  }
+
+  static async getAvailableVoices() {
+    return await Speech.getAvailableVoicesAsync();
   }
 }
 

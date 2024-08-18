@@ -2,6 +2,8 @@ import { router } from 'expo-router'
 import Voice from '@react-native-voice/voice'
 import TextToSpeechService from './TextToSpeechService'
 import commandsData from './../data/commands.json'
+import {getPageFromText, isNumeric} from "../util/helper";
+import bookData from './../data/data.json'
 
 export default function VoiceCommandService(externalData, setCommands) {
   let isListeningForCommand = false
@@ -67,7 +69,19 @@ export default function VoiceCommandService(externalData, setCommands) {
       const matchingCommand = commandsData.navigate.find(prefix => command.startsWith(prefix))
       const pageName = command.replace(matchingCommand, '').trim()
       response = navigateToPage(pageName)
-    } else {
+    }
+
+    if (commandsData.speakBookData.some(prefix => command.startsWith(prefix))) {
+        response = speakBookData()
+    }
+
+    if (commandsData.openBook.some(prefix => command.startsWith(prefix))) {
+        const matchingCommand = commandsData.openBook.find(prefix => command.startsWith(prefix))
+        const title = command.replace(matchingCommand, '').trim()
+        response = openBookDetail(title)
+    }
+
+    if (response === '') {
       response = 'Maaf, Perintah anda tidak valid!'
     }
 
@@ -83,15 +97,52 @@ export default function VoiceCommandService(externalData, setCommands) {
   const navigateToPage = (page) => {
     const namaHalaman = {
       'beranda': 'index',
-      'pengaturan': 'settings'
+      'pengaturan': 'settings',
+      'readlist': 'readlist'
     }
-    if(Object.keys(namaHalaman).includes(page)){
-      console.log('Navigating to:', page) 
-      router.push(page)
-      return `Berhasil pindah ke halaman ${page}`
+    const findPage = getPageFromText(page)
+    if(Object.keys(namaHalaman).includes(findPage)){
+      console.log('Navigating to:', findPage)
+      router.push(findPage)
+      return `Berhasil pindah ke halaman ${findPage}`
     } else {
       return 'Halaman tidak ditemukan!'
     }
+  }
+
+  // function to speak top 5 book data
+    const speakBookData = () => {
+        const top5Books = bookData.slice(0, 5)
+        let response = 'Berikut adalah 5 buku teratas: '
+        top5Books.forEach((book, index) => {
+        response += `${index + 1}. ${book.title} oleh ${book.author}. `
+        })
+
+        return response
+    }
+
+  //   function to open the book detail page by title
+    const openBookDetail = (title) => {
+        const book = bookData.find(book => book.title.toLowerCase() === title.toLowerCase())
+        if (book) {
+        router.push(`detail/${btoa(book.pdfUrl)}`)
+        return `Buku ${book.title} telah dibuka`
+        } else {
+        return openBookDetailByIndex(title)
+        }
+    }
+
+  //   function to open book detail page by index order's number
+    const openBookDetailByIndex = (index) => {
+        if (index > 0 && index <= bookData.length && isNumeric(index)) {
+          console.log(index)
+        const book = bookData[parseInt(index) - 1]
+        console.log('Opening book detail for:', book.title)
+        router.push(`detail/${btoa(book.pdfUrl)}`)
+        return `Buku ${book.title} telah dibuka`
+        } else {
+        return 'Buku tidak ditemukan!'
+          }
   }
 
   const handleVoiceError = (error) => {

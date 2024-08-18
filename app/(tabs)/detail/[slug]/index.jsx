@@ -12,8 +12,11 @@ import { router } from "expo-router";
 
 export default function PageScreen () {
     const {slug} = useLocalSearchParams()
-    const { data } = useData();
+    const { data, detailData, fetchDetailData } = useData(slug);
 
+    useEffect(() => {
+        fetchDetailData()
+    }, [slug])
 
   return (
     <View>
@@ -25,8 +28,8 @@ export default function PageScreen () {
             <Image source={ gambar } className="w-[25%] h-32 scale-125 mr-3" />
             <View className="w-[70%] pl-3 flex flex-col justify-between h-32">
                 <View>
-                    <Text style={GlobalStyles.text_bold} className="text-xl ">{data[6]?.title}</Text>
-                    <Text style={GlobalStyles.text_medium} className="text-sm ">{data[6]?.author}</Text>
+                    <Text style={GlobalStyles.text_bold} className="text-xl ">{detailData?.title}</Text>
+                    <Text style={GlobalStyles.text_medium} className="text-sm ">{detailData?.author}</Text>
                 </View>
                 <View className="flex flex-row items-center w-full ">
                 <View className="w-[70%] py-2 mt-2 mb-1 rounded-lg  border-primary border-2 mr-5 " onTouchEndCapture={() => router.push("/baca/1")}>
@@ -39,7 +42,7 @@ export default function PageScreen () {
         </View>
         <View className="mt-3">
           <Text className="text-xl" style={GlobalStyles.text_bold}>Synopsis</Text>
-          <Text style={GlobalStyles.text_medium} className="mt-3 text-justify text-slate-500">{data[5]?.synopsis}</Text>
+          <Text style={GlobalStyles.text_medium} className="mt-3 text-justify text-slate-500">{detailData?.synopsis}</Text>
         </View>
     </View>
   )

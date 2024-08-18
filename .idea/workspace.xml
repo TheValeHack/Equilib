@@ -4,7 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="661fdca0-8c31-489e-9022-25518300e161" name="Changes" comment="" />
+    <list default="true" id="661fdca0-8c31-489e-9022-25518300e161" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/util/helper.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(tabs)/detail/[slug]/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/detail/[slug]/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/commands.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/commands.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hooks/useData.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/hooks/useData.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/TextToSpeechService.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/TextToSpeechService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/VoiceCommandService.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/VoiceCommandService.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -24,20 +32,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "3bb0b371",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "npm.start.executor": "Run",
-    "ts.external.directory.path": "D:\\Code\\WebStorm\\WebStorm 2024.1.3\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Code/magicui/magicui&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;npm.start.executor&quot;: &quot;Run&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;D:\\Code\\gemastik\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="start" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
@@ -72,6 +81,11 @@
       <updated>1719456769344</updated>
       <workItem from="1719456770446" duration="13612000" />
       <workItem from="1719486160830" duration="788000" />
+      <workItem from="1723544155053" duration="1139000" />
+      <workItem from="1723592012627" duration="689000" />
+      <workItem from="1723677439349" duration="2342000" />
+      <workItem from="1723683552294" duration="122000" />
+      <workItem from="1723872405135" duration="6141000" />
     </task>
     <servers />
   </component>
