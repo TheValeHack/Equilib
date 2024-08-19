@@ -11,27 +11,15 @@ import Pdf from "react-native-pdf"
 import CommandBox from "../../../../../components/global/CommandBox";
 import { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useIsFocused } from "@react-navigation/native";
 
 export default function BacaScreen() {
   const { slug } = useLocalSearchParams();
-  const { data, updateData } = useData();
+  const { data, detailData, fetchDetailData } = useData(slug);
   const [bookData, setBookData] = useState({})
   const [loading, setLoading] = useState(true)
   // https://www.planetebook.com/free-ebooks/david-copperfield.pdf
-  const setCurrentPage = () => {
-    dispatch({
-      type: 'SET_EXTERNAL_DATA',
-      payload: {
-        externalData: {
-          'currentPage': `baca/${slug}`
-        }
-      }
-    })
-  }
 
   useEffect(() => {
-    setCurrentPage()
     const fetchSettings = async () => {
       const storageOfflineBooks = await AsyncStorage.getItem('offlineBook');
       if(storageOfflineBooks){
@@ -51,45 +39,46 @@ export default function BacaScreen() {
     fetchSettings();
   }, [])
 
+  useEffect(() => {
+    fetchDetailData()
+}, [slug])
+
   if(loading){
     return <></>
   }
   return (
-    <View className="flex-1 min-h-screen">
-      <CommandBox />
-      <ScrollView className="mt-4">
-        <DownloadBook data={bookData} isOffline={true} />
-        <Text className="text-xl mb-3 mt-3" style={GlobalStyles.text_bold}>Buku untukmu</Text>
-        <View className="w-full h-full">
-        <Pdf 
-          // key={index}
-          // scale={pdfZoom}
-          page={1}
-          // style={styles.pdf}
-          style={{flex: 1, backgroundColor: "#000000", width: "100%", height: 2000}}
-          trustAllCerts={false}
-          source={{
-              uri: bookData["offlineUrl"],
-              cache: true
-          }}
-          onLoadComplete={(numberOfPages, filePath) => {
-              //totalPage(numberOfPages)
-          }}
-          onError={(err)=>{
-              console.log(`err pdf : ${err}`)
-          }}
-          // onPageChanged={(page) => {
-          //     currentPage(page)
-          //     dispatch({
-          //         type: 'SCROLL_PAGE',
-          //         payload: {
-          //             number: page
-          //         }
-          //     })
-          // }}
-      />
+    <View className="flex-1 min-h-screen pt-4 pb-24">
+        <CommandBox />
+        <DownloadBook data={detailData} isOffline={true}/>
+        <View className="mt-4 h-full">
+          <Pdf 
+              // key={index}
+              // scale={pdfZoom}
+              page={1}
+              // style={styles.pdf}
+              style={{flex: 1, width: "100%"}}
+              trustAllCerts={false}
+              source={{
+                  uri: bookData["offlineUrl"],
+                  cache: true
+              }}
+              onLoadComplete={(numberOfPages, filePath) => {
+                  //totalPage(numberOfPages)
+              }}
+              onError={(err)=>{
+                  console.log(`err pdf : ${err}`)
+              }}
+              // onPageChanged={(page) => {
+              //     currentPage(page)
+              //     dispatch({
+              //         type: 'SCROLL_PAGE',
+              //         payload: {
+              //             number: page
+              //         }
+              //     })
+              // }}
+          />
         </View>
-      </ScrollView>
     </View>
   );
 }
