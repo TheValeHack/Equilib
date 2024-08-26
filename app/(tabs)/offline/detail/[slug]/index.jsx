@@ -34,7 +34,7 @@ export default function PageScreen () {
             <View className="w-[70%] pl-3 flex flex-col justify-between h-32">
                 <View>
                     <Text style={GlobalStyles.text_bold} className="text-xl ">{detailData?.title}</Text>
-                    <Text style={GlobalStyles.text_medium} className="text-sm ">{detailData?.author}</Text>
+                    <Text style={GlobalStyles.text_medium} className="text-sm ">{detailData?.author}, {detailData?.year}</Text>
                 </View>
                 <View className="flex flex-row items-center w-full ">
                 <View className="w-full py-2 mt-2 mb-1 rounded-lg  border-primary border-2 mr-5 " onTouchEndCapture={() => router.push(`/offline/baca/${btoa(detailData?.pdfUrl)}`)}>

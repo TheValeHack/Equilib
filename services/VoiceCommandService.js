@@ -127,6 +127,42 @@ export default function VoiceCommandService(externalData, setCommands) {
       } else {
         response = await downloadOfflineBook(title)
       }
+    } else if (commandsData.readSynopsis.some(prefix => command.startsWith(prefix))) {
+      const matchingCommand = commandsData.readSynopsis.find(prefix => command.startsWith(prefix))
+      const title = command.replace(matchingCommand, '').trim()
+      if(currentPage.startsWith('/detail/') || currentPage.startsWith('/offline/detail/')){
+        if(title.length == 0){
+          const slug = currentPage.startsWith('/offline/detail/') ? currentPage.slice(16) : currentPage.slice(8)
+          const book = bookData.find((item) => btoa(item.pdfUrl) === slug)
+          response = readBookSynopsis(book.title)
+        } else {
+          response = 'Silahkan ke halaman beranda untuk membaca sinopsis buku spesifik.'
+        }
+      } else {
+        if(title.length == 0){
+          response = 'Tolong sertakan judul atau nomor buku.'
+        } else {
+          response = readBookSynopsis(title)
+        }
+      }
+    } else if (commandsData.readDetail.some(prefix => command.startsWith(prefix))) {
+      const matchingCommand = commandsData.readDetail.find(prefix => command.startsWith(prefix))
+      const title = command.replace(matchingCommand, '').trim()
+      if(currentPage.startsWith('/detail/') || currentPage.startsWith('/offline/detail/')){
+        if(title.length == 0){
+          const slug = currentPage.startsWith('/offline/detail/') ? currentPage.slice(16) : currentPage.slice(8)
+          const book = bookData.find((item) => btoa(item.pdfUrl) === slug)
+          response = readBookDetail(book.title)
+        } else {
+          response = 'Silahkan ke halaman beranda untuk membaca detail buku spesifik.'
+        }
+      } else {
+        if(title.length == 0){
+          response = 'Tolong sertakan judul atau nomor buku.'
+        } else {
+          response = readBookDetail(title)
+        }
+      }
     } else if(commandsData.read_settings.includes(command)) {
       response = readPengaturan(externalData)
     }  else if (commandsData.detail_settings.some(prefix => command.startsWith(prefix))) {
@@ -271,7 +307,11 @@ export default function VoiceCommandService(externalData, setCommands) {
     const openBookDetail = (title) => {
         const book = bookData.find(book => book.title.toLowerCase() === title.toLowerCase())
         if (book) {
-        router.push(`detail/${btoa(book.pdfUrl)}`)
+        let detailPath = '/detail/'
+        if(currentPage.startsWith('/offline')){
+          detailPath = '/offline' + detailPath
+        }
+        router.push(`${detailPath}${btoa(book.pdfUrl)}`)
         return `Buku ${book.title} telah dibuka`
         } else {
         return openBookDetailByIndex(title)
@@ -284,7 +324,11 @@ export default function VoiceCommandService(externalData, setCommands) {
           console.log(index)
         const book = bookData[parseInt(index) - 1]
         console.log('Opening book detail for:', book.title)
-        router.push(`detail/${btoa(book.pdfUrl)}`)
+        let detailPath = '/detail/'
+        if(currentPage.startsWith('/offline')){
+          detailPath = '/offline' + detailPath
+        }
+        router.push(`${detailPath}${btoa(book.pdfUrl)}`)
         return `Buku ${book.title} telah dibuka`
         } else {
         return 'Buku tidak ditemukan!'
@@ -313,6 +357,40 @@ const downloadOfflineBookByIndex = async (index) => {
     } else {
       return 'Buku tidak ditemukan!'
     }
+}
+const readBookSynopsis = (title) => {
+  const book = bookData.find(book => book.title.toLowerCase() === title.toLowerCase())
+  if (book) {
+    return `Berikut sinopsis buku ${book.title}. ${book.synopsis}`
+  } else {
+    return readBookSynopsisByIndex(title)
+  }
+}
+
+const readBookSynopsisByIndex = (index) => {
+  if (index > 0 && index <= bookData.length && isNumeric(index)) {
+    const book = bookData[parseInt(index) - 1]
+    return `Berikut sinopsis buku ${book.title}. ${book.synopsis}`
+  } else {
+    return 'Buku tidak ditemukan!'
+  }
+}
+const readBookDetail = (title) => {
+  const book = bookData.find(book => book.title.toLowerCase() === title.toLowerCase())
+  if (book) {
+    return `Buku ini berjudul ${book.title}, ditulis oleh ${book.author} pada tahun ${book.year}`
+  } else {
+    return readBookDetailByIndex(title)
+  }
+}
+
+const readBookDetailByIndex = (index) => {
+  if (index > 0 && index <= bookData.length && isNumeric(index)) {
+    const book = bookData[parseInt(index) - 1]
+    return `Buku ini berjudul ${book.title}, ditulis oleh ${book.author} pada tahun ${book.year}`
+  } else {
+    return 'Buku tidak ditemukan!'
+  }
 }
 
   const handleVoiceError = (error) => {
