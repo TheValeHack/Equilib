@@ -15,46 +15,46 @@ import { AppContext } from "../../../context/AppContext";
 export default function BacaScreen() {
   const { dispatch, externalData } = useContext(AppContext)
   const { slug } = useLocalSearchParams();
-  const { data, updateData } = useData();
-  // https://www.planetebook.com/free-ebooks/david-copperfield.pdf
+  const { data, detailData, fetchDetailData } = useData(slug);
+
+    useEffect(() => {
+        fetchDetailData()
+    }, [slug])
 
 
   return (
-    <View className="flex-1 min-h-screen">
-      <CommandBox />
-      <ScrollView className="mt-4">
-        <DownloadBook data={data[0]} />
-        <Text className="text-xl mb-3 mt-3" style={GlobalStyles.text_bold}>Buku untukmu</Text>
-        <View className="w-full h-full">
-        <Pdf 
-          // key={index}
-          // scale={pdfZoom}
-          page={1}
-          // style={styles.pdf}
-          style={{flex: 1, backgroundColor: "#000000", width: "100%", height: 2000}}
-          trustAllCerts={false}
-          source={{
-              uri: "https://internetmediagroup.bg/wp-content/uploads/2023/03/the-psychology-of-money-by-morgan-housel.pdf",
-              cache: true
-          }}
-          onLoadComplete={(numberOfPages, filePath) => {
-              //totalPage(numberOfPages)
-          }}
-          onError={(err)=>{
-              console.log(`err pdf : ${err}`)
-          }}
-          // onPageChanged={(page) => {
-          //     currentPage(page)
-          //     dispatch({
-          //         type: 'SCROLL_PAGE',
-          //         payload: {
-          //             number: page
-          //         }
-          //     })
-          // }}
-      />
+    <View className="flex-1 min-h-screen pt-4 pb-24">
+        <CommandBox />
+        <DownloadBook data={detailData} />
+        <View className="mt-4 h-full">
+          <Pdf 
+              // key={index}
+              // scale={pdfZoom}
+              page={1}
+              // style={styles.pdf}
+              style={{flex: 1, width: "100%"}}
+              trustAllCerts={false}
+              source={{
+                  uri: "https://internetmediagroup.bg/wp-content/uploads/2023/03/the-psychology-of-money-by-morgan-housel.pdf",
+                  cache: true
+              }}
+              onLoadComplete={(numberOfPages, filePath) => {
+                  //totalPage(numberOfPages)
+              }}
+              onError={(err)=>{
+                  console.log(`err pdf : ${err}`)
+              }}
+              // onPageChanged={(page) => {
+              //     currentPage(page)
+              //     dispatch({
+              //         type: 'SCROLL_PAGE',
+              //         payload: {
+              //             number: page
+              //         }
+              //     })
+              // }}
+          />
         </View>
-      </ScrollView>
     </View>
   );
 }

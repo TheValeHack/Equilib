@@ -7,7 +7,7 @@
         "settings": ["pengaturan", "settings", "option"],
         "offline": ["offline", "unduhan"]
     },
-    "speakBookData": ["bacakan buku", "bacakan", "bacakan buku"],
+    "speakBookData": ["bacakan buku", "bacakan daftar buku", "bajakan daftar buku", "bajakan buku"],
     "openBook": ["buka buku", "buka buku"],
     "read_settings": ["bacakan pengaturan", "bajakan pengaturan"],
     "detail_settings": ["bacakan detail pengaturan", "detail pengaturan", "bacakan ditel pengaturan", "ditel pengaturan"],
@@ -17,5 +17,7 @@
     "unsave_book": ["hapus buku", "hapus buku ini"],
     "speakSavedBookData": ["bacakan buku yang disimpan", "bacakan buku yang disimpan"],
     "cariBuku": ["cari buku", "cari buku ini", "cari buku yang ini", "cari buku yang", "cari buku yang ini"],
-    "downloadBook": ["unduh buku", "download buku"]
+    "downloadBook": ["unduh buku", "download buku"],
+    "readSynopsis": ["bacakan sinopsis buku", "baca sinopsis buku", "bacakan sinopsis", "baca sinopsis"],
+    "readDetail": ["bacakan detail buku", "bacakan ditel buku", "bacakan detail", "bacakan ditel"]
 }
