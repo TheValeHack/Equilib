@@ -35,7 +35,7 @@ export default function SearchScreen() {
         <View className="flex flex-row flex-wrap justify-between w-full pb-96">
         {
             offlineData.map((book, index) => (
-            <BookCard {...book.attributes} coverUrl={process.env.EXPO_PUBLIC_BE_URL + book.attributes.coverUrl.data.attributes.url} key={index} />
+            <BookCard {...book.attributes} id={book.id} coverUrl={process.env.EXPO_PUBLIC_BE_URL + book.attributes.coverUrl.data.attributes.url} key={index} />
           ))
           }
         </View>

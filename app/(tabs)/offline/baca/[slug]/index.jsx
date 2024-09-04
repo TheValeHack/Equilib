@@ -9,14 +9,17 @@ import DownloadBook from "../../../../../components/global/DownloadBook";
 import { useLocalSearchParams } from "expo-router";
 import Pdf from "react-native-pdf"
 import CommandBox from "../../../../../components/global/CommandBox";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useIsFocused } from "@react-navigation/native";
+import { AppContext } from "../../../../../context/AppContext";
 
 export default function BacaScreen() {
+  const { dispatch, externalData } = useContext(AppContext)
   const { slug } = useLocalSearchParams();
   const [bookData, setBookData] = useState({})
-  const [loading, setLoading] = useState(true)
+  const [currentBookData, setCurrentBookData] = useState({});
+  const [loading, setLoading] = useState(true);
   const isFocused = useIsFocused()
 
   useEffect(() => {
@@ -40,6 +43,37 @@ export default function BacaScreen() {
     fetchSettings();
   }, [slug])
 
+  useEffect(() => {
+      if(bookData?.id != parseInt(slug)){
+          setLoading(true)
+      }
+  }, [isFocused])
+
+  useEffect(() => {
+      if(bookData.id == parseInt(slug)){
+        setCurrentBookData({
+            ...bookData,
+            'transcriptLocation': bookData.attributes.transcriptLocation,
+            'setCurrentBookData': setCurrentBookData,
+            'currentPage': 1
+        })
+        setLoading(false)
+      }
+  }, [bookData])
+
+  useEffect(() => {
+    dispatch({
+    type: 'SET_EXTERNAL_DATA',
+    payload: {
+        externalData: {
+            ...externalData,
+            'setCurrentBookData': setCurrentBookData,
+            'currentBookData': currentBookData
+        }
+    }
+    })
+  },[currentBookData])
+
   if(loading){
     return <></>
   }
@@ -51,7 +85,7 @@ export default function BacaScreen() {
           <Pdf 
               // key={index}
               // scale={pdfZoom}
-              page={1}
+              page={externalData['currentBookData']['currentPage'] ? externalData['currentBookData']['currentPage'] : 1 }
               // style={styles.pdf}
               style={{flex: 1, width: "100%"}}
               trustAllCerts={false}
@@ -65,15 +99,12 @@ export default function BacaScreen() {
               onError={(err)=>{
                   console.log(`err pdf : ${err}`)
               }}
-              // onPageChanged={(page) => {
-              //     currentPage(page)
-              //     dispatch({
-              //         type: 'SCROLL_PAGE',
-              //         payload: {
-              //             number: page
-              //         }
-              //     })
-              // }}
+              onPageChanged={(page) => {
+                  setCurrentBookData({
+                    ...currentBookData,
+                    currentPage: page
+                  })
+              }}
           />
         </View>
     </View>

@@ -12,7 +12,8 @@ import * as FileSystem from 'expo-file-system';
 export default function VoiceCommandService(externalData, setCommands) {
   let settingsValue = null;
   let currentPage = '/'
-  let booksData = [];
+  let booksData = []
+  let offlineBooksData = []
 
   const fetchSettings = async () => {
     settingsValue = await getSettings();
@@ -25,6 +26,16 @@ export default function VoiceCommandService(externalData, setCommands) {
       console.error('Failed to fetch book data:', error);
     }
   };
+
+  const fetchOfflineBooksData = async () => {
+    try {
+      const JSONOfflineData = await AsyncStorage.getItem('offlineBook')
+      const offlineData = JSONOfflineData ? JSON.parse(JSONOfflineData) : [];
+      offlineBooksData = offlineData
+    }  catch (error) {
+      console.error('Failed to fetch book data:', error);
+    }
+  }
 
   const initialize = async () => {
     await fetchSettings();
@@ -139,7 +150,7 @@ export default function VoiceCommandService(externalData, setCommands) {
     } else if (commandsData.openBook.some(prefix => command.startsWith(prefix))) {
       const matchingCommand = commandsData.openBook.find(prefix => command.startsWith(prefix));
       const title = command.replace(matchingCommand, '').trim();
-      response = openBookDetail(title);
+      response = await openBookDetail(title);
     } else if (commandsData.downloadBook.some(prefix => command.startsWith(prefix))) {
       const matchingCommand = commandsData.downloadBook.find(prefix => command.startsWith(prefix));
       const title = command.replace(matchingCommand, '').trim();
@@ -312,14 +323,11 @@ export default function VoiceCommandService(externalData, setCommands) {
 
   // function to speak top 5 book data
     const speakBookData = () => {
-        const top5Books = booksData.slice(0, 5)
-        let response = 'Berikut adalah 5 buku teratas: '
-        top5Books.forEach((book, index) => {
-          console.log(book)
-        response += `${index + 1}. ${book.attributes.title} oleh ${book.attributes.author}. `
-        })
-
-        return response
+        if(currentPage == '/' || currentPage == '/readlist' || currentPage == '/offline'){
+          return 'sabar'
+        } else {
+          return 'Anda tidak berada dalam halaman daftar buku apapun.'
+        }
     }
 
   //   function to speak saved book data
@@ -335,35 +343,52 @@ export default function VoiceCommandService(externalData, setCommands) {
   }
 
   //   function to open the book detail page by title
-    const openBookDetail = (title) => {
+    const openBookDetail = async (title) => {
         const book = booksData.find(book => book.attributes.title.toLowerCase() === title.toLowerCase())
         if (book) {
-        let detailPath = '/detail/'
-        if(currentPage.startsWith('/offline')){
-          detailPath = '/offline' + detailPath
-        }
-        router.push(`${detailPath}${btoa(book.pdfUrl)}`)
-        return `Buku ${book.attributes.title} telah dibuka`
+          let detailPath = '/detail/'
+          if(currentPage.startsWith('/offline')){
+            await fetchOfflineBooksData()
+            if(offlineBooksData.find(offlineBook => offlineBook.id == book.id)){
+              detailPath = '/offline' + detailPath
+            } else {
+              return 'Anda belum mengunduh buku tersebut.'
+            }
+          }
+          console.log(currentPage)
+          console.log(detailPath)
+          router.push(`${detailPath}${book.id}`)
+          return `Buku ${book.attributes.title} telah dibuka`
         } else {
         return openBookDetailByIndex(title)
         }
     }
 
   //   function to open book detail page by index order's number
-    const openBookDetailByIndex = (index) => {
-        if (index > 0 && index <= booksData.length && isNumeric(index)) {
+    const openBookDetailByIndex = async (index) => {
+        if (index > 0 && isNumeric(index)) {
+          const book = booksData.find(book => book.id == index)
           console.log(index)
-        const book = booksData[parseInt(index) - 1]
-        console.log('Opening book detail for:', book.attributes.title)
-        let detailPath = '/detail/'
-        if(currentPage.startsWith('/offline')){
-          detailPath = '/offline' + detailPath
-        }
-        router.push(`${detailPath}${book.id}`)
-        return `Buku ${book.attributes.title} telah dibuka`
-        } else {
-        return 'Buku tidak ditemukan!'
+          console.log(book)
+          if(!book){
+            return 'Buku tidak ditemukan!'
           }
+          let detailPath = '/detail/'
+          if(currentPage.startsWith('/offline')){
+            await fetchOfflineBooksData()
+            if(offlineBooksData.find(offlineBook => offlineBook.id == book.id)){
+              detailPath = '/offline' + detailPath
+            } else {
+              return 'Anda belum mengunduh buku tersebut.'
+            }
+          }
+          console.log(currentPage)
+          console.log(detailPath)
+          router.push(`${detailPath}${book.id}`)
+          return `Buku ${book.attributes.title} telah dibuka`
+        } else {
+          return 'Buku tidak ditemukan!'
+        }
   }
 
   const downloadOfflineBook = async (title) => {
@@ -440,8 +465,8 @@ const readBookDetailByIndex = (index) => {
 }
 
 const readCurrentPage = async () => {
-  if(currentPage.startsWith('/baca/')){
-    const slug = currentPage.slice(6);
+  if(currentPage.startsWith('/baca/') || currentPage.startsWith('/offline/baca/')){
+    const slug = currentPage.startsWith('/baca/') ? currentPage.slice(6) : currentPage.slice(14)
     const currentBookData = externalData['currentBookData']
     if(currentBookData.id == parseInt(slug)){
       const jsonString = await FileSystem.readAsStringAsync(currentBookData['transcriptLocation'], { encoding: FileSystem.EncodingType.UTF8 });
@@ -469,13 +494,11 @@ const goBack = () => {
   } catch {
     return 'Maaf, anda tidak bisa kembali ke halaman sebelumnya.'
   }
-  
-
 }
 
 const goToNextPage = () => {
-  if(currentPage.startsWith('/baca/')){
-    const slug = currentPage.slice(6);
+  if(currentPage.startsWith('/baca/') || currentPage.startsWith('/offline/baca/')){
+    const slug = currentPage.startsWith('/baca/') ? currentPage.slice(6) : currentPage.slice(14)
     const currentBookData = externalData['currentBookData']
     const setCurrentBookData = externalData['setCurrentBookData']
     console.log('here')
@@ -499,8 +522,8 @@ const goToNextPage = () => {
 }
 
 const goToPreviousPage = () => {
-  if(currentPage.startsWith('/baca/')){
-    const slug = currentPage.slice(6);
+  if(currentPage.startsWith('/baca/') || currentPage.startsWith('/offline/baca/')){
+    const slug = currentPage.startsWith('/baca/') ? currentPage.slice(6) : currentPage.slice(14)
     const currentBookData = externalData['currentBookData']
     const setCurrentBookData = externalData['setCurrentBookData']
     console.log('here')
@@ -524,8 +547,8 @@ const goToPreviousPage = () => {
 }
 
 const goToSpesificPage = (number) => {
-  if(currentPage.startsWith('/baca/')){
-    const slug = currentPage.slice(6);
+  if(currentPage.startsWith('/baca/') || currentPage.startsWith('/offline/baca/')){
+    const slug = currentPage.startsWith('/baca/') ? currentPage.slice(6) : currentPage.slice(14)
     const currentBookData = externalData['currentBookData']
     const setCurrentBookData = externalData['setCurrentBookData']
     console.log('here')

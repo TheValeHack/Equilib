@@ -37,7 +37,7 @@ export default function ReadListSearchScreen() {
         {
             savedData.map((book, index) => (
             <View key={index} className="mb-4">
-              <BookReadList {...book.attributes} coverUrl={process.env.EXPO_PUBLIC_BE_URL + book.attributes.coverUrl.data.attributes.url} key={index} />
+              <BookReadList {...book.attributes} id={book.id} coverUrl={process.env.EXPO_PUBLIC_BE_URL + book.attributes.coverUrl.data.attributes.url} key={index} />
             </View>
           ))
           }

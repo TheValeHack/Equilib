@@ -1,6 +1,7 @@
 import * as FileSystem from 'expo-file-system';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import generateRandomString from './generateRandomString';
+import downloadTranscript from './downloadTranscript';
 
 export default async function downloadBook(data) {
   try {
@@ -17,6 +18,10 @@ export default async function downloadBook(data) {
     console.log('PDF downloaded to:', uri);
 
     data.attributes['offlineUrl'] = uri;
+
+    const transncriptUrl = await downloadTranscript(data)
+
+    data.attributes['transcriptLocation'] = transncriptUrl.transcriptLocation
 
     const updatedOfflineBooks = [...oldOfflineBooks, data];
     await AsyncStorage.setItem('offlineBook', JSON.stringify(updatedOfflineBooks));
