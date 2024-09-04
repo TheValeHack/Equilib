@@ -23,8 +23,8 @@ const DownloadBook = ({ data, isOffline }) => {
     return (
         <View className="bg-[#FBF3DA] px-3 py-3 rounded-xl">
             <View>
-                <Text style={GlobalStyles.text_bold} className="text-lg text-primary">{data ? data["title"] : ''}</Text>
-                <Text style={GlobalStyles.text_medium} className="text-sm text-primary">{data ? data["author"] : ''}, {data ? data["year"] : ''}</Text>
+                <Text style={GlobalStyles.text_bold} className="text-lg text-primary">{data?.attributes ? data.attributes.title : ''}</Text>
+                <Text style={GlobalStyles.text_medium} className="text-sm text-primary">{data?.attributes ? data.attributes.author : ''}, {data?.attributes ? data.attributes.year : ''}</Text>
             </View>
             {
                 !isOffline && <TouchableOpacity className="w-100 bg-primary mt-2 rounded-lg py-2 mb-1" onPress={unduhBuku}>

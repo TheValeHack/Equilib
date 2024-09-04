@@ -40,10 +40,13 @@ export default function ReadListScreen() {
                 (!loading) && savedData.map((book, index) => {
                 return (
                   <View className="mb-4" key={index}>
-                    <BookReadList {...book} coverUrl={gambar} key={index} />
+                    <BookReadList {...book.attributes} id={book.id} coverUrl={process.env.EXPO_PUBLIC_BE_URL + book.attributes.coverUrl.data.attributes.url} key={index} />
                   </View>
                 );
               })
+            }
+            {
+              savedData.length == 0 && <Text className="text-base mt-2" style={GlobalStyles.text_medium}>Anda belum menyimpan buku apapun.</Text>
             }
         </View>
       </ScrollView>

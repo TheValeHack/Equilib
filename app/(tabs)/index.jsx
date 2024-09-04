@@ -23,7 +23,7 @@ export default function HomeScreen() {
 
   useEffect(() => {
     voiceCommandServiceRef.current = VoiceCommandService({}, setCommands);
-    voiceCommandServiceRef.current.startListening();
+    voiceCommandServiceRef.current.initialize();
 
     const fetchSettings = async () => {
       let settingsValue = await getSettings();
@@ -36,6 +36,10 @@ export default function HomeScreen() {
     };
   
     fetchSettings();
+
+    console.log(data.map(e => {
+      return e
+    }))
 
     return () => {
       voiceCommandServiceRef.current.stopListening();
@@ -78,12 +82,14 @@ export default function HomeScreen() {
       <SearchBar placeholder="Cari buku atau penulis" route="" />
       
       <ScrollView className="mt-4">
-        <BookReadList {...data[0]} coverUrl={gambar} />
+        {
+          // (lastReadBook) ? <BookReadList {...lastReadBook} coverUrl={gambar} /> : <></>
+        }
         <Text className="mt-3 mb-3 text-xl" style={GlobalStyles.text_bold}>Buku untukmu</Text>
         <View className="flex flex-row flex-wrap justify-between w-full pb-96">
             {
               data.map((book, index) => {
-                return (<BookCard {...book} coverUrl={gambar} key={index}/>);
+                return (<BookCard {...book.attributes} id={book.id} coverUrl={process.env.EXPO_PUBLIC_BE_URL + book.attributes.coverUrl.data.attributes.url} key={index}/>);
               })
             }
         </View>

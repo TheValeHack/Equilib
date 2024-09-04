@@ -1,23 +1,29 @@
 {
     "keyword": ["kuy kuy", "kui kui", "koi koi", "quy quy", "qui qui", "qoi qoi", "kue kue"],
-    "navigate": ["pindah halaman", "pindah ke halaman", "pergi ke halaman", "pergi ke", "pindah ke", "pindah", "pergi", "halaman", "menuju", "menuju halaman", "menuju ke halaman", "menuju ke", "menuju", "buka halaman", "indah halaman"],
+    "navigate": ["pindah halaman", "pindah ke halaman", "pergi ke halaman", "pergi ke", "pindah ke", "pindah", "pergi", "menuju", "menuju halaman", "menuju ke halaman", "menuju ke", "menuju", "buka halaman", "indah halaman"],
     "halaman": {
         "readlist": ["red list","red life", "grid list", "replace", "reply", "replies", "redli", "ridless", "ripless", "rilis", "ritmis", "ridness", "ridney", "read list", "readlist", "brid please", "brick please", "brid list", "bright list"],
         "beranda": ["beranda", "home", "rumah", "house", "miranda", "home"],
         "settings": ["pengaturan", "settings", "option"],
         "offline": ["offline", "unduhan"]
     },
+    "back": ["kembali", "back", "bek", "bag"],
     "speakBookData": ["bacakan buku", "bacakan daftar buku", "bajakan daftar buku", "bajakan buku"],
     "openBook": ["buka buku", "buka buku"],
+    "readBook": ["baca buku"],
     "read_settings": ["bacakan pengaturan", "bajakan pengaturan"],
     "detail_settings": ["bacakan detail pengaturan", "detail pengaturan", "bacakan ditel pengaturan", "ditel pengaturan"],
     "activate_settings": ["aktifkan pengaturan"],
     "nonactivate_settings": ["nonaktifkan pengaturan", "non aktifkan pengaturan"],
     "save_book": ["simpan buku", "simpan buku ini"],
-    "unsave_book": ["hapus buku", "hapus buku ini"],
+    "unsave_book": ["batalkan simpan buku", "batalkan simpan buku ini"],
     "speakSavedBookData": ["bacakan buku yang disimpan", "bacakan buku yang disimpan"],
     "cariBuku": ["cari buku", "cari buku ini", "cari buku yang ini", "cari buku yang", "cari buku yang ini"],
     "downloadBook": ["unduh buku", "download buku"],
     "readSynopsis": ["bacakan sinopsis buku", "baca sinopsis buku", "bacakan sinopsis", "baca sinopsis"],
-    "readDetail": ["bacakan detail buku", "bacakan ditel buku", "bacakan detail", "bacakan ditel"]
+    "readDetail": ["bacakan detail buku", "bacakan ditel buku", "bacakan detail", "bacakan ditel"],
+    "readPage": ["bacakan halaman", "baca halaman"],
+    "nextPage": ["halaman selanjutnya"],
+    "previousPage": ["halaman sebelumnya"],
+    "spesificPage": ["halaman"]
 }
