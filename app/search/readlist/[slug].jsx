@@ -10,7 +10,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function ReadListSearchScreen() {
   const { slug } = useLocalSearchParams();
-  const { data, updateData } = useData();
     const [savedData, setSavedData] = useState([])
 
   useEffect(() => {
@@ -21,7 +20,7 @@ export default function ReadListSearchScreen() {
         const JSONSavedData = await AsyncStorage.getItem('savedBook')
         const savedData = JSONSavedData ? JSON.parse(JSONSavedData) : [];
         const filteredBooks = savedData.filter(book =>
-            book.title.toLowerCase().includes(slug?.toLowerCase()) || book.author.toLowerCase().includes(slug?.toLowerCase())
+            book.attributes.title.toLowerCase().includes(slug?.toLowerCase()) || book.attributes.author.toLowerCase().includes(slug?.toLowerCase())
         );
 
         setSavedData(filteredBooks)
@@ -38,7 +37,7 @@ export default function ReadListSearchScreen() {
         {
             savedData.map((book, index) => (
             <View key={index} className="mb-4">
-              <BookReadList {...book} coverUrl={gambar} key={index} />
+              <BookReadList {...book.attributes} coverUrl={process.env.EXPO_PUBLIC_BE_URL + book.attributes.coverUrl.data.attributes.url} key={index} />
             </View>
           ))
           }

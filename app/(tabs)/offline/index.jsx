@@ -38,8 +38,11 @@ export default function OfflineScreen() {
         <View className="flex flex-row flex-wrap justify-between w-full pb-96">
             {
               (!loading) && offlineData.map((book, index) => {
-                return (<BookCard {...book} coverUrl={gambar} key={index} isOffline={true}/>);
+                return (<BookCard {...book.attributes} id={book.id} coverUrl={process.env.EXPO_PUBLIC_BE_URL + book.attributes.coverUrl.data.attributes.url} key={index} isOffline={true}/>);
               })
+            }
+            {
+              offlineData.length == 0 && <Text className="text-base mt-2" style={GlobalStyles.text_medium}>Anda belum mengunduh buku apapun.</Text>
             }
         </View>
       </ScrollView>

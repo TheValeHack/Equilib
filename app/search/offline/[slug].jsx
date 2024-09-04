@@ -10,14 +10,13 @@ import { useState, useEffect } from "react";
 
 export default function SearchScreen() {
   const { slug } = useLocalSearchParams();
-  const { data, updateData } = useData();
   const [offlineData, setOfflineData] = useState([])
 
   const getOfflineData = async () => {
     const JSONOfflineData = await AsyncStorage.getItem('offlineBook')
     const offlineData = JSONOfflineData ? JSON.parse(JSONOfflineData) : [];
     const filteredBooks = offlineData.filter(book =>
-        book.title.toLowerCase().includes(slug?.toLowerCase()) || book.author.toLowerCase().includes(slug?.toLowerCase())
+        book.attributes.title.toLowerCase().includes(slug?.toLowerCase()) || book.attributes.author.toLowerCase().includes(slug?.toLowerCase())
     );
 
     setOfflineData(filteredBooks)
@@ -36,7 +35,7 @@ export default function SearchScreen() {
         <View className="flex flex-row flex-wrap justify-between w-full pb-96">
         {
             offlineData.map((book, index) => (
-            <BookCard {...book} coverUrl={gambar} key={index} />
+            <BookCard {...book.attributes} coverUrl={process.env.EXPO_PUBLIC_BE_URL + book.attributes.coverUrl.data.attributes.url} key={index} />
           ))
           }
         </View>

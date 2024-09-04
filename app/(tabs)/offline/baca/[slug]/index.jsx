@@ -11,20 +11,21 @@ import Pdf from "react-native-pdf"
 import CommandBox from "../../../../../components/global/CommandBox";
 import { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useIsFocused } from "@react-navigation/native";
 
 export default function BacaScreen() {
   const { slug } = useLocalSearchParams();
-  const { data, detailData, fetchDetailData } = useData(slug);
   const [bookData, setBookData] = useState({})
   const [loading, setLoading] = useState(true)
-  // https://www.planetebook.com/free-ebooks/david-copperfield.pdf
+  const isFocused = useIsFocused()
 
   useEffect(() => {
+    console.log(slug)
     const fetchSettings = async () => {
       const storageOfflineBooks = await AsyncStorage.getItem('offlineBook');
       if(storageOfflineBooks){
         const offlineBooks = JSON.parse(storageOfflineBooks)
-        const currentBook = offlineBooks.find((item) => btoa(item.pdfUrl) === slug)
+        const currentBook = offlineBooks.find((item) => item.id === parseInt(slug))
         if(currentBook){
           setBookData(currentBook)
         } else {
@@ -37,11 +38,7 @@ export default function BacaScreen() {
     };
   
     fetchSettings();
-  }, [])
-
-  useEffect(() => {
-    fetchDetailData()
-}, [slug])
+  }, [slug])
 
   if(loading){
     return <></>
@@ -49,7 +46,7 @@ export default function BacaScreen() {
   return (
     <View className="flex-1 min-h-screen pt-4 pb-24">
         <CommandBox />
-        <DownloadBook data={detailData} isOffline={true}/>
+        <DownloadBook data={bookData} isOffline={true}/>
         <View className="mt-4 h-full">
           <Pdf 
               // key={index}
@@ -59,7 +56,7 @@ export default function BacaScreen() {
               style={{flex: 1, width: "100%"}}
               trustAllCerts={false}
               source={{
-                  uri: bookData["offlineUrl"],
+                  uri: bookData.attributes["offlineUrl"],
                   cache: true
               }}
               onLoadComplete={(numberOfPages, filePath) => {

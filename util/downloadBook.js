@@ -7,16 +7,16 @@ export default async function downloadBook(data) {
     const storageOfflineBooks = await AsyncStorage.getItem('offlineBook');
     let oldOfflineBooks = storageOfflineBooks ? JSON.parse(storageOfflineBooks) : [];
 
-    if (oldOfflineBooks.some(book => book.pdfUrl === data.pdfUrl)) {
+    if (oldOfflineBooks.some(book => book.id === data.id)) {
       return { success: false, message: 'Buku sudah diunduh' };
     }
 
-    const pdfUrl = 'https://ftp.unpad.ac.id/bse/Kurikulum_2006/11_SMA/kelas_11_sma_biologi_suwarno.pdf';
+    const pdfUrl = process.env.EXPO_PUBLIC_BE_URL + data.attributes.pdfUrl.data.attributes.url;
     const pdfPath = `${FileSystem.documentDirectory}${generateRandomString(24)}.pdf`;
     const { uri } = await FileSystem.downloadAsync(pdfUrl, pdfPath);
     console.log('PDF downloaded to:', uri);
 
-    data['offlineUrl'] = uri;
+    data.attributes['offlineUrl'] = uri;
 
     const updatedOfflineBooks = [...oldOfflineBooks, data];
     await AsyncStorage.setItem('offlineBook', JSON.stringify(updatedOfflineBooks));
