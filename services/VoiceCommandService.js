@@ -14,6 +14,10 @@ export default function VoiceCommandService(externalData, setCommands) {
   let currentPage = '/'
   let booksData = []
   let offlineBooksData = []
+  let savedBooksData = []
+  let booksListIndex = [0, 0]
+  let booksPerPage = 4
+  let doneFetch = false
 
   const fetchSettings = async () => {
     settingsValue = await getSettings();
@@ -37,6 +41,16 @@ export default function VoiceCommandService(externalData, setCommands) {
     }
   }
 
+  const fetchSavedBooksData = async () => {
+    try {
+      const JSONSavedBook = await AsyncStorage.getItem('savedBook')
+      const savedBook = JSONSavedBook ? JSON.parse(JSONSavedBook) : [];
+      savedBooksData = savedBook
+    }  catch (error) {
+      console.error('Failed to fetch book data:', error);
+    }
+  }
+
   const initialize = async () => {
     await fetchSettings();
     await fetchBookData();
@@ -54,6 +68,15 @@ export default function VoiceCommandService(externalData, setCommands) {
   };
   const updateCurrentPage = (newPage) => {
     currentPage = newPage;
+  };
+  const updateBooksListIndex = (startIndex, lastIndex) => {
+    booksListIndex = [startIndex, lastIndex];
+    console.log('vcs: ' + booksListIndex)
+    if(startIndex == 0){
+      doneFetch = false;
+    } else {
+      doneFetch = true;
+    }
   };
 
   const startListening = () => {
@@ -136,7 +159,11 @@ export default function VoiceCommandService(externalData, setCommands) {
     } else if (commandsData.readBook.some(prefix => command.startsWith(prefix))) {
       response = readCurrentBook();
     } else if (commandsData.speakBookData.some(prefix => command.startsWith(prefix))) {
-      response = speakBookData();
+      response = await speakBookData();
+    } else if (commandsData.nextBookData.some(prefix => command.startsWith(prefix))) {
+      response = await nextBookData();
+    }  else if (commandsData.previousBookData.some(prefix => command.startsWith(prefix))) {
+      response = await previousBookData();
     } else if (commandsData.readPage.some(prefix => command.startsWith(prefix))) {
       response = await readCurrentPage();
     } else if (commandsData.nextPage.some(prefix => command.startsWith(prefix))) {
@@ -321,16 +348,155 @@ export default function VoiceCommandService(externalData, setCommands) {
     return 'Pengaturan berhasil diperbarui'
   }
 
-  // function to speak top 5 book data
-    const speakBookData = () => {
+    const nextBookData = async () => {
+      if(currentPage == '/' || currentPage == '/readlist' || currentPage == '/offline'){
+        if(!doneFetch){
+          if(currentPage == '/readlist'){
+            await fetchSavedBooksData()
+          } else if(currentPage == '/offline'){
+            await fetchOfflineBooksData()
+          }
+        }
+
+        let booksDataList = null
+        let setCurrentPageNumber = null
+
+        switch(currentPage){
+          case '/':
+            booksDataList = booksData
+            setCurrentPageNumber = externalData['setCurrentPageNumber']
+            break
+          case '/readlist':
+            booksDataList = savedBooksData
+            setCurrentPageNumber = externalData['setCurrentPageNumberReadlist']
+            break
+          case '/offline':
+            booksDataList = offlineBooksData
+            setCurrentPageNumber = externalData['setCurrentPageNumberOffline']
+            break
+          default:
+            break
+        }
+        const currentPageNumber = (booksListIndex[0] /  booksPerPage) + 1
+        const totalPages = Math.ceil(booksDataList.length / booksPerPage);
+
+        if(booksDataList.length == 0){
+          return "Tidak ada buku apapun pada daftar."
+        } else {
+          if (currentPageNumber < totalPages) {
+            const startIndex = (currentPageNumber) * booksPerPage;
+            const endIndex = startIndex + booksPerPage;
+    
+            setCurrentPageNumber(currentPageNumber + 1)
+            booksListIndex = [startIndex, endIndex]
+    
+            return 'Berhasil berpindah ke daftar selanjutnya.'
+          } else {
+            return 'Anda sudah berada di daftar terakhir.'
+          }
+        }
+      } else {
+        return 'Anda tidak berada dalam halaman daftar buku apapun.'
+      }
+    }
+
+    const previousBookData = async () => {
+      if(currentPage == '/' || currentPage == '/readlist' || currentPage == '/offline'){
+        if(!doneFetch){
+          if(currentPage == '/readlist'){
+            await fetchSavedBooksData()
+          } else if(currentPage == '/offline'){
+            await fetchOfflineBooksData()
+          }
+        }
+
+        let booksDataList = null
+        let setCurrentPageNumber = null
+
+        switch(currentPage){
+          case '/':
+            booksDataList = booksData
+            setCurrentPageNumber = externalData['setCurrentPageNumber']
+            break
+          case '/readlist':
+            booksDataList = savedBooksData
+            setCurrentPageNumber = externalData['setCurrentPageNumberReadlist']
+            break
+          case '/offline':
+            booksDataList = offlineBooksData
+            setCurrentPageNumber = externalData['setCurrentPageNumberOffline']
+            break
+          default:
+            break
+        }
+        const currentPageNumber = (booksListIndex[0] /  booksPerPage) + 1
+        const totalPages = Math.ceil(booksData.length / booksPerPage);
+          if (currentPageNumber > 1) {
+            const startIndex = (currentPageNumber - 1) * booksPerPage;
+            const endIndex = startIndex + booksPerPage;
+    
+            setCurrentPageNumber(currentPageNumber - 1)
+            booksListIndex = [startIndex, endIndex]
+    
+            return 'Berhasil berpindah ke daftar sebelumnya.'
+          } else {
+            return 'Anda sudah berada di daftar pertama.'
+          }
+      } else {
+        return 'Anda tidak berada dalam halaman daftar buku apapun.'
+      }
+    }
+
+    const speakBookData = async () => {
+        let bookToSpeak = null;
+        let speakText = ""
+        let nullText = ""
         if(currentPage == '/' || currentPage == '/readlist' || currentPage == '/offline'){
-          return 'sabar'
+          if(!doneFetch){
+            if(currentPage == '/readlist'){
+              await fetchSavedBooksData()
+            } else if(currentPage == '/offline'){
+              await fetchOfflineBooksData()
+            }
+          }
+          switch(currentPage){
+            case '/':
+              bookToSpeak = booksData
+              speakText = "Berikut daftar buku teratas pada halaman beranda."
+              nullText = "Tidak ditemukan buku apapun pada beranda."
+              break
+            case '/readlist':
+              bookToSpeak = savedBooksData
+              speakText = "Berikut daftar buku teratas yang anda simpan."
+              nullText = "Anda belum menyimpan buku apapun."
+              break
+            case '/offline':
+              bookToSpeak = offlineBooksData
+              speakText = "Berikut daftar buku teratas yang anda unduh."
+              nullText = "Anda belum mengunduh buku apapun."
+              break
+            default:
+              break
+          }
+          if(bookToSpeak.length == 0){
+            return nullText
+          } else {
+            let response = ""
+            console.log('ini' + booksListIndex)
+            const speakedBooks = bookToSpeak.slice(booksListIndex[0], booksListIndex[1])
+            if(booksListIndex[0] == 0){
+              response += speakText
+            }
+            for(book of speakedBooks){
+              response += `Buku ${book.id} berjudul ${book.attributes.title} oleh ${book.attributes.author}.`
+            }
+            return response
+          }
         } else {
           return 'Anda tidak berada dalam halaman daftar buku apapun.'
         }
     }
 
-  //   function to speak saved book data
     const speakSavedBookData = async () => {
         const JSONSavedBook = await AsyncStorage.getItem('savedBook')
         const savedBook = JSONSavedBook ? JSON.parse(JSONSavedBook) : []
@@ -342,7 +508,6 @@ export default function VoiceCommandService(externalData, setCommands) {
         return response
   }
 
-  //   function to open the book detail page by title
     const openBookDetail = async (title) => {
         const book = booksData.find(book => book.attributes.title.toLowerCase() === title.toLowerCase())
         if (book) {
@@ -364,7 +529,6 @@ export default function VoiceCommandService(externalData, setCommands) {
         }
     }
 
-  //   function to open book detail page by index order's number
     const openBookDetailByIndex = async (index) => {
         if (index > 0 && isNumeric(index)) {
           const book = booksData.find(book => book.id == index)
@@ -586,6 +750,7 @@ const goToSpesificPage = (number) => {
     updateCurrentPage,
     updateExternalData,
     updateSettingsData,
+    updateBooksListIndex,
     initialize,
     startListening,
     stopListening,

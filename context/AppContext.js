@@ -9,6 +9,13 @@ export const AppReducer = (state, action) => {
             return {
                 ...state
             }
+        case 'SET_BOOKLIST_INDEX':
+            let booklist = action.payload.booklist
+            state.booklist = booklist
+            action.type = 'DONE'
+            return {
+                ...state
+            }
         case 'SET_SETTINGS':
             let settingsData = action.payload.settingsData
             state.settingsData = settingsData
@@ -29,6 +36,7 @@ export const AppReducer = (state, action) => {
 }
 
 const initialState = {
+    booklist: [0,0],
     externalData: {},
     settingsData: {},
     currentCommand: ''
@@ -43,6 +51,7 @@ export const AppProvider = (props) => {
         <AppContext.Provider
             value={{
                 dispatch,
+                booklist: state.booklist,
                 externalData: state.externalData,
                 settingsData: state.settingsData,
                 currentCommand: state.currentCommand,

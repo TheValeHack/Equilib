@@ -1,4 +1,4 @@
-import { ScrollView, Text, View } from "react-native";
+import { ScrollView, Text, View, Button } from "react-native";
 import SearchBar from "@/components/global/SearchBar";
 import GlobalStyles from "@/styles/GlobalStyles";
 import useData from "@/hooks/useData";
@@ -16,6 +16,34 @@ export default function OfflineScreen() {
   const [loading, setLoading] = useState(true);
   const { dispatch, externalData } = useContext(AppContext);
 
+  const [currentPageNumber, setCurrentPageNumberOffline] = useState(1);
+  const booksPerPage = 4;
+  const totalPages = Math.ceil(offlineData.length / booksPerPage);
+
+  const getCurrentPageBooks = () => {
+    const startIndex = (currentPageNumber - 1) * booksPerPage;
+    const endIndex = startIndex + booksPerPage;
+    return offlineData.slice(startIndex, endIndex);
+  };
+
+  const handleNextPage = () => {
+    if (currentPageNumber < totalPages) {
+      setCurrentPageNumberOffline(currentPageNumber + 1);
+      return 'Berhasil berpindah ke daftar selanjutnya.'
+    } else {
+      return 'Anda sudah berada pada daftar terakhir.'
+    }
+  };
+
+  const handlePreviousPage = () => {
+    if (currentPageNumber > 1) {
+      setCurrentPageNumberOffline(currentPageNumber - 1);
+      return 'Berhasil berpindah ke daftar sebelumnya.'
+    } else {
+      return 'Anda sudah berada pada daftar pertama.'
+    }
+  };
+
   const getOfflineData = async () => {
     const JSONOfflineData = await AsyncStorage.getItem('offlineBook')
     const offlineData = JSONOfflineData ? JSON.parse(JSONOfflineData) : [];
@@ -26,7 +54,38 @@ export default function OfflineScreen() {
 
   useEffect(() => {
     getOfflineData()
+    setCurrentPageNumberOffline(1)
+    dispatch({
+      type: 'SET_EXTERNAL_DATA',
+      payload: {
+          externalData: {
+              ...externalData,
+              'setCurrentPageNumberOffline': setCurrentPageNumberOffline
+          }
+      }
+    })
+
+    const startIndex = (currentPageNumber - 1) * booksPerPage;
+    const endIndex = startIndex + booksPerPage;
+    dispatch({
+      type: 'SET_BOOKLIST_INDEX',
+      payload: {
+          booklist: [startIndex, endIndex]
+      }
+    })
   }, [useIsFocused()])
+
+  useEffect(() => {
+    const startIndex = (currentPageNumber - 1) * booksPerPage;
+    const endIndex = startIndex + booksPerPage;
+    console.log([startIndex, endIndex])
+    dispatch({
+      type: 'SET_BOOKLIST_INDEX',
+      payload: {
+          booklist: [startIndex, endIndex]
+      }
+    })
+  }, [currentPageNumber])
 
   return (
     <View className="flex-1 min-h-screen">
@@ -35,15 +94,19 @@ export default function OfflineScreen() {
       
       <ScrollView className="mt-4">
         <Text className="text-xl mb-3 mt-3" style={GlobalStyles.text_bold}>Buku yang kamu unduh</Text>
-        <View className="flex flex-row flex-wrap justify-between w-full pb-96">
+        <View className="flex flex-row flex-wrap justify-between w-full">
             {
-              (!loading) && offlineData.map((book, index) => {
+              (!loading) && getCurrentPageBooks().map((book, index) => {
                 return (<BookCard {...book.attributes} id={book.id} coverUrl={process.env.EXPO_PUBLIC_BE_URL + book.attributes.coverUrl.data.attributes.url} key={index} isOffline={true}/>);
               })
             }
             {
               offlineData.length == 0 && <Text className="text-base mt-2" style={GlobalStyles.text_medium}>Anda belum mengunduh buku apapun.</Text>
             }
+        </View>
+        <View className="flex-row justify-between mt-4 mb-96">
+          <Button title="Sebelumnya" onPress={handlePreviousPage} color="#EFAC00" disabled={currentPageNumber === 1} />
+          <Button title="Selanjutnya" onPress={handleNextPage} color="#EFAC00" disabled={currentPageNumber === totalPages} />
         </View>
       </ScrollView>
     </View>
