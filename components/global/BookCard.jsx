@@ -14,7 +14,7 @@ const BookCard = ({ baseUrl, title, coverUrl, pdfUrl, author, year, synopsis, is
                 onError={() => console.log("Failed to load image:", coverUrl)} 
             />
             <Text style={GlobalStyles.text_medium} className="text-sm text-center text-slate-300 mt-2">{author}, {year}</Text>
-            <Text style={GlobalStyles.text_bold} className="text-base text-center">{title}</Text>
+            <Text style={GlobalStyles.text_bold} className="text-base text-center">({id}) {title}</Text>
         </View>
     );
 }

@@ -1,4 +1,4 @@
-import { ScrollView, Text, View } from "react-native";
+import { ScrollView, Text, View, Button } from "react-native";
 import SearchBar from "@/components/global/SearchBar";
 import GlobalStyles from "@/styles/GlobalStyles";
 import useData from "@/hooks/useData";
@@ -15,11 +15,68 @@ import { usePathname } from "expo-router";
 
 export default function HomeScreen() {
   const currentPage = usePathname();
-  const { externalData, settingsData, dispatch } = useContext(AppContext);
+  const { externalData, settingsData, dispatch, booklist } = useContext(AppContext);
   const { data, updateData } = useData();
   const [commands, setCommands] = useState([]);
   const voiceCommandServiceRef = useRef(null);
   const isFocused = useIsFocused();
+
+  const [currentPageNumber, setCurrentPageNumber] = useState(1);
+  const booksPerPage = 4;
+  const totalPages = Math.ceil(data.length / booksPerPage);
+
+  const getCurrentPageBooks = () => {
+    const startIndex = (currentPageNumber - 1) * booksPerPage;
+    const endIndex = startIndex + booksPerPage;
+    console.log('di index : ' + data.slice(startIndex, endIndex).length)
+    return data.slice(startIndex, endIndex);
+  };
+
+  const handleNextPage = () => {
+    if (currentPageNumber < totalPages) {
+      setCurrentPageNumber(currentPageNumber + 1);
+    }
+  };
+
+  const handlePreviousPage = () => {
+    if (currentPageNumber > 1) {
+      setCurrentPageNumber(currentPageNumber - 1);
+    }
+  };
+
+  useEffect(() => {
+    setCurrentPageNumber(1)
+    dispatch({
+      type: 'SET_EXTERNAL_DATA',
+      payload: {
+          externalData: {
+              ...externalData,
+              'setCurrentPageNumber': setCurrentPageNumber
+          }
+      }
+    })
+
+    const startIndex = (currentPageNumber - 1) * booksPerPage;
+    const endIndex = startIndex + booksPerPage;
+    dispatch({
+      type: 'SET_BOOKLIST_INDEX',
+      payload: {
+          booklist: [startIndex, endIndex]
+      }
+    })
+  }, [isFocused])
+
+  useEffect(() => {
+    const startIndex = (currentPageNumber - 1) * booksPerPage;
+    const endIndex = startIndex + booksPerPage;
+    console.log([startIndex, endIndex])
+    dispatch({
+      type: 'SET_BOOKLIST_INDEX',
+      payload: {
+          booklist: [startIndex, endIndex]
+      }
+    })
+  }, [currentPageNumber])
 
   useEffect(() => {
     voiceCommandServiceRef.current = VoiceCommandService({}, setCommands);
@@ -37,10 +94,6 @@ export default function HomeScreen() {
   
     fetchSettings();
 
-    console.log(data.map(e => {
-      return e
-    }))
-
     return () => {
       voiceCommandServiceRef.current.stopListening();
     };
@@ -48,7 +101,13 @@ export default function HomeScreen() {
 
   useEffect(() => {
     voiceCommandServiceRef.current.updateCurrentPage(currentPage)
+    voiceCommandServiceRef.current.updateBooksListIndex(0)
   }, [currentPage])
+
+  useEffect(() => {
+    console.log('booklist: ' + booklist)
+    voiceCommandServiceRef.current.updateBooksListIndex(booklist[0], booklist[1])
+  }, [booklist])
 
   useEffect(() => {
     if (voiceCommandServiceRef.current) {
@@ -86,12 +145,17 @@ export default function HomeScreen() {
           // (lastReadBook) ? <BookReadList {...lastReadBook} coverUrl={gambar} /> : <></>
         }
         <Text className="mt-3 mb-3 text-xl" style={GlobalStyles.text_bold}>Buku untukmu</Text>
-        <View className="flex flex-row flex-wrap justify-between w-full pb-96">
-            {
-              data.map((book, index) => {
-                return (<BookCard {...book.attributes} id={book.id} coverUrl={process.env.EXPO_PUBLIC_BE_URL + book.attributes.coverUrl.data.attributes.url} key={index}/>);
-              })
-            }
+        <View className="flex flex-row flex-wrap justify-between w-full">
+          {
+            getCurrentPageBooks().map((book, index) => (
+              <BookCard {...book.attributes} id={book.id} coverUrl={process.env.EXPO_PUBLIC_BE_URL + book.attributes.coverUrl.data.attributes.url} key={index} />
+            ))
+          }
+        </View>
+
+        <View className="flex-row justify-between mt-4 mb-96">
+          <Button title="Sebelumnya" onPress={handlePreviousPage} color="#EFAC00" disabled={currentPageNumber === 1} />
+          <Button title="Selanjutnya" onPress={handleNextPage} color="#EFAC00" disabled={(currentPageNumber === totalPages) || (totalPages === 0)} />
         </View>
       </ScrollView>
     </View>

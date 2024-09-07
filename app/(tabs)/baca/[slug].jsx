@@ -26,22 +26,22 @@ export default function BacaScreen() {
 
   const isFocused = useIsFocused()
 
-    useEffect(() => {
-        if(dataBukuBaca?.id != parseInt(slug)){
-            setLoading(true)
-        }
-    }, [isFocused])
-
-    useEffect(() => {
-        fetchDetailData()
-        console.log(slug)
-    }, [slug])
-
-    useEffect(() => {
-      console.log(detailData)
-      if(detailData && detailData.attributes){
-          setDataBukuBaca(detailData)
+  useEffect(() => {
+      if(dataBukuBaca?.id != parseInt(slug)){
+          setLoading(true)
       }
+  }, [isFocused])
+
+  useEffect(() => {
+      fetchDetailData()
+      console.log(slug)
+  }, [slug])
+
+  useEffect(() => {
+    console.log(detailData)
+    if(detailData && detailData.attributes){
+        setDataBukuBaca(detailData)
+    }
   }, [detailData])
 
   useEffect(() => {

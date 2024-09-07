@@ -8,7 +8,9 @@
         "offline": ["offline", "unduhan"]
     },
     "back": ["kembali", "back", "bek", "bag"],
-    "speakBookData": ["bacakan buku", "bacakan daftar buku", "bajakan daftar buku", "bajakan buku"],
+    "speakBookData": ["bacakan daftar buku", "bacakan daftar buku", "bajakan daftar buku", "daftar buku"],
+    "nextBookData": ["daftar selanjutnya"],
+    "previousBookData": ["daftar sebelumnya"],
     "openBook": ["buka buku", "buka buku"],
     "readBook": ["baca buku"],
     "read_settings": ["bacakan pengaturan", "bajakan pengaturan"],

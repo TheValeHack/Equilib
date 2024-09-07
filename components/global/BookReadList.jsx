@@ -12,7 +12,7 @@ const BookReadList = ({ baseUrl, title, coverUrl, pdfUrl, author, year, synopsis
                 onError={() => console.log("Failed to load image:", coverUrl)}  />
             <View className="w-[70%] pl-3 flex flex-col justify-between h-32">
                 <View>
-                    <Text style={GlobalStyles.text_bold} className="text-lg text-primary">{title}</Text>
+                    <Text style={GlobalStyles.text_bold} className="text-lg text-primary">({id}) {title}</Text>
                     <Text style={GlobalStyles.text_medium} className="text-sm text-primary">{author}, {year}</Text>
                 </View>
                 <View onTouchEndCapture={()=> router.push(`/baca/${id}`)} className="w-100 bg-primary mt-2 rounded-lg py-2  mb-1">

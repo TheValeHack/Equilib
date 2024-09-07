@@ -12,7 +12,12 @@ import * as FileSystem from 'expo-file-system';
 export default function VoiceCommandService(externalData, setCommands) {
   let settingsValue = null;
   let currentPage = '/'
-  let booksData = [];
+  let booksData = []
+  let offlineBooksData = []
+  let savedBooksData = []
+  let booksListIndex = [0, 0]
+  let booksPerPage = 4
+  let doneFetch = false
 
   const fetchSettings = async () => {
     settingsValue = await getSettings();
@@ -25,6 +30,26 @@ export default function VoiceCommandService(externalData, setCommands) {
       console.error('Failed to fetch book data:', error);
     }
   };
+
+  const fetchOfflineBooksData = async () => {
+    try {
+      const JSONOfflineData = await AsyncStorage.getItem('offlineBook')
+      const offlineData = JSONOfflineData ? JSON.parse(JSONOfflineData) : [];
+      offlineBooksData = offlineData
+    }  catch (error) {
+      console.error('Failed to fetch book data:', error);
+    }
+  }
+
+  const fetchSavedBooksData = async () => {
+    try {
+      const JSONSavedBook = await AsyncStorage.getItem('savedBook')
+      const savedBook = JSONSavedBook ? JSON.parse(JSONSavedBook) : [];
+      savedBooksData = savedBook
+    }  catch (error) {
+      console.error('Failed to fetch book data:', error);
+    }
+  }
 
   const initialize = async () => {
     await fetchSettings();
@@ -44,6 +69,15 @@ export default function VoiceCommandService(externalData, setCommands) {
   const updateCurrentPage = (newPage) => {
     currentPage = newPage;
   };
+  const updateBooksListIndex = (startIndex, lastIndex) => {
+    booksListIndex = [startIndex, lastIndex];
+    console.log('vcs: ' + booksListIndex)
+    if(startIndex == 0){
+      doneFetch = false;
+    } else {
+      doneFetch = true;
+    }
+  };
 
   const startListening = () => {
     Voice.removeAllListeners() 
@@ -52,9 +86,9 @@ export default function VoiceCommandService(externalData, setCommands) {
       console.log('Speech Results:', results)
       if (results && results.value && results.value.length > 0) {
         const spokenText = results.value[0].toLowerCase()
-        setCommands(prevCommands => [...prevCommands, spokenText])
+        setCommands(prevCommands => [...prevCommands, spokenText]) 
 
-        if (isListeningForCommand) {
+        if (isListeningForCommand && !TextToSpeechService.isStoppedForcibly) {
           executeCommand(spokenText)
         } else if (commandsData.keyword.includes(spokenText.replace("-", " "))) {
           stopListening()
@@ -125,7 +159,11 @@ export default function VoiceCommandService(externalData, setCommands) {
     } else if (commandsData.readBook.some(prefix => command.startsWith(prefix))) {
       response = readCurrentBook();
     } else if (commandsData.speakBookData.some(prefix => command.startsWith(prefix))) {
-      response = speakBookData();
+      response = await speakBookData();
+    } else if (commandsData.nextBookData.some(prefix => command.startsWith(prefix))) {
+      response = await nextBookData();
+    }  else if (commandsData.previousBookData.some(prefix => command.startsWith(prefix))) {
+      response = await previousBookData();
     } else if (commandsData.readPage.some(prefix => command.startsWith(prefix))) {
       response = await readCurrentPage();
     } else if (commandsData.nextPage.some(prefix => command.startsWith(prefix))) {
@@ -139,7 +177,7 @@ export default function VoiceCommandService(externalData, setCommands) {
     } else if (commandsData.openBook.some(prefix => command.startsWith(prefix))) {
       const matchingCommand = commandsData.openBook.find(prefix => command.startsWith(prefix));
       const title = command.replace(matchingCommand, '').trim();
-      response = openBookDetail(title);
+      response = await openBookDetail(title);
     } else if (commandsData.downloadBook.some(prefix => command.startsWith(prefix))) {
       const matchingCommand = commandsData.downloadBook.find(prefix => command.startsWith(prefix));
       const title = command.replace(matchingCommand, '').trim();
@@ -273,11 +311,11 @@ export default function VoiceCommandService(externalData, setCommands) {
       return `Tolong sertakan judul buku`
     }
     if ((currentPage == '/readlist') || currentPage == '/offline'){
-      router.push(`search${currentPage}/${judul}`)
+      router.push(`/search${currentPage}/${judul}`)
     } else {
-        router.push(`search/${judul}`)
+        router.push(`/search/${judul}`)
     }
-    return `Mencari buku dengan judul ${judul}`
+    return `Berhasil mencari buku dengan judul ${judul}`
   }
 
   const saveBook = () => {
@@ -310,19 +348,230 @@ export default function VoiceCommandService(externalData, setCommands) {
     return 'Pengaturan berhasil diperbarui'
   }
 
-  // function to speak top 5 book data
-    const speakBookData = () => {
-        const top5Books = booksData.slice(0, 5)
-        let response = 'Berikut adalah 5 buku teratas: '
-        top5Books.forEach((book, index) => {
-          console.log(book)
-        response += `${index + 1}. ${book.attributes.title} oleh ${book.attributes.author}. `
-        })
+    const nextBookData = async () => {
+      if(currentPage == '/' || currentPage == '/readlist' || currentPage == '/offline' || currentPage.startsWith('/search/')){
+        if(!doneFetch){
+          if(currentPage == '/readlist' || currentPage.startsWith('/search/readlist')){
+            await fetchSavedBooksData()
+          } else if(currentPage == '/offline' || currentPage.startsWith('/search/offline')){
+            await fetchOfflineBooksData()
+          }
+        }
 
-        return response
+        let booksDataList = null
+        let setCurrentPageNumber = null
+
+        switch(currentPage){
+          case '/':
+            booksDataList = booksData
+            setCurrentPageNumber = externalData['setCurrentPageNumber']
+            break
+          case '/readlist':
+            booksDataList = savedBooksData
+            setCurrentPageNumber = externalData['setCurrentPageNumberReadlist']
+            break
+          case '/offline':
+            booksDataList = offlineBooksData
+            setCurrentPageNumber = externalData['setCurrentPageNumberOffline']
+            break
+          default:
+            if(currentPage.startsWith('/search')){
+              judul = ""
+              if(currentPage.startsWith('/search/readlist/')){
+                judul = currentPage.slice(17).trim();
+                booksDataList = savedBooksData.filter(book =>
+                    book.attributes.title.toLowerCase().includes(judul?.toLowerCase()) || book.attributes.author.toLowerCase().includes(judul?.toLowerCase())
+                )
+                setCurrentPageNumber = externalData['setCurrentPageNumberSearchReadlist']
+              } else if(currentPage.startsWith('/search/offline/')){
+                judul = currentPage.slice(16).trim();
+                booksDataList = offlineBooksData.filter(book =>
+                    book.attributes.title.toLowerCase().includes(judul?.toLowerCase()) || book.attributes.author.toLowerCase().includes(judul?.toLowerCase())
+                )
+                setCurrentPageNumber = externalData['setCurrentPageNumberSearchOffline']
+              } else {
+                judul = currentPage.slice(8).trim();
+                booksDataList = booksData.filter(book =>
+                    book.attributes.title.toLowerCase().includes(judul?.toLowerCase()) || book.attributes.author.toLowerCase().includes(judul?.toLowerCase())
+                )
+                setCurrentPageNumber = externalData['setCurrentPageNumberSearch']
+              }
+            }
+            break
+        }
+        const currentPageNumber = (booksListIndex[0] /  booksPerPage) + 1
+        const totalPages = Math.ceil(booksDataList.length / booksPerPage);
+
+        if(booksDataList.length == 0){
+          return "Tidak ada buku apapun pada daftar."
+        } else {
+          if (currentPageNumber < totalPages) {
+            const startIndex = (currentPageNumber) * booksPerPage;
+            const endIndex = startIndex + booksPerPage;
+    
+            setCurrentPageNumber(currentPageNumber + 1)
+            booksListIndex = [startIndex, endIndex]
+    
+            return 'Berhasil berpindah ke daftar selanjutnya.'
+          } else {
+            return 'Anda sudah berada di daftar terakhir.'
+          }
+        }
+      } else {
+        return 'Anda tidak berada dalam halaman daftar buku apapun.'
+      }
     }
 
-  //   function to speak saved book data
+    const previousBookData = async () => {
+      if(currentPage == '/' || currentPage == '/readlist' || currentPage == '/offline' || currentPage.startsWith('/search/')){
+        if(!doneFetch){
+          if(currentPage == '/readlist' || currentPage.startsWith('/search/readlist')){
+            await fetchSavedBooksData()
+          } else if(currentPage == '/offline' || currentPage.startsWith('/search/offline')){
+            await fetchOfflineBooksData()
+          }
+        }
+
+        let booksDataList = null
+        let setCurrentPageNumber = null
+
+        switch(currentPage){
+          case '/':
+            booksDataList = booksData
+            setCurrentPageNumber = externalData['setCurrentPageNumber']
+            break
+          case '/readlist':
+            booksDataList = savedBooksData
+            setCurrentPageNumber = externalData['setCurrentPageNumberReadlist']
+            break
+          case '/offline':
+            booksDataList = offlineBooksData
+            setCurrentPageNumber = externalData['setCurrentPageNumberOffline']
+            break
+          default:
+            if(currentPage.startsWith('/search')){
+              judul = ""
+              if(currentPage.startsWith('/search/readlist/')){
+                judul = currentPage.slice(17).trim();
+                booksDataList = savedBooksData.filter(book =>
+                    book.attributes.title.toLowerCase().includes(judul?.toLowerCase()) || book.attributes.author.toLowerCase().includes(judul?.toLowerCase())
+                )
+                setCurrentPageNumber = externalData['setCurrentPageNumberSearchReadlist']
+              } else if(currentPage.startsWith('/search/offline/')){
+                judul = currentPage.slice(16).trim();
+                booksDataList = offlineBooksData.filter(book =>
+                    book.attributes.title.toLowerCase().includes(judul?.toLowerCase()) || book.attributes.author.toLowerCase().includes(judul?.toLowerCase())
+                )
+                setCurrentPageNumber = externalData['setCurrentPageNumberSearchOffline']
+              } else {
+                judul = currentPage.slice(8).trim();
+                booksDataList = booksData.filter(book =>
+                    book.attributes.title.toLowerCase().includes(judul?.toLowerCase()) || book.attributes.author.toLowerCase().includes(judul?.toLowerCase())
+                )
+                setCurrentPageNumber = externalData['setCurrentPageNumberSearch']
+              }
+            }
+            break
+        }
+        const currentPageNumber = (booksListIndex[0] /  booksPerPage) + 1
+        const totalPages = Math.ceil(booksData.length / booksPerPage);
+          if (currentPageNumber > 1) {
+            const startIndex = (currentPageNumber - 1) * booksPerPage;
+            const endIndex = startIndex + booksPerPage;
+    
+            setCurrentPageNumber(currentPageNumber - 1)
+            booksListIndex = [startIndex, endIndex]
+    
+            return 'Berhasil berpindah ke daftar sebelumnya.'
+          } else {
+            return 'Anda sudah berada di daftar pertama.'
+          }
+      } else {
+        return 'Anda tidak berada dalam halaman daftar buku apapun.'
+      }
+    }
+
+    const speakBookData = async () => {
+        let bookToSpeak = null;
+        let speakText = ""
+        let nullText = ""
+        if(currentPage == '/' || currentPage == '/readlist' || currentPage == '/offline' || currentPage.startsWith('/search/')){
+          if(!doneFetch){
+            if(currentPage == '/readlist' || currentPage.startsWith('/search/readlist')){
+              await fetchSavedBooksData()
+            } else if(currentPage == '/offline' || currentPage.startsWith('/search/offline')){
+              await fetchOfflineBooksData()
+            }
+          }
+          switch(currentPage){
+            case '/':
+              bookToSpeak = booksData
+              speakText = "Berikut daftar buku teratas pada halaman beranda."
+              nullText = "Tidak ditemukan buku apapun pada beranda."
+              break
+            case '/readlist':
+              bookToSpeak = savedBooksData
+              speakText = "Berikut daftar buku teratas yang anda simpan."
+              nullText = "Anda belum menyimpan buku apapun."
+              break
+            case '/offline':
+              bookToSpeak = offlineBooksData
+              speakText = "Berikut daftar buku teratas yang anda unduh."
+              nullText = "Anda belum mengunduh buku apapun."
+              break
+            default:
+              if(currentPage.startsWith('/search')){
+                judul = ""
+                if(currentPage.startsWith('/search/readlist/')){
+                  judul = currentPage.slice(17).trim();
+                  bookToSpeak = savedBooksData.filter(book =>
+                      book.attributes.title.toLowerCase().includes(judul?.toLowerCase()) || book.attributes.author.toLowerCase().includes(judul?.toLowerCase())
+                  )
+                  console.log(bookToSpeak)
+                  speakText = `Berikut daftar buku tersimpan teratas yang sesuai dengan kata kunci ${judul}.`
+                  nullText = `Tidak ditemukan hasil yang sesuai dengan kata kunci ${judul}.`
+                } else if(currentPage.startsWith('/search/offline/')){
+                  judul = currentPage.slice(16).trim();
+                  bookToSpeak = offlineBooksData.filter(book =>
+                      book.attributes.title.toLowerCase().includes(judul?.toLowerCase()) || book.attributes.author.toLowerCase().includes(judul?.toLowerCase())
+                  )
+                  speakText = `Berikut daftar buku terunduh teratas yang sesuai dengan kata kunci ${judul}.`
+                  nullText = `Tidak ditemukan hasil yang sesuai dengan kata kunci ${judul}.`
+                } else {
+                  judul = currentPage.slice(8).trim();
+                  bookToSpeak = booksData.filter(book =>
+                      book.attributes.title.toLowerCase().includes(judul?.toLowerCase()) || book.attributes.author.toLowerCase().includes(judul?.toLowerCase())
+                  )
+                  speakText = `Berikut daftar buku teratas yang sesuai dengan kata kunci ${judul}.`
+                  nullText = `Tidak ditemukan hasil yang sesuai dengan kata kunci ${judul} .`
+                }
+                if(judul.length == 0){
+                  bookToSpeak = []
+                  speakText = ""
+                  nullText = `Tidak ditemukan hasil yang sesuai dengan kata kunci ${judul} .`
+                }
+              }
+              break
+          }
+          if(bookToSpeak.length == 0){
+            return nullText
+          } else {
+            let response = ""
+            console.log('ini' + booksListIndex)
+            const speakedBooks = bookToSpeak.slice(booksListIndex[0], booksListIndex[1])
+            if(booksListIndex[0] == 0){
+              response += speakText
+            }
+            for(book of speakedBooks){
+              response += `Buku ${book.id} berjudul ${book.attributes.title} oleh ${book.attributes.author}.`
+            }
+            return response
+          }
+        } else {
+          return 'Anda tidak berada dalam halaman daftar buku apapun.'
+        }
+    }
+
     const speakSavedBookData = async () => {
         const JSONSavedBook = await AsyncStorage.getItem('savedBook')
         const savedBook = JSONSavedBook ? JSON.parse(JSONSavedBook) : []
@@ -334,36 +583,51 @@ export default function VoiceCommandService(externalData, setCommands) {
         return response
   }
 
-  //   function to open the book detail page by title
-    const openBookDetail = (title) => {
+    const openBookDetail = async (title) => {
         const book = booksData.find(book => book.attributes.title.toLowerCase() === title.toLowerCase())
         if (book) {
-        let detailPath = '/detail/'
-        if(currentPage.startsWith('/offline')){
-          detailPath = '/offline' + detailPath
-        }
-        router.push(`${detailPath}${btoa(book.pdfUrl)}`)
-        return `Buku ${book.attributes.title} telah dibuka`
+          let detailPath = '/detail/'
+          if(currentPage.startsWith('/offline') || currentPage.startsWith('/search/offline')){
+            await fetchOfflineBooksData()
+            if(offlineBooksData.find(offlineBook => offlineBook.id == book.id)){
+              detailPath = '/offline' + detailPath
+            } else {
+              return 'Anda belum mengunduh buku tersebut.'
+            }
+          }
+          console.log(currentPage)
+          console.log(detailPath)
+          router.push(`${detailPath}${book.id}`)
+          return `Buku ${book.attributes.title} telah dibuka`
         } else {
         return openBookDetailByIndex(title)
         }
     }
 
-  //   function to open book detail page by index order's number
-    const openBookDetailByIndex = (index) => {
-        if (index > 0 && index <= booksData.length && isNumeric(index)) {
+    const openBookDetailByIndex = async (index) => {
+        if (index > 0 && isNumeric(index)) {
+          const book = booksData.find(book => book.id == index)
           console.log(index)
-        const book = booksData[parseInt(index) - 1]
-        console.log('Opening book detail for:', book.attributes.title)
-        let detailPath = '/detail/'
-        if(currentPage.startsWith('/offline')){
-          detailPath = '/offline' + detailPath
-        }
-        router.push(`${detailPath}${book.id}`)
-        return `Buku ${book.attributes.title} telah dibuka`
-        } else {
-        return 'Buku tidak ditemukan!'
+          console.log(book)
+          if(!book){
+            return 'Buku tidak ditemukan!'
           }
+          let detailPath = '/detail/'
+          if(currentPage.startsWith('/offline') || currentPage.startsWith('/search/offline')){
+            await fetchOfflineBooksData()
+            if(offlineBooksData.find(offlineBook => offlineBook.id == book.id)){
+              detailPath = '/offline' + detailPath
+            } else {
+              return 'Anda belum mengunduh buku tersebut.'
+            }
+          }
+          console.log(currentPage)
+          console.log(detailPath)
+          router.push(`${detailPath}${book.id}`)
+          return `Buku ${book.attributes.title} telah dibuka`
+        } else {
+          return 'Buku tidak ditemukan!'
+        }
   }
 
   const downloadOfflineBook = async (title) => {
@@ -440,13 +704,13 @@ const readBookDetailByIndex = (index) => {
 }
 
 const readCurrentPage = async () => {
-  if(currentPage.startsWith('/baca/')){
-    const slug = currentPage.slice(6);
+  if(currentPage.startsWith('/baca/') || currentPage.startsWith('/offline/baca/')){
+    const slug = currentPage.startsWith('/baca/') ? currentPage.slice(6) : currentPage.slice(14)
     const currentBookData = externalData['currentBookData']
     if(currentBookData.id == parseInt(slug)){
       const jsonString = await FileSystem.readAsStringAsync(currentBookData['transcriptLocation'], { encoding: FileSystem.EncodingType.UTF8 });
       const jsonObject = JSON.parse(jsonString);
-      const pageText = jsonObject.find(item => item.page == currentBookData['currentPage'])
+      const pageText = jsonObject.find(item => item.page+1 == currentBookData['currentPage'])
       if(pageText){
         console.log(pageText.page)
         return pageText.text
@@ -469,13 +733,11 @@ const goBack = () => {
   } catch {
     return 'Maaf, anda tidak bisa kembali ke halaman sebelumnya.'
   }
-  
-
 }
 
 const goToNextPage = () => {
-  if(currentPage.startsWith('/baca/')){
-    const slug = currentPage.slice(6);
+  if(currentPage.startsWith('/baca/') || currentPage.startsWith('/offline/baca/')){
+    const slug = currentPage.startsWith('/baca/') ? currentPage.slice(6) : currentPage.slice(14)
     const currentBookData = externalData['currentBookData']
     const setCurrentBookData = externalData['setCurrentBookData']
     console.log('here')
@@ -499,8 +761,8 @@ const goToNextPage = () => {
 }
 
 const goToPreviousPage = () => {
-  if(currentPage.startsWith('/baca/')){
-    const slug = currentPage.slice(6);
+  if(currentPage.startsWith('/baca/') || currentPage.startsWith('/offline/baca/')){
+    const slug = currentPage.startsWith('/baca/') ? currentPage.slice(6) : currentPage.slice(14)
     const currentBookData = externalData['currentBookData']
     const setCurrentBookData = externalData['setCurrentBookData']
     console.log('here')
@@ -524,8 +786,8 @@ const goToPreviousPage = () => {
 }
 
 const goToSpesificPage = (number) => {
-  if(currentPage.startsWith('/baca/')){
-    const slug = currentPage.slice(6);
+  if(currentPage.startsWith('/baca/') || currentPage.startsWith('/offline/baca/')){
+    const slug = currentPage.startsWith('/baca/') ? currentPage.slice(6) : currentPage.slice(14)
     const currentBookData = externalData['currentBookData']
     const setCurrentBookData = externalData['setCurrentBookData']
     console.log('here')
@@ -563,6 +825,7 @@ const goToSpesificPage = (number) => {
     updateCurrentPage,
     updateExternalData,
     updateSettingsData,
+    updateBooksListIndex,
     initialize,
     startListening,
     stopListening,
