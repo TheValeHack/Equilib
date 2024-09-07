@@ -1,8 +1,11 @@
 import * as Speech from 'expo-speech';
 
 class TextToSpeechService {
+  static isStoppedForcibly = false;
+
   static speak(text, options = {}) {
     const { onDone } = options;
+    this.isStoppedForcibly = false;
 
     Speech.speak(text, {
       // language: 'id-ID',
@@ -11,6 +14,11 @@ class TextToSpeechService {
         if (onDone) onDone();
       },
     });
+  }
+
+  static stop() {
+    this.isStoppedForcibly = true;
+    Speech.stop();
   }
 
   static async getAvailableVoices() {

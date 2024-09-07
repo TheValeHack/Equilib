@@ -86,9 +86,9 @@ export default function VoiceCommandService(externalData, setCommands) {
       console.log('Speech Results:', results)
       if (results && results.value && results.value.length > 0) {
         const spokenText = results.value[0].toLowerCase()
-        setCommands(prevCommands => [...prevCommands, spokenText])
+        setCommands(prevCommands => [...prevCommands, spokenText]) 
 
-        if (isListeningForCommand) {
+        if (isListeningForCommand && !TextToSpeechService.isStoppedForcibly) {
           executeCommand(spokenText)
         } else if (commandsData.keyword.includes(spokenText.replace("-", " "))) {
           stopListening()
@@ -710,7 +710,7 @@ const readCurrentPage = async () => {
     if(currentBookData.id == parseInt(slug)){
       const jsonString = await FileSystem.readAsStringAsync(currentBookData['transcriptLocation'], { encoding: FileSystem.EncodingType.UTF8 });
       const jsonObject = JSON.parse(jsonString);
-      const pageText = jsonObject.find(item => item.page == currentBookData['currentPage'])
+      const pageText = jsonObject.find(item => item.page+1 == currentBookData['currentPage'])
       if(pageText){
         console.log(pageText.page)
         return pageText.text

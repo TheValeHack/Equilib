@@ -3,10 +3,15 @@ import React from 'react';
 import GlobalStyles from '@/styles/GlobalStyles';
 import { TabBarIcon } from '@/components/navigation/TabBarIcon';
 import { View } from 'react-native';
+import TextToSpeechService from '../../services/TextToSpeechService';
+
+const stopSpeech = () => {
+  TextToSpeechService.stop()
+}
 
 const VoiceButton = () => {
   return (
-    <View className="z-10 items-center justify-center w-16 h-16 rounded-full bg-primary bottom-8">
+    <View className="z-10 items-center justify-center w-16 h-16 rounded-full bg-primary bottom-8" onTouchStart={stopSpeech}>
       <TabBarIcon name={'stop'} color={"#FFFFFF"} size={36} />
     </View>
   );
