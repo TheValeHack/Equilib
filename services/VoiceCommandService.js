@@ -311,11 +311,11 @@ export default function VoiceCommandService(externalData, setCommands) {
       return `Tolong sertakan judul buku`
     }
     if ((currentPage == '/readlist') || currentPage == '/offline'){
-      router.push(`search${currentPage}/${judul}`)
+      router.push(`/search${currentPage}/${judul}`)
     } else {
-        router.push(`search/${judul}`)
+        router.push(`/search/${judul}`)
     }
-    return `Mencari buku dengan judul ${judul}`
+    return `Berhasil mencari buku dengan judul ${judul}`
   }
 
   const saveBook = () => {
@@ -451,11 +451,11 @@ export default function VoiceCommandService(externalData, setCommands) {
         let bookToSpeak = null;
         let speakText = ""
         let nullText = ""
-        if(currentPage == '/' || currentPage == '/readlist' || currentPage == '/offline'){
+        if(currentPage == '/' || currentPage == '/readlist' || currentPage == '/offline' || currentPage.startsWith('/search/')){
           if(!doneFetch){
-            if(currentPage == '/readlist'){
+            if(currentPage == '/readlist' || currentPage.startsWith('/search/readlist')){
               await fetchSavedBooksData()
-            } else if(currentPage == '/offline'){
+            } else if(currentPage == '/offline' || currentPage.startsWith('/search/offline')){
               await fetchOfflineBooksData()
             }
           }
@@ -476,6 +476,37 @@ export default function VoiceCommandService(externalData, setCommands) {
               nullText = "Anda belum mengunduh buku apapun."
               break
             default:
+              if(currentPage.startsWith('/search')){
+                judul = ""
+                if(currentPage.startsWith('/search/readlist/')){
+                  judul = currentPage.slice(17).trim();
+                  bookToSpeak = savedBooksData.filter(book =>
+                      book.attributes.title.toLowerCase().includes(judul?.toLowerCase()) || book.attributes.author.toLowerCase().includes(judul?.toLowerCase())
+                  )
+                  console.log(bookToSpeak)
+                  speakText = `Berikut buku tersimpan yang sesuai dengan kata kunci ${judul}.`
+                  nullText = `Tidak ditemukan hasil yang sesuai dengan kata kunci ${judul}.`
+                } else if(currentPage.startsWith('/search/offline/')){
+                  judul = currentPage.slice(16).trim();
+                  bookToSpeak = offlineBooksData.filter(book =>
+                      book.attributes.title.toLowerCase().includes(judul?.toLowerCase()) || book.attributes.author.toLowerCase().includes(judul?.toLowerCase())
+                  )
+                  speakText = `Berikut buku terunduh yang sesuai dengan kata kunci ${judul}.`
+                  nullText = `Tidak ditemukan hasil yang sesuai dengan kata kunci ${judul}.`
+                } else {
+                  judul = currentPage.slice(8).trim();
+                  bookToSpeak = booksData.filter(book =>
+                      book.attributes.title.toLowerCase().includes(judul?.toLowerCase()) || book.attributes.author.toLowerCase().includes(judul?.toLowerCase())
+                  )
+                  speakText = `Berikut buku yang sesuai dengan kata kunci ${judul}.`
+                  nullText = `Tidak ditemukan hasil yang sesuai dengan kata kunci ${judul} .`
+                }
+                if(judul.length == 0){
+                  bookToSpeak = []
+                  speakText = ""
+                  nullText = `Tidak ditemukan hasil yang sesuai dengan kata kunci ${judul} .`
+                }
+              }
               break
           }
           if(bookToSpeak.length == 0){
@@ -512,7 +543,7 @@ export default function VoiceCommandService(externalData, setCommands) {
         const book = booksData.find(book => book.attributes.title.toLowerCase() === title.toLowerCase())
         if (book) {
           let detailPath = '/detail/'
-          if(currentPage.startsWith('/offline')){
+          if(currentPage.startsWith('/offline') || currentPage.startsWith('/search/offline')){
             await fetchOfflineBooksData()
             if(offlineBooksData.find(offlineBook => offlineBook.id == book.id)){
               detailPath = '/offline' + detailPath
@@ -538,7 +569,7 @@ export default function VoiceCommandService(externalData, setCommands) {
             return 'Buku tidak ditemukan!'
           }
           let detailPath = '/detail/'
-          if(currentPage.startsWith('/offline')){
+          if(currentPage.startsWith('/offline') || currentPage.startsWith('/search/offline')){
             await fetchOfflineBooksData()
             if(offlineBooksData.find(offlineBook => offlineBook.id == book.id)){
               detailPath = '/offline' + detailPath

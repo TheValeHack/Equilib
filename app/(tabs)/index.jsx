@@ -155,7 +155,7 @@ export default function HomeScreen() {
 
         <View className="flex-row justify-between mt-4 mb-96">
           <Button title="Sebelumnya" onPress={handlePreviousPage} color="#EFAC00" disabled={currentPageNumber === 1} />
-          <Button title="Selanjutnya" onPress={handleNextPage} color="#EFAC00" disabled={currentPageNumber === totalPages} />
+          <Button title="Selanjutnya" onPress={handleNextPage} color="#EFAC00" disabled={(currentPageNumber === totalPages) || (totalPages === 0)} />
         </View>
       </ScrollView>
     </View>

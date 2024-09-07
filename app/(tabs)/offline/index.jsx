@@ -29,18 +29,12 @@ export default function OfflineScreen() {
   const handleNextPage = () => {
     if (currentPageNumber < totalPages) {
       setCurrentPageNumberOffline(currentPageNumber + 1);
-      return 'Berhasil berpindah ke daftar selanjutnya.'
-    } else {
-      return 'Anda sudah berada pada daftar terakhir.'
     }
   };
 
   const handlePreviousPage = () => {
     if (currentPageNumber > 1) {
       setCurrentPageNumberOffline(currentPageNumber - 1);
-      return 'Berhasil berpindah ke daftar sebelumnya.'
-    } else {
-      return 'Anda sudah berada pada daftar pertama.'
     }
   };
 
@@ -106,7 +100,7 @@ export default function OfflineScreen() {
         </View>
         <View className="flex-row justify-between mt-4 mb-96">
           <Button title="Sebelumnya" onPress={handlePreviousPage} color="#EFAC00" disabled={currentPageNumber === 1} />
-          <Button title="Selanjutnya" onPress={handleNextPage} color="#EFAC00" disabled={currentPageNumber === totalPages} />
+          <Button title="Selanjutnya" onPress={handleNextPage} color="#EFAC00" disabled={(currentPageNumber === totalPages) || (totalPages === 0)} />
         </View>
       </ScrollView>
     </View>
