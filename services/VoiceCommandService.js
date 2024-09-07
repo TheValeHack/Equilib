@@ -349,11 +349,11 @@ export default function VoiceCommandService(externalData, setCommands) {
   }
 
     const nextBookData = async () => {
-      if(currentPage == '/' || currentPage == '/readlist' || currentPage == '/offline'){
+      if(currentPage == '/' || currentPage == '/readlist' || currentPage == '/offline' || currentPage.startsWith('/search/')){
         if(!doneFetch){
-          if(currentPage == '/readlist'){
+          if(currentPage == '/readlist' || currentPage.startsWith('/search/readlist')){
             await fetchSavedBooksData()
-          } else if(currentPage == '/offline'){
+          } else if(currentPage == '/offline' || currentPage.startsWith('/search/offline')){
             await fetchOfflineBooksData()
           }
         }
@@ -375,6 +375,28 @@ export default function VoiceCommandService(externalData, setCommands) {
             setCurrentPageNumber = externalData['setCurrentPageNumberOffline']
             break
           default:
+            if(currentPage.startsWith('/search')){
+              judul = ""
+              if(currentPage.startsWith('/search/readlist/')){
+                judul = currentPage.slice(17).trim();
+                booksDataList = savedBooksData.filter(book =>
+                    book.attributes.title.toLowerCase().includes(judul?.toLowerCase()) || book.attributes.author.toLowerCase().includes(judul?.toLowerCase())
+                )
+                setCurrentPageNumber = externalData['setCurrentPageNumberSearchReadlist']
+              } else if(currentPage.startsWith('/search/offline/')){
+                judul = currentPage.slice(16).trim();
+                booksDataList = offlineBooksData.filter(book =>
+                    book.attributes.title.toLowerCase().includes(judul?.toLowerCase()) || book.attributes.author.toLowerCase().includes(judul?.toLowerCase())
+                )
+                setCurrentPageNumber = externalData['setCurrentPageNumberSearchOffline']
+              } else {
+                judul = currentPage.slice(8).trim();
+                booksDataList = booksData.filter(book =>
+                    book.attributes.title.toLowerCase().includes(judul?.toLowerCase()) || book.attributes.author.toLowerCase().includes(judul?.toLowerCase())
+                )
+                setCurrentPageNumber = externalData['setCurrentPageNumberSearch']
+              }
+            }
             break
         }
         const currentPageNumber = (booksListIndex[0] /  booksPerPage) + 1
@@ -401,11 +423,11 @@ export default function VoiceCommandService(externalData, setCommands) {
     }
 
     const previousBookData = async () => {
-      if(currentPage == '/' || currentPage == '/readlist' || currentPage == '/offline'){
+      if(currentPage == '/' || currentPage == '/readlist' || currentPage == '/offline' || currentPage.startsWith('/search/')){
         if(!doneFetch){
-          if(currentPage == '/readlist'){
+          if(currentPage == '/readlist' || currentPage.startsWith('/search/readlist')){
             await fetchSavedBooksData()
-          } else if(currentPage == '/offline'){
+          } else if(currentPage == '/offline' || currentPage.startsWith('/search/offline')){
             await fetchOfflineBooksData()
           }
         }
@@ -427,6 +449,28 @@ export default function VoiceCommandService(externalData, setCommands) {
             setCurrentPageNumber = externalData['setCurrentPageNumberOffline']
             break
           default:
+            if(currentPage.startsWith('/search')){
+              judul = ""
+              if(currentPage.startsWith('/search/readlist/')){
+                judul = currentPage.slice(17).trim();
+                booksDataList = savedBooksData.filter(book =>
+                    book.attributes.title.toLowerCase().includes(judul?.toLowerCase()) || book.attributes.author.toLowerCase().includes(judul?.toLowerCase())
+                )
+                setCurrentPageNumber = externalData['setCurrentPageNumberSearchReadlist']
+              } else if(currentPage.startsWith('/search/offline/')){
+                judul = currentPage.slice(16).trim();
+                booksDataList = offlineBooksData.filter(book =>
+                    book.attributes.title.toLowerCase().includes(judul?.toLowerCase()) || book.attributes.author.toLowerCase().includes(judul?.toLowerCase())
+                )
+                setCurrentPageNumber = externalData['setCurrentPageNumberSearchOffline']
+              } else {
+                judul = currentPage.slice(8).trim();
+                booksDataList = booksData.filter(book =>
+                    book.attributes.title.toLowerCase().includes(judul?.toLowerCase()) || book.attributes.author.toLowerCase().includes(judul?.toLowerCase())
+                )
+                setCurrentPageNumber = externalData['setCurrentPageNumberSearch']
+              }
+            }
             break
         }
         const currentPageNumber = (booksListIndex[0] /  booksPerPage) + 1
@@ -484,21 +528,21 @@ export default function VoiceCommandService(externalData, setCommands) {
                       book.attributes.title.toLowerCase().includes(judul?.toLowerCase()) || book.attributes.author.toLowerCase().includes(judul?.toLowerCase())
                   )
                   console.log(bookToSpeak)
-                  speakText = `Berikut buku tersimpan yang sesuai dengan kata kunci ${judul}.`
+                  speakText = `Berikut daftar buku tersimpan teratas yang sesuai dengan kata kunci ${judul}.`
                   nullText = `Tidak ditemukan hasil yang sesuai dengan kata kunci ${judul}.`
                 } else if(currentPage.startsWith('/search/offline/')){
                   judul = currentPage.slice(16).trim();
                   bookToSpeak = offlineBooksData.filter(book =>
                       book.attributes.title.toLowerCase().includes(judul?.toLowerCase()) || book.attributes.author.toLowerCase().includes(judul?.toLowerCase())
                   )
-                  speakText = `Berikut buku terunduh yang sesuai dengan kata kunci ${judul}.`
+                  speakText = `Berikut daftar buku terunduh teratas yang sesuai dengan kata kunci ${judul}.`
                   nullText = `Tidak ditemukan hasil yang sesuai dengan kata kunci ${judul}.`
                 } else {
                   judul = currentPage.slice(8).trim();
                   bookToSpeak = booksData.filter(book =>
                       book.attributes.title.toLowerCase().includes(judul?.toLowerCase()) || book.attributes.author.toLowerCase().includes(judul?.toLowerCase())
                   )
-                  speakText = `Berikut buku yang sesuai dengan kata kunci ${judul}.`
+                  speakText = `Berikut daftar buku teratas yang sesuai dengan kata kunci ${judul}.`
                   nullText = `Tidak ditemukan hasil yang sesuai dengan kata kunci ${judul} .`
                 }
                 if(judul.length == 0){
