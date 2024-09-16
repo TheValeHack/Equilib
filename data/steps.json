@@ -1,0 +1,20 @@
+[
+    { "icon": "microphone-alt", "step": "Ucapkan 'kuy-kuy' untuk mulai memberi perintah. untuk berhenti memberi perintah, ucapkan 'stop'. Untuk melanjutkan panduan, ucapkan 'selanjutnya'" },
+    { "icon": "arrow-right", "step": "Ucapkan 'selanjutnya', 'sebelumnya', atau 'lewati' untuk melanjutkan konten." },
+    { "icon": "question-circle", "step": "Untuk membuka panduan ini lagi, pergi ke halaman beranda dan ucapkan 'buka panduan'." },
+    { "icon": "plane-departure", "step": "Untuk berpindah halaman, ucapkan 'pindah halaman (nama halaman)'. Terdapat halaman home, modul, catatan, dan quiz. Untuk kembali, ucapkan 'back' / 'kembali'" },
+    { "icon": "school", "step": "Untuk masuk ke suatu kelas, pergi ke halaman home dan ucapkan 'masukkan kode (kode kelas)'. Kode kelas akan diberitahu gurumu. Setelah kode dirasa benar, ucapkan 'enter'." },
+    { "icon": "door-open", "step": "Untuk membuka suatu kelas, pergi ke halaman home dan ucapkan 'buka kelas (nama kelas)'. Kamu hanya bisa membuka kelas yang sudah kamu masuki." },
+    { "icon": "book-open", "step": "Untuk membuka suatu modul, buka suatu kelas atau pergi ke halaman modul dan ucapkan 'buka modul (nomor modul).'" },
+    { "icon": "scroll", "step": "Untuk menscroll halaman modul, ucapkan 'scroll (opsi)'. Opsi yang tersedia adalah 'naik', 'turun', dan 'ke halaman (nomor halaman)'." },
+    { "icon": "search-plus", "step": "Untuk memperbesar halaman modul, ucapkan 'perbesar'. Untuk memperkecil, ucapkan 'perkecil'." },
+    { "icon": "plus-square", "step": "Untuk membuat catatan baru, pergi ke halaman catatan dan ucapkan 'buat catatan'." },
+    { "icon": "pencil-alt", "step": "Untuk membuka catatan, ucapkan 'buka catatan (kode catatan). Semua ucapanmu akan langsung dikonversi menjadi teks ketika catatan dibuka. Untuk menghentikannya, ucapkan 'valid-valid'." },
+    { "icon": "eraser", "step": "Untuk menghapus kata terakhir, ucapkan 'hapus kata terakhir'. Untuk menghapus kalimat terakhir, ucapkan 'hapus kalimat terakhir'." },
+    { "icon": "grip-lines", "step": "Untuk membuat baris baru, ucapkan 'enter'. Untuk menghapusnya, ucapkan 'hapus baris terakhir'." },
+    { "icon": "newspaper", "step": "Untuk membuka suatu quiz, pergi ke halaman quiz dan ucapkan 'buka quiz (nomor quiz).'" },
+    { "icon": "font", "step": "Untuk memilih jawaban, ucapkan 'jawab (opsi)'. Opsi yang tersedia adalah 'A', 'B', 'C', atau 'D'" },
+    { "icon": "location-arrow", "step": "Untuk melanjutkan quiz, ucapkan 'next' / 'selanjutnya', 'previous' / 'sebelumnya', atau 'submit' /'kirim'." },
+    { "icon": "file-signature", "step": "Ketika quiz disubmit, kamu harus menginput namamu. Kamu bisa langsung mengucapkan namamu atau mulai dengan 'eja' kemudian eja namamu. Untuk menghapus kata terakhir, ucapkan 'hapus kata terakhir'." },
+    { "icon": "smile-beam", "step": "Selamat belajar!" }
+  ]

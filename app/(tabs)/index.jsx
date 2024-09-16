@@ -12,14 +12,17 @@ import getSettings from "../../util/getSettings";
 import CommandBox from "../../components/global/CommandBox";
 import {useIsFocused} from "@react-navigation/native";
 import { usePathname } from "expo-router";
+import PanduanAlert from "../../components/global/PanduanAlert";
+import { FontAwesome5 } from "@expo/vector-icons";
 
 export default function HomeScreen() {
   const currentPage = usePathname();
-  const { externalData, settingsData, dispatch, booklist } = useContext(AppContext);
+  const { externalData, settingsData, dispatch, booklist, showPanduan } = useContext(AppContext);
   const { data, updateData } = useData();
   const [commands, setCommands] = useState([]);
   const voiceCommandServiceRef = useRef(null);
   const isFocused = useIsFocused();
+  const [panduanVisible, setPanduanVisible] = useState(true)
 
   const [currentPageNumber, setCurrentPageNumber] = useState(1);
   const booksPerPage = 4;
@@ -31,6 +34,50 @@ export default function HomeScreen() {
     console.log('di index : ' + data.slice(startIndex, endIndex).length)
     return data.slice(startIndex, endIndex);
   };
+
+  const changePanduan = (operation) => {
+    dispatch({
+      type: 'SET_NOMOR_PANDUAN',
+      payload: {
+        panduanNumber: operation + Date().toString()
+      }
+    })
+  }
+
+  const openPanduan = () => {
+    dispatch({
+      type: 'SET_SHOW_PANDUAN',
+      payload: {
+        show: 'show' + Date().toString()
+      }
+    })
+    dispatch({
+      type: 'SET_EXTERNAL_DATA',
+      payload: {
+          externalData: {
+              ...externalData,
+              'currentPanduan': 0
+          }
+      }
+    })
+  }
+
+  const showPanduanAlert = () => {
+    setPanduanVisible(true)
+    dispatch({
+      type: 'SET_EXTERNAL_DATA',
+      payload: {
+          externalData: {
+              ...externalData,
+              'currentPanduan': 0
+          }
+      }
+    })
+  }
+
+  const closePanduan = () => {
+    setPanduanVisible(false)
+  }
 
   const handleNextPage = () => {
     if (currentPageNumber < totalPages) {
@@ -51,7 +98,9 @@ export default function HomeScreen() {
       payload: {
           externalData: {
               ...externalData,
-              'setCurrentPageNumber': setCurrentPageNumber
+              'setCurrentPageNumber': setCurrentPageNumber,
+              'changePanduan': changePanduan,
+              'openPanduan': openPanduan
           }
       }
     })
@@ -134,10 +183,34 @@ export default function HomeScreen() {
     }
   }, [commands])
 
+  useEffect(() => {
+    if(showPanduan.startsWith('show')){
+      showPanduanAlert()
+    } else {
+      closePanduan()
+    }
+  }, [showPanduan])
+
   return (
     <View className="flex-1 min-h-screen">
+      <PanduanAlert visible={panduanVisible} onClose={closePanduan} />
       <CommandBox />
-      <Text className="mb-3 text-xl" style={GlobalStyles.text_bold}>Selamat datang!</Text>
+      <View className="w-full d-flex justify-between flex-row  mb-2">
+        <Text className="mb-3 text-xl" style={GlobalStyles.text_bold}>Selamat datang!</Text>
+        <View
+          className='items-center p-2 border-[2px] rounded-full aspect-square border-primary '
+          onTouchEndCapture={showPanduanAlert}
+        >
+          <FontAwesome5
+            className='opacity-0 text-primary'
+            style={{}}
+            color={'#EFAC00'}
+            size={20}
+            name='question'
+          />
+        </View>
+      </View>
+      
       <SearchBar placeholder="Cari buku atau penulis" route="" />
       
       <ScrollView className="mt-4">
