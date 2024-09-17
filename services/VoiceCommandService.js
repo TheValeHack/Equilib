@@ -149,6 +149,8 @@ export default function VoiceCommandService(externalData, setCommands) {
       const matchingCommand = commandsData.navigate.find(prefix => command.startsWith(prefix))
       const pageName = command.replace(matchingCommand, '').trim()
       response = navigateToPage(pageName)
+    } else if(commandsData.keyword.includes(command.replace("-", " "))){
+      response = 'Halo! Silakan beri perintah'
     } else if (commandsData.stop.some(prefix => command == prefix)) {
       response = 'Input suara diberhentikan.'
       TextToSpeechService.stop()

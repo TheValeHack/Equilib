@@ -35,7 +35,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Home',
+          title: 'Beranda',
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color} />
           ),
@@ -44,7 +44,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="readlist/index"
         options={{
-          title: 'Readlist',
+          title: 'Daftar Bacaan',
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon name={'list'} color={color}/>
           ),
@@ -67,7 +67,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="offline/index"
         options={{
-          title: 'Offline',
+          title: 'Unduhan',
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon name={'download'} color={color} />
           ),
@@ -76,7 +76,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="settings/index"
         options={{
-          title: 'Settings',
+          title: 'Pengaturan',
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon name={focused ? 'settings' : 'settings-outline'} color={color} />
           ),
