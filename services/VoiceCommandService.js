@@ -7,6 +7,7 @@ import {getPageFromText, isNumeric} from "../util/helper";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import downloadBook from '../util/downloadBook'
 import fetchBooks from '../util/fetchBooks'
+import steps from '../data/steps.json'
 import * as FileSystem from 'expo-file-system';
 
 export default function VoiceCommandService(externalData, setCommands) {
@@ -148,6 +149,24 @@ export default function VoiceCommandService(externalData, setCommands) {
       const matchingCommand = commandsData.navigate.find(prefix => command.startsWith(prefix))
       const pageName = command.replace(matchingCommand, '').trim()
       response = navigateToPage(pageName)
+    } else if(commandsData.keyword.includes(command.replace("-", " "))){
+      response = 'Halo! Silakan beri perintah'
+    } else if (commandsData.stop.some(prefix => command == prefix)) {
+      response = 'Input suara diberhentikan.'
+      TextToSpeechService.stop()
+      isListeningForCommand = false
+    } else if (commandsData.next.some(prefix => command == prefix)) {
+      response = changePanduan('next');
+    } else if (commandsData.previous.some(prefix => command == prefix)) {
+      response = changePanduan('previous');
+    } else if (commandsData.skip.some(prefix => command == prefix)) {
+      response = changePanduan('skip');
+    } else if (commandsData.close.some(prefix => command == prefix)) {
+      response = changePanduan('close');
+    } else if (commandsData.openPanduan.some(prefix => command == prefix)) {
+      response = openPanduan();
+    } else if (commandsData.readPanduan.some(prefix => command == prefix)) {
+      response = readPanduan();
     } else if (commandsData.back.some(prefix => command.startsWith(prefix))) {
       response = goBack()
     } else if (commandsData.speakSavedBookData.some(prefix => command.startsWith(prefix))) {
@@ -247,7 +266,9 @@ export default function VoiceCommandService(externalData, setCommands) {
     } else if (commandsData.unsave_book.some(prefix => command.startsWith(prefix))) {
       response = unsaveBook();
     } else {
-      if (settingsValue["perintah_salah"]["status"]) {
+      if(settingsValue["tidak_merespon_perintah_salah"]["status"]){
+        response = ''
+      } else if (settingsValue["perintah_salah"]["status"]) {
         response = `Maaf, Perintah ${command} tidak valid!`;
       } else {
         response = 'Maaf, Perintah anda tidak valid!';
@@ -265,6 +286,56 @@ export default function VoiceCommandService(externalData, setCommands) {
     }
   };
 
+  const changePanduan = (operator) => {
+    let response = 'Maaf, perintah tidak valid!'
+    if(currentPage == '/'){
+      if(externalData['changePanduan']){
+        externalData['changePanduan'](operator)
+        switch(operator){
+          case 'next':
+            response = 'Berhasil berpindah ke panduan selanjutnya.'
+            break
+          case 'previous':
+            response = 'Berhasil berpindah ke panduan sebelumnya.'
+            break
+          default:
+            response = 'Berhasil menutup panduan.'
+            break
+        }
+      }
+    }
+
+    return response
+  }
+
+  const openPanduan = () => {
+    if(currentPage == '/'){
+      if(externalData['openPanduan']){
+        externalData['openPanduan']()
+        return 'Panduan berhasil dibuka.'
+      } else {
+        return 'Maaf, terjadi kesalahan.'
+      }
+    }
+    return 'Silahkan ke halaman beranda untuk membuka panduan.'
+  }
+
+  const readPanduan = () => {
+    if(currentPage == '/'){
+      if(isNumeric(externalData['currentPanduan'])){
+        if(steps[externalData['currentPanduan']]){
+          return steps[externalData['currentPanduan']]['step']
+        } else {
+          return 'Panduan tidak valid.'
+        }
+      } else {
+        console.log(externalData)
+        return 'Maaf, terjadi kesalahan.'
+      }
+    }
+    return 'Silahkan ke halaman beranda untuk membaca panduan.'
+  }
+
   const navigateToPage = (page) => {
     const namaHalaman = {
       'beranda': '/',
@@ -272,11 +343,17 @@ export default function VoiceCommandService(externalData, setCommands) {
       'offline': '/offline',
       'readlist': '/readlist'
     }
+    const suaraHalaman = {
+      'beranda': 'beranda',
+      'settings': 'pengaturan',
+      'offline': 'unduhan',
+      'readlist': 'daftar bacaan'
+    }
     const findPage = getPageFromText(page)
     if(Object.keys(namaHalaman).includes(findPage)){
       console.log('Navigating to:', findPage)
       router.push(namaHalaman[findPage])
-      return `Berhasil pindah ke halaman ${findPage}`
+      return `Berhasil pindah ke halaman ${suaraHalaman[findPage]}`
     } else {
       return `Halaman ${findPage} tidak ditemukan!`
     }

@@ -1,0 +1,23 @@
+[
+    { "icon": "microphone-alt", "step": "Ucapkan 'kuy-kuy' untuk mulai memberi perintah. Untuk berhenti memberi perintah, ucapkan 'stop'. Untuk melanjutkan panduan, ucapkan 'selanjutnya'." },
+    { "icon": "arrow-right", "step": "Ucapkan 'baca panduan' untuk membaca konten panduan saat ini. Ucapkan 'selanjutnya', 'sebelumnya', atau 'lewati' untuk melanjutkan konten." },
+    { "icon": "question-circle", "step": "Untuk membuka panduan ini lagi, pergi ke halaman beranda dan ucapkan 'buka panduan'." },
+    { "icon": "plane-departure", "step": "Untuk berpindah halaman, ucapkan 'pindah halaman' disertai nama halaman. Terdapat halaman beranda, daftar bacaan, unduhan, dan pengaturan. Untuk kembali, ucapkan 'kembali'." },
+    { "icon": "search-plus", "step": "Untuk mencari suatu buku, ucapkan 'cari buku' disertai kata kunci buku tersebut. Selanjutnya, anda akan dipindahkan ke halaman hasil pencarian." },
+    { "icon": "th-list", "step": "Daftar buku berada di halaman beranda, daftar bacaan, unduhan, atau hasil pencarian. Untuk membaca suatu daftar buku, ucapkan 'bacakan daftar buku'." },
+    { "icon": "th-list", "step": "Setiap daftar akan memuat maksimal 4 buku, untuk berpindah daftar, ucapkan 'daftar selanjutnya' atau 'daftar sebelumnya'." },
+    { "icon": "book-open", "step": "Untuk membuka halaman detail buku, ucapkan 'buka buku' disertai nomor buku yang tertera." },
+    { "icon": "book-open", "step": "Untuk membaca detail buku, ucapkan 'bacakan detail'. Untuk membaca sinopsis, ucapkan 'bacakan sinopsis'." },
+    { "icon": "bookmark", "step": "Untuk menyimpan buku, ucapkan 'simpan buku'. Untuk membatalkan, ucapkan 'batalkan simpan buku'. Buku yang telah disimpan dapat dilihat di halaman daftar bacaan." },
+    { "icon": "book", "step": "Untuk mulai membaca, ucapkan 'baca buku' pada halaman detail buku yang sedang dibuka. Setelah itu, anda akan dipindahkan ke halaman membaca." },
+    { "icon": "book", "step": "Pada halaman membaca, pengguna dapat mengunduh buku atau mengoperasikan buku." },
+    { "icon": "download", "step": "Untuk mengunduh buku, ucapkan 'unduh buku'. Buku yang telah diunduh dapat dapat dilihat di halaman unduhan." },
+    { "icon": "book-open", "step": "Untuk berpindah ke halaman selanjutnya pada buku, ucapkan 'halaman selanjutnya'. Untuk ke halaman sebelumnya, ucapkan 'halaman sebelumnya'." },
+    { "icon": "book-open", "step": "Untuk berpindah ke halaman spesifik, ucapkan 'halaman' disertai nomor halaman." },
+    { "icon": "book-open", "step": "Untuk membacakan halaman yang sedang dibuka saat ini, ucapkan 'bacakan halaman'." },
+    { "icon": "tools", "step": "Untuk membacakan pengaturan saat ini, pergi ke halaman pengaturan, kemudian ucapkan 'bacakan pengaturan'." },
+    { "icon": "tools", "step": "Untuk membacakan detail suatu opsi pengaturan, ucapkan 'bacakan detail pengaturan' disertai nama opsi pengaturan tersebut." },
+    { "icon": "tools", "step": "Untuk mengaktifkan suatu opsi pengaturan, ucapkan 'aktifkan' disertai nama opsi pengaturan tersebut." },
+    { "icon": "tools", "step": "Untuk menonaktifkan suatu opsi pengaturan, ucapkan 'nonaktifkan' disertai nama opsi pengaturan tersebut." },
+    { "icon": "smile-beam", "step": "Selamat membaca!" }
+  ]

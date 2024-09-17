@@ -30,6 +30,22 @@ export const AppReducer = (state, action) => {
             return {
                 ...state
             };
+        case 'SET_NOMOR_PANDUAN':
+            let panduanNumber = action.payload.panduanNumber
+            state.changePanduanNumber = panduanNumber
+            
+            action.type = 'DONE'
+            return {
+                ...state
+            } 
+        case 'SET_SHOW_PANDUAN':
+            let show = action.payload.show
+            state.showPanduan = show
+            
+            action.type = 'DONE'
+            return {
+                ...state
+            } 
         default:
             return state
     }
@@ -39,7 +55,9 @@ const initialState = {
     booklist: [0,0],
     externalData: {},
     settingsData: {},
-    currentCommand: ''
+    currentCommand: '',
+    changePanduanNumber: '',
+    showPanduan: '',
 }
 
 export const AppContext = createContext()
@@ -55,6 +73,8 @@ export const AppProvider = (props) => {
                 externalData: state.externalData,
                 settingsData: state.settingsData,
                 currentCommand: state.currentCommand,
+                changePanduanNumber: state.changePanduanNumber,
+                showPanduan: state.showPanduan,
             }}
         >
             {props.children}

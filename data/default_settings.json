@@ -18,5 +18,10 @@
       "title": "Sekali Kata Kunci",
       "desc": "Pengguna hanya perlu mengucapkan kata kunci satu kali.",
       "status": false
+    },
+    "tidak_merespon_perintah_salah": {
+      "title": "Tidak Merespon Perintah Salah",
+      "desc": "Aplikasi tidak akan memberikan respon untuk perintah yang salah.",
+      "status": false
     }
 }
