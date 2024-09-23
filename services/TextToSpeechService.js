@@ -2,6 +2,9 @@ import * as Speech from 'expo-speech';
 
 class TextToSpeechService {
   static isStoppedForcibly = false;
+  static voices = ['id-id-x-idc-network', 'id-id-x-ide-local']
+  static voiceIndex = 0
+  static rate = 1.0
 
   static speak(text, options = {}) {
     const { onDone } = options;
@@ -9,7 +12,8 @@ class TextToSpeechService {
 
     Speech.speak(text, {
       // language: 'id-ID',
-      voice: 'id-id-x-dfz-network',
+      voice: this.voices[this.voiceIndex],
+      rate: this.rate,
       onDone: () => {
         if (onDone) onDone();
       },
@@ -21,8 +25,17 @@ class TextToSpeechService {
     Speech.stop();
   }
 
+  static setRate(newRate) {
+    this.rate = newRate;
+  }
+
+  static changeVoice(index){
+    this.voiceIndex = index
+  }
+
   static async getAvailableVoices() {
-    return await Speech.getAvailableVoicesAsync();
+    let availableVoices = await Speech.getAvailableVoicesAsync();
+    return availableVoices
   }
 }
 
