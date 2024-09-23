@@ -32,7 +32,13 @@
     "readSynopsis": ["bacakan sinopsis buku", "baca sinopsis buku", "bacakan sinopsis", "baca sinopsis"],
     "readDetail": ["bacakan detail buku", "bacakan ditel buku", "bacakan detail", "bacakan ditel"],
     "readPage": ["bacakan halaman", "baca halaman"],
+    "readAllPage": ["bacakan seterusnya", "baca seterusnya"],
     "nextPage": ["halaman selanjutnya"],
     "previousPage": ["halaman sebelumnya"],
-    "spesificPage": ["halaman"]
+    "spesificPage": ["halaman"],
+    "changeWomanVoice": ["ganti suara wanita", "ganti suara cewek", "ganti suara perempuan"],
+    "changeManVoice": ["ganti suara pria", "ganti suara cowok", "ganti suara laki laki"],
+    "increaseSpeed": ["percepat suara", "tingkatkan kecepatan suara", "tercepat suara"],
+    "decreaseSpeed": ["perlambat suara", "turunkan kecepatan suara", "terlambat suara"],
+    "normalSpeed": ["normalkan suara", "normalkan kecepatan suara", "normal kan suara"]
 }

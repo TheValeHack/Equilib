@@ -19,6 +19,7 @@ export default function VoiceCommandService(externalData, setCommands) {
   let booksListIndex = [0, 0]
   let booksPerPage = 4
   let doneFetch = false
+  let availableVoices = []
 
   const fetchSettings = async () => {
     settingsValue = await getSettings();
@@ -55,6 +56,7 @@ export default function VoiceCommandService(externalData, setCommands) {
   const initialize = async () => {
     await fetchSettings();
     await fetchBookData();
+    availableVoices = await TextToSpeechService.getAvailableVoices()
     startListening();
   };
 
@@ -169,6 +171,16 @@ export default function VoiceCommandService(externalData, setCommands) {
       response = readPanduan();
     } else if (commandsData.back.some(prefix => command.startsWith(prefix))) {
       response = goBack()
+    } else if(commandsData.changeWomanVoice.some(prefix => command.startsWith(prefix))){
+      response = changeVoice(0)
+    }  else if(commandsData.changeManVoice.some(prefix => command.startsWith(prefix))){
+      response = changeVoice(1)
+    } else if(commandsData.increaseSpeed.some(prefix => command == prefix)){
+      response = changeSpeed('increase')
+    } else if(commandsData.decreaseSpeed.some(prefix => command == prefix)){
+      response = changeSpeed('decrease')
+    } else if(commandsData.normalSpeed.some(prefix => command == prefix)){
+      response = changeSpeed('normal')
     } else if (commandsData.speakSavedBookData.some(prefix => command.startsWith(prefix))) {
       response = await speakSavedBookData();
     } else if (commandsData.cariBuku.some(prefix => command.startsWith(prefix))) {
@@ -185,7 +197,9 @@ export default function VoiceCommandService(externalData, setCommands) {
       response = await previousBookData();
     } else if (commandsData.readPage.some(prefix => command.startsWith(prefix))) {
       response = await readCurrentPage();
-    } else if (commandsData.nextPage.some(prefix => command.startsWith(prefix))) {
+    }  else if (commandsData.readAllPage.some(prefix => command.startsWith(prefix))) {
+      response = await readAllPage();
+    }  else if (commandsData.nextPage.some(prefix => command.startsWith(prefix))) {
       response = goToNextPage();
     } else if (commandsData.previousPage.some(prefix => command.startsWith(prefix))) {
       response = goToPreviousPage();
@@ -306,6 +320,39 @@ export default function VoiceCommandService(externalData, setCommands) {
     }
 
     return response
+  }
+
+  const changeVoice = (index) => {
+    if(index == 0){
+      TextToSpeechService.changeVoice(0)
+      return 'Berhasil mengubah suara ke suara wanita'
+    } else if(index == 1) {
+      TextToSpeechService.changeVoice(1)
+      return 'Berhasil mengubah suara ke suara pria'
+    } else {
+      return 'Suara tidak valid.'
+    }
+  }
+
+  const changeSpeed = (speed) => {
+    if(speed == 'decrease'){
+      if(TextToSpeechService.rate <= 0.25){
+        return 'Kecepatan suara sudah yang paling lambat.'
+      } else {
+        TextToSpeechService.setRate(TextToSpeechService.rate - 0.25)
+        return 'Kecepatan suara berhasil diperlambat.'
+      }
+    } else if(speed == 'increase') {
+      if(TextToSpeechService.rate >= 2.0){
+        return 'Kecepatan suara sudah yang paling cepat.'
+      } else {
+        TextToSpeechService.setRate(TextToSpeechService.rate + 0.25)
+        return 'Kecepatan suara berhasil dipercepat.'
+      }
+    } else {
+      TextToSpeechService.setRate(1.0)
+      return 'Kecepatan suara kembali normal.'
+    }
   }
 
   const openPanduan = () => {
@@ -792,7 +839,42 @@ const readCurrentPage = async () => {
         console.log(pageText.page)
         return pageText.text
       } else {
-        console.log(jsonString)
+        return 'Halaman tidak ditemukan.'
+      }
+    }  else {
+      return ''
+    }
+  } else {
+    return 'Anda belum membuka buku apapun!'
+  }
+}
+
+const readAllPage = async () => {
+  if(currentPage.startsWith('/baca/') || currentPage.startsWith('/offline/baca/')){
+    const slug = currentPage.startsWith('/baca/') ? currentPage.slice(6) : currentPage.slice(14)
+    const currentBookData = externalData['currentBookData']
+    if(currentBookData.id == parseInt(slug)){
+      const jsonString = await FileSystem.readAsStringAsync(currentBookData['transcriptLocation'], { encoding: FileSystem.EncodingType.UTF8 });
+      const jsonObject = JSON.parse(jsonString);
+      let pageNumber = currentBookData['currentPage'] == 1 ? 1 :  currentBookData['currentPage'] - 2
+      if(jsonObject[pageNumber]){
+        function readBook(pageNumber){
+          if(pageNumber < jsonObject.length){
+            console.log(pageNumber)
+            let newPage = jsonObject[pageNumber]
+            TextToSpeechService.speak(newPage.text, {
+              onDone: () => {
+                goToNextPage()
+                return readBook(pageNumber+1)
+              }
+            })
+          } else {
+            return "Buku telah selesai dibaca."
+          }
+        }
+        
+        return readBook(pageNumber)
+      } else {
         return 'Halaman tidak ditemukan.'
       }
     }  else {
